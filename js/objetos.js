@@ -78,7 +78,7 @@ function serviciosCliente(){
                         <td>${verificarValor(data[i].entregadopor)}</td>
                         <td>${formatearFecha(data[i].fechaentregado)}</td>
                         <td>${verificarValor(data[i].descriprecuperado)}</td>
-                        <td class="${obtenerClaseEstatus(data[i].estatus)}">${verificarValor(data[i].estatus)}</td>
+                        <td class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
                     </tr>
 
         ` ;
