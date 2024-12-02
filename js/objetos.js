@@ -72,7 +72,7 @@ function serviciosCliente(){
             html = html + ` 
 
                    <tr>
-                   <td>${verificarValor(data[i].idobjeto)}</td>
+                
                         <td>${verificarValor(data[i].nombreObjeto)}</td>
                         <td>${verificarValor(data[i].nombreDueño)}</td>
                         <td>${verificarValor(data[i].telefonoDueño)}</td>
@@ -104,7 +104,7 @@ function serviciosCliente(){
             <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px">
         <thead>
             <tr>
-              <th>ID</th>
+       
                 <th>Objeto</th>
                 <th>Dueño</th>
                 <th>Teléfono</th>
