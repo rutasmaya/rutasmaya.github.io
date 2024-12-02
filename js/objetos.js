@@ -5,6 +5,12 @@ $(document).ready(function(){
 });
 
 
+function validarFecha(fecha) {
+  if (fecha === "01/01/1900") {
+      return ""; // Retorna vacío si la fecha es 01/01/1900
+  }
+  return formatearFecha(fecha); // Formatea la fecha normalmente
+}
 
 
 function serviciosCliente(){
@@ -66,6 +72,7 @@ function serviciosCliente(){
             html = html + ` 
 
                    <tr>
+                   <td>${verificarValor(data[i].idobjeto)}</td>
                         <td>${verificarValor(data[i].nombreObjeto)}</td>
                         <td>${verificarValor(data[i].nombreDueño)}</td>
                         <td>${verificarValor(data[i].telefonoDueño)}</td>
@@ -78,8 +85,9 @@ function serviciosCliente(){
                         <td>${verificarValor(data[i].entregadopor)}</td>
                         <td>${formatearFecha(data[i].fechaentregado)}</td>
                         <td>${verificarValor(data[i].descriprecuperado)}</td>
-                        <td class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
+                        <td class="${obtenerClaseEstatus(data[i].estatus)}">${verificarValor(data[i].estatus)}</td>
                     </tr>
+                    
 
         ` ;
   
@@ -96,6 +104,7 @@ function serviciosCliente(){
             <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px">
         <thead>
             <tr>
+              <th>ID</th>
                 <th>Objeto</th>
                 <th>Dueño</th>
                 <th>Teléfono</th>
@@ -135,7 +144,7 @@ function serviciosCliente(){
             "paging": true,
             "lengthChange": true,
             "searching": true,
-            "ordering": true,
+            "ordering": false,
             "info": true,
             "autoWidth": true,
             "language": idioma,
@@ -300,19 +309,30 @@ function serviciosCliente(){
 
 
 
-  function formatearFecha(fecha) {
-    const fechaObj = new Date(fecha);
-    return fechaObj.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
+
+
+function formatearFecha(fecha) {
+  console.log(fecha);
+  if (fecha === "1900-01-01T00:00:00" || !fecha) {
+      return ""; // Retorna vacío si la fecha es "01/01/1900" o es null/undefined
+  }
+  const fechaObj = new Date(fecha);
+  if (isNaN(fechaObj.getTime())) {
+      return ""; // Retorna vacío si la fecha no es válida
+  }
+  return fechaObj.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+  });
 }
 
 
 function verificarValor(valor) {
     return valor != null ? valor : ""; // Si el valor es null, retorna cadena vacía
 }
+
+
 
 function obtenerClaseEstatus(estatus) {
     switch (estatus) {
