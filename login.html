@@ -13,6 +13,9 @@
     <link href="../CSS/images/logo.png" rel="icon" sizes="96x96" type="image/png" />
     <link href="../CSS/images/logo.png" rel="icon" sizes="16x16" type="image/png" />
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+
     <style>
         html,
         body {
@@ -83,6 +86,9 @@
             #output.alert-danger {
                 background: rgb(228, 105, 105);
             }
+
+   
+
     </style>
   
 </head>
@@ -108,11 +114,28 @@
                 
                 <label for="floatingInput">Correo o Teléfono</label>
             </div> <br />
-            <div class="form-floating">
+            <!--<div class="form-floating">
                 <input name="password" type="password" id="password" class="form-control" placeholder="Password" />
                 
                 <label for="floatingPassword">Password</label>
+            </div>-->
+
+            <div class="form-floating position-relative">
+                <input 
+                    name="password" 
+                    type="password" 
+                    id="password" 
+                    class="form-control" 
+                    placeholder="Password" 
+                />
+                <label for="password">Password</label>
+                <span 
+                    id="togglePassword" 
+                    class="fa fa-eye-slash position-absolute" 
+                    style="cursor: pointer; right: 10px; top: 50%; transform: translateY(-50%);"
+                ></span>
             </div>
+         
 
             <div class="checkbox mb-3">
   
@@ -128,6 +151,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/cn.js"></script>
     <script src="js/login.js"></script>
+
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            const passwordInput = document.getElementById("password");
+            const isPasswordVisible = passwordInput.type === "password";
+            passwordInput.type = isPasswordVisible ? "text" : "password";
+            this.classList.toggle("fa-eye-slash");
+            this.classList.toggle("fa-eye");
+        });
+    </script>
   
 
 </body>
