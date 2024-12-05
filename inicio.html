@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Kashan</title>
+
+  <meta name="robots" content="noindex">
+
+
+  <link rel="icon" href="https://trenmaya.gob.mx/images/Kukulkan.svg" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+
+<link href="css/style-alert.css" rel="stylesheet" media="all">
+
+<link href="css/core.css" rel="stylesheet" media="all">
+
+<link href="css/remixicon.css" rel="stylesheet" media="all">
+
+
+
+
+
+  <style id="INLINE_PEN_STYLESHEET_ID">
+
+.container {
+        max-width: 100%!important;
+    }
+
+
+    
+:after, :before {
+    box-sizing: border-box;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+i{
+  margin-bottom:4px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+
+.btn-app {
+    color: white;
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 10px 15px;
+    margin: 0;
+    min-width: 60px;
+    max-width: 80px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #f4f4f4;
+    font-size: 12px;
+    transition: all .2s;
+    background-color: steelblue !important;
+}
+
+.btn-app > .fa, .btn-app > .glyphicon, .btn-app > .ion {
+    font-size: 30px;
+    display: block;
+}
+
+.btn-app:hover {
+    border-color: #aaa;
+    transform: scale(1.1);
+}
+
+.pdf {
+  background-color: #dc2f2f !important;
+}
+
+.excel {
+    background-color: #3ca23c !important;
+}
+
+.csv {
+    background-color: #e86c3a !important;
+}
+
+.imprimir {
+    background-color: #8766b1 !important;
+}
+
+
+
+.selectTable{
+  height:40px;
+  float:right;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #4682b4;
+    border-color: #4682b4;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #315f86;
+    border-color: #545b62;
+}
+
+
+
+.titulo-tabla{
+  color:#606263;
+  text-align:center;
+  margin-top:15px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+
+
+
+
+
+.inline{
+  display:inline-block;
+  padding:0;
+}
+
+
+
+.rd-navbar-wrap, .rd-navbar,
+.rd-menu,
+.rd-navbar-nav,
+.rd-navbar-panel, .rd-navbar-static .rd-menu, .rd-navbar-fixed .rd-navbar-nav-wrap, .rd-navbar-fixed .rd-navbar-submenu, .rd-navbar-project {
+	transition: 0.35s all cubic-bezier(0.65, 0.05, 0.36, 1);
+	background-image:   url('css/fondo.jpg' ); 
+	background-size: cover;
+}
+
+.col-3{
+
+
+  border: 1px solid rgba(38,43,67,.075);
+  padding: 10px;
+}
+
+
+.bg-label-primary {
+    background-color: #e7e7ff !important;
+    color: #666cff !important
+}
+
+.bg-label-warning {
+    background-color: #fff3dd !important;
+    color: #fdb528 !important;
+}
+
+.bg-label-info {
+    background-color: #dcf6fe !important;
+    color: #26c6f9 !important;
+}
+
+.bg-label-success {
+    background-color: #e8fadd !important;
+    color: #72e128 !important;
+}
+
+.bg-label-danger {
+    background-color: #ffe3e2 !important;
+    color: #ff4d49 !important;
+}
+.bg-label-secondary {
+    background-color: #e8e9ed !important;
+    color: #6d788d !important;
+}
+
+
+  </style>
+
+
+</head>
+
+<body>
+  
+
+    <header class="section page-header" style="position: fixed; width: 100%; z-index: 100; ">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap rd-navbar-modern-wrap" style="height: 70px;">
+          <nav class="rd-navbar rd-navbar-modern rd-navbar-original rd-navbar-static rd-navbar--is-stuck" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="70px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+             
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand">
+                    <a class="brand" style="font-size: 200%; color: #fff; font-weight:500;">
+                      <img src="img/logox.png" alt="" width="130"  style="padding: 0 30px; background-color: #ffffff8e;">
+                      Inicio
+                    </a>    
+
+                 
+
+                    <a onclick="return confirmLogout()" style="padding: 5px; color:#fff; margin: 10px 20px 0px 0px; float: right; background-color: #0f4d0e!important; padding: 15px; font-weight: bold;" class="btn btn-sm btn-secondary  ">
+                      Cerrar sesión
+                  </a>
+                   
+                   
+                  </div>
+
+                  
+
+                </div>
+              
+               
+
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>      <!-- Swiper-->
+            
+<br><br><br>
+
+<div class="container">
+  
+
+    
+   
+<br>
+    
+
+
+      <div class="row">
+        <div class="col-4">
+          <label for="fechaInicial">Bienvenido</label>
+            <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
+        </div>
+    
+    
+    </div>
+    
+    
+
+    <div class="row">
+
+
+        <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div class="avatar">
+                  <div class="avatar-initial bg-label-success rounded-3">
+                    <i class="ri-search-eye-line ri-24px"></i>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 text-success me-1">+22%</p>
+                  <i class="ri-arrow-up-s-line text-success"></i>
+                </div>
+              </div>
+              <div class="card-info mt-5">
+                <h5 class="mb-1">10</h5>
+                <p>Total de objetos</p>
+                <center><a href="tabla.html" class="badge bg-label-secondary rounded-pill"><b>Objetos Perdidos</a></b></center>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div class="avatar">
+                  <div class="avatar-initial bg-label-danger rounded-3">
+                    <i class="ri-alert-line ri-24px"></i>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 text-success me-1">+22%</p>
+                  <i class="ri-arrow-up-s-line text-success"></i>
+                </div>
+              </div>
+              <div class="card-info mt-5">
+                <h5 class="mb-1">10</h5>
+                <p>Total de incidencias</p>
+              <center><a href="incidencias.html" class="badge bg-label-secondary rounded-pill"><b>Incidencias</a></b></center>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+    </div>
+      
+     
+      
+      
+      
+      
+
+
+  
+  
+  
+  
+  
+  
+</div>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+  <script  src="https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-f96409df-a53e-c6d4-3b22-f1d796255cb0" crossorigin></script>
+  <script src="js/cn.js"></script>
+  <script src="js/objetos.js"></script>
+  <script src="js/cute-alert.js"></script>
+  <script src="js/notis.js"></script>
+
+
+
+
+  <script>
+
+function confirmLogout() {
+   
+
+   cuteAlert({
+       type: "question",
+       title: "Mensaje",
+       message: "¿Estás seguro que deseas cerrar la sesión?",
+       confirmText: "Ok",
+       cancelText: "Cancelar"
+   }).then((e)=>{
+   if (e == ("confirm")){
+       localStorage.removeItem("sesion");
+       window.location.href = "index.html";
+   } else {
+     console.log("cancelado");
+   }
+   })
+
+}
+
+
+
+var idioma=
+
+            {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "NingÃºn dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Ãšltimo",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copyTitle": 'Informacion copiada',
+                    "copyKeys": 'Use your keyboard or menu to select the copy command',
+                    "copySuccess": {
+                        "_": '%d filas copiadas al portapapeles',
+                        "1": '1 fila copiada al portapapeles'
+                    },
+
+                    "pageLength": {
+                    "_": "Mostrar %d filas",
+                    "-1": "Mostrar Todo"
+                    }
+                }
+            };
+
+$(document).ready(function() {
+  
+  
+ document.getElementById("txtUsuario").value = localStorage.getItem("nombre") +" "+localStorage.getItem("apellidop") +" "+ localStorage.getItem("apellidom");
+
+  
+} );
+
+  </script>
+
+
+
+
+</body>
+
+</html>

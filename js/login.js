@@ -31,7 +31,7 @@ function login() {
                 localStorage.setItem("telefono", result[4]);   
                 localStorage.setItem("correo", result[5]); 
 
-                setTimeout(window.location.href = "tabla.html", 5000);	
+                setTimeout(window.location.href = "inicio.html", 5000);	
             
                 //cnotis(user);
                 //info(user);   
