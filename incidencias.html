@@ -240,7 +240,12 @@ div.dataTables_wrapper div.dataTables_filter {
 <div class="container">
   <div class="row">
       <div class="col-12 col-md-4">
-        <label for="fechaInicial"><a href="inicio.html">Inicio</a></label>
+        <label for="fechaInicial">
+
+          <a href="inicio.html"  style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+            <span class="fa fa-home "> </span> Inicio
+        </a>
+      </label>
           <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
       </div>
       <div class="col-12 col-md-2">
@@ -482,9 +487,9 @@ $(document).ready(function() {
                   html = html + `<option value="${data[i].idestacion}">${data[i].nombre}</option>`; 
                 }
 
-                var inid = '<option value="-" disabled selected>Seleccionar</option>';
-                var find = '</select><input type="hidden" name="_token" >'
-                document.getElementById("cboEstaciones").innerHTML = inid + html;
+                var inid = '<option value="1" selected>Teya Mérida</option>';
+
+                document.getElementById("cboEstaciones").innerHTML = inid + html ;
                             
               }
           });
@@ -507,8 +512,8 @@ $(document).ready(function() {
                 }
 
                 var inid = '<option value="-" disabled selected>Seleccionar</option>';
-                var find = '</select><input type="hidden" name="_token" >'
-                document.getElementById("cboAreas").innerHTML = inid + html;
+                var find = '<option value="12" >Otro</option>';
+                document.getElementById("cboAreas").innerHTML = inid + html + find;
                             
               }
           });
