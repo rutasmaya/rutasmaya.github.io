@@ -52,7 +52,7 @@ function login() {
       else{
        //load.display = 'none';
    
-        msgAlert("info", "Agregue los datos solicitados");
+        msgAlert("info", "Mensaje", "Agregue los datos solicitados");
     }          
   }
 
