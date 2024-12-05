@@ -7,7 +7,7 @@
   <!--Mod-->
 
   <meta charset='UTF-8'>
-  <title>Kashan</title>
+  <title>Incidencias</title>
 
   <meta name="robots" content="noindex">
 
@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<link href="css/style-alert.css" rel="stylesheet" media="all">
 
 
 
@@ -167,8 +169,20 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 
-.select2-container .select2-selection--single {
+.select2-container .select2-selection--single  {
          height: calc(1.5em + 0.75rem + 2px)!important;
+}
+
+.btn-lg{
+  height: calc(1.5em + 1rem + 2px)!important;
+}
+
+.error-text {
+    font-size: 12px; /* Tamaño pequeño */
+    color: red; /* Color para resaltar */
+    margin-top: -4px; /* Espacio mínimo con el input */
+    display: none; /* Ocultar por defecto */
+    position: fixed;
 }
 
   </style>
@@ -177,6 +191,8 @@ div.dataTables_wrapper div.dataTables_filter {
 </head>
 
 <body >
+
+
   
 
     <header class="section page-header" style="position: fixed; width: 100%; z-index: 100; ">
@@ -217,7 +233,7 @@ div.dataTables_wrapper div.dataTables_filter {
         </div>
       </header>      <!-- Swiper   -->
             
-<br><br><br>
+<br><br><br>   <br>  
 
 <div class="container">
   <div class="row">
@@ -228,18 +244,26 @@ div.dataTables_wrapper div.dataTables_filter {
       <div class="col-12 col-md-2">
           <label for="fechaInicial">Fecha</label>
           <input type="datetime-local" id="txtFechaIni" class="form-control">
+          <span id="errorFecha" class=" error-text" style="display: none;">Campo requerido</span>
+
       </div>
       <div class="col-12 col-md-2">
           <label for="estatus">Estación</label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEstaciones" value=""></select>
+          <span id="errorEstacion" class=" error-text" style="display: none;">Campo requerido</span>
+
       </div>
       <div class="col-12 col-md-2">
           <label for="estatus">Área</label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboAreas" value=""></select>
+          <span id="errorArea" class=" error-text" style="display: none;">Campo requerido</span>
+
       </div>
       <div class="col-12 col-md-2">
           <label for="estatus">Empleado</label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEmpleados" value=""></select>
+          <span id="errorEmpleado" class=" error-text" style="display: none;">Campo requerido</span>
+
       </div>
      
   </div>
@@ -250,7 +274,8 @@ div.dataTables_wrapper div.dataTables_filter {
     
     <div class="col-12 col-md-12">
       <label for="fechaInicial">Describa la incidencia de forma breve</label>
-      <textarea id="txtFechaIni" class="form-control" rows="10" placeholder="Escribe aqui..."></textarea>
+      <textarea id="txtDescripcion" class="form-control" rows="10" placeholder="Escribe aqui..."></textarea>
+      <span id="errorDescripcion" class=" error-text" style="display: none;">Campo requerido</span>
   </div>
   
   <br>
@@ -290,7 +315,7 @@ div.dataTables_wrapper div.dataTables_filter {
   </div>
   <div class="col-12 col-md-3 d-flex justify-content-center align-items-center">
 
-      <a target="_blank" id="btnGuardarIncidencia" onclick="serviciosCliente()" style="padding: 5px; color:#fff" class="btn btn-lg btn-success">
+      <a target="_blank" id="btnGuardarIncidencia" onclick="guardarIncidencia()" style="padding: 5px; color:#fff" class="btn btn-lg btn-success">
           Guardar Incidencia
       </a>
   </div>
@@ -317,6 +342,8 @@ div.dataTables_wrapper div.dataTables_filter {
   <script  src="https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-f96409df-a53e-c6d4-3b22-f1d796255cb0" crossorigin></script>
   <script src="js/cn.js"></script>
   <script src="js/select2.min.js"></script>
+  <script src="js/cute-alert.js"></script>
+  <script src="js/notis.js"></script>
 
 
 
@@ -359,6 +386,72 @@ $(document).ready(function() {
         cboEmpleados();
     });
 
+    function guardarIncidencia(){
+      
+
+      const fecha = document.getElementById("txtFechaIni");
+      const estacion = document.getElementById("cboEstaciones");
+      const area = document.getElementById("cboAreas");
+      const empleado = document.getElementById("cboEmpleados");
+      const descripcion = document.getElementById("txtDescripcion");
+
+      const errorFecha = document.getElementById("errorFecha");
+      const errorEstacion = document.getElementById("errorEstacion");
+      const errorArea = document.getElementById("errorArea");
+      const errorEmpleado = document.getElementById("errorEmpleado");
+      const errorDescripcion = document.getElementById("errorDescripcion");
+
+      let isValid = true;
+
+      // Validar fecha
+      if (fecha.value === "") {
+          errorFecha.style.display = "block";
+          isValid = false;
+      } else {
+          errorFecha.style.display = "none";
+      }
+
+      // Validar estación
+      if (estacion.value === "-") {
+          errorEstacion.style.display = "block";
+          isValid = false;
+      } else {
+          errorEstacion.style.display = "none";
+      }
+
+      // Validar área
+      if (area.value === "-") {
+          errorArea.style.display = "block";
+          isValid = false;
+      } else {
+          errorArea.style.display = "none";
+      }
+
+      // Validar empleado
+      if (empleado.value === "-") {
+          errorEmpleado.style.display = "block";
+          isValid = false;
+      } else {
+          errorEmpleado.style.display = "none";
+      }
+
+      // Validar desc
+      if (descripcion.value === "") {
+        errorDescripcion.style.display = "block";
+          isValid = false;
+      } else {
+        errorDescripcion.style.display = "none";
+      }
+
+      // Mostrar mensaje si todo está validado
+      if (!isValid) {
+        msgAlert("info", "Mensaje", "Agregue los datos solicitados ");
+      }
+        
+        
+    
+    }
+
 
 
 
@@ -367,7 +460,7 @@ $(document).ready(function() {
           $.ajax({
               url:cn + "DropEstaciones", 
               success: function (result) {   
-                console.log(result) 
+            
                 var x = result.replace(/\\r\\n/g, '');  
                 localStorage.setItem("prod", x);  
                 var data = JSON.parse(x)  
