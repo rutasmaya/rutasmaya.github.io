@@ -4,6 +4,8 @@
 
 <head>
 
+  <!--Modificado-->
+
   <meta charset='UTF-8'>
   <title>Kashan</title>
 
@@ -207,7 +209,7 @@ div.dataTables_wrapper div.dataTables_filter {
             </div>
           </nav>
         </div>
-      </header>      <!-- Swiper-->
+      </header>      <!-- Swiper   -->
             
 <br><br><br>
 
