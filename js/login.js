@@ -38,19 +38,21 @@ function login() {
                 
               }
               else{  
-                //load.display = 'none';
-                alert("Datos Incorrectos");
+         
+                msgAlert("error", "Mensaje", "Datos Incorrectos ");
               }
           },
           error: function (jqXmlHttpRequest, textStatus, errorThrown) {
             //load.display = 'none';
-            alert("Verifique su conexión");
+     
+            msgAlert("warning", "Mensaje", "Verifique su conexión ");
           }
       });
     }
       else{
        //load.display = 'none';
-        alert("Agregue los datos solicitados");
+   
+        msgAlert("info", "Agregue los datos solicitados");
     }          
   }
 
