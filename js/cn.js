@@ -11,6 +11,6 @@ var cn = "https://amahcarev2.somee.com/requestnoti.ashx?Comando=";
 //var cn = "http://localhost:53224/Api/wsaires.ashx?Comando=";
 //var cn2 = "http://localhost:53224/Api/CrudServicios.ashx?Comando=";
 
-var load = document.getElementById("loading").style;
+//var load = document.getElementById("loading").style;
 var spancnotis = document.getElementById("cnotis");
 
