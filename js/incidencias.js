@@ -27,7 +27,7 @@ $(document).ready(function(){
       f2 = "";
     }
 
-    console.log(cn + "SeleccionarIncidencias&Folio=" + folio + "&FechaIni=" + f1 + "&FechaFin=" + f2);
+
 
 
 
@@ -268,7 +268,7 @@ function verificarValor(valor) {
 
 
 function formatearFecha(fecha) {
-    console.log(fecha);
+
     if (fecha === "1900-01-01T00:00:00" || !fecha) {
         return ""; // Retorna vacío si la fecha es "01/01/1900" o es null/undefined
     }

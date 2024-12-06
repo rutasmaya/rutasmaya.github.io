@@ -49,7 +49,7 @@ function serviciosCliente(){
         f2 = "";
       }
   
-      console.log(cn + "SeleccionarObjetosK2&Nom=" + nombre + "&Estatus=" + est + "&FechaIni=" + f1 + "&FechaFin=" + f2, );
+
   
       var estatus = "";
       var cliente = "";
@@ -59,8 +59,7 @@ function serviciosCliente(){
           url: cn + "SeleccionarObjetosK2&Nom=" + nombre + "&Estatus=" + est + "&FechaIni=" + f1 + "&FechaFin=" + f2, 
           success: function (result) {
   
-            console.log("Resultado: " + result);
-  
+
             result = result.split("<");
               result = result[0];
           var x = result.replace(/\\r\\n/g, '');   
@@ -279,27 +278,6 @@ function serviciosCliente(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           },
           error: function (jqXmlHttpRequest, textStatus, errorThrown) {
             //console.log(jqXmlHttpRequest + textStatus + errorThrown);
@@ -312,7 +290,7 @@ function serviciosCliente(){
 
 
 function formatearFecha(fecha) {
-  console.log(fecha);
+
   if (fecha === "1900-01-01T00:00:00" || !fecha) {
       return ""; // Retorna vacío si la fecha es "01/01/1900" o es null/undefined
   }

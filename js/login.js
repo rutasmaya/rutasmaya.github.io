@@ -102,10 +102,10 @@ $(document).ready(function(){
   var ses = localStorage.getItem("sesion");
   if(ses == 1){
      //window.location.href = "index.html";	
-     load.display = 'none';
+     //load.display = 'none';
   }
   else{
-    load.display = 'none';
+    //load.display = 'none';
   }
 });
 
