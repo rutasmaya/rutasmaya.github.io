@@ -239,7 +239,7 @@ div.dataTables_wrapper div.dataTables_filter {
 
 <div class="container">
   <div class="row">
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <label for="fechaInicial">
 
           <a href="inicio.html"  style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
@@ -249,25 +249,25 @@ div.dataTables_wrapper div.dataTables_filter {
           <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
       </div>
       <div class="col-12 col-md-2">
-          <label for="fechaInicial">Fecha</label>
-          <input type="datetime-local" id="txtFechaIni" class="form-control">
+          <label for="fechaInicial"><b>Fecha</b></label>
+          <input type="datetime-local" id="txtFechaIncidencia" class="form-control">
           <span id="errorFecha" class=" error-text" style="display: none;">Campo requerido</span>
 
       </div>
       <div class="col-12 col-md-2">
-          <label for="estatus">Estación</label>
+          <label for="estatus"><b>Estación</b></label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEstaciones" value=""></select>
           <span id="errorEstacion" class=" error-text" style="display: none;">Campo requerido</span>
 
       </div>
       <div class="col-12 col-md-2">
-          <label for="estatus">Área</label>
+          <label for="estatus"><b>Área</b></label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboAreas" value=""></select>
           <span id="errorArea" class=" error-text" style="display: none;">Campo requerido</span>
 
       </div>
-      <div class="col-12 col-md-2">
-          <label for="estatus">Empleado</label>
+      <div class="col-12 col-md-3">
+          <label for="estatus"><b>Empleado</b></label>
           <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEmpleados" value=""></select>
           <span id="errorEmpleado" class=" error-text" style="display: none;">Campo requerido</span>
 
@@ -280,8 +280,8 @@ div.dataTables_wrapper div.dataTables_filter {
   <div class="row">
     
     <div class="col-12 col-md-12">
-      <label for="fechaInicial">Describa la incidencia de forma breve</label>
-      <textarea id="txtDescripcion" class="form-control" rows="10" placeholder="Escribe aqui..."></textarea>
+      <label for="fechaInicial"><b>Describa la incidencia de forma breve</b> <span id="txtFolio"></span></label>
+      <textarea id="txtDescripcion" class="form-control" rows="10" maxlength="499" placeholder="Escribe aqui..."></textarea>
       <span id="errorDescripcion" class=" error-text" style="display: none;">Campo requerido</span>
   </div>
   
@@ -313,10 +313,11 @@ div.dataTables_wrapper div.dataTables_filter {
   </div>
   <div class="col-12 col-md-4">
     <input type="text" id="txtcorreo" class="form-control" placeholder="ejemplo:usuario@gmail.com">
+    <span id="errorCorreo" class=" error-text" style="display: none;">Campo requerido</span>
   </div>
 
   <div class="col-12 col-md-2">
-    <a target="_blank" id="btnEnviarCorreo" onclick="serviciosCliente()" style="padding: 5px; color:#fff" class="btn btn-lg btn-secondary">
+    <a target="_blank" id="btnEnviarCorreo" onclick="enviarCorreo()" style="padding: 5px; color:#fff" class="btn btn-lg btn-secondary">
       Enviar Correo
   </a>
   </div>
@@ -394,6 +395,9 @@ $(document).ready(function() {
 <script src="dashboard/js/select2.min.js"></script>
 
 <script type="text/javascript">
+
+let folio="";
+
    // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('.multiselect-doctorino').select2();
@@ -403,12 +407,34 @@ $(document).ready(function() {
         cboEstaciones();
         cboAreas();
         cboEmpleados();
+
+
+        folio = generateFolio();
+
+        document.getElementById("txtFolio").innerHTML = folio;
     });
+
+    
+    function generateFolio() {
+              // Crear un GUID aleatorio
+              const guid = crypto.randomUUID();
+
+              // Crear un hash numérico basado en el GUID
+              let hash = 0;
+              for (let i = 0; i < guid.length; i++) {
+                  hash = (hash << 5) - hash + guid.charCodeAt(i);
+                  hash |= 0; // Convierte a 32 bits
+              }
+
+              // Asegurarte de que sea un número positivo y limitarlo a 10 dígitos
+              return Math.abs(hash).toString().substring(0, 10);
+          }
+
 
     function guardarIncidencia(){
       
 
-      const fecha = document.getElementById("txtFechaIni");
+      const fecha = document.getElementById("txtFechaIncidencia");
       const estacion = document.getElementById("cboEstaciones");
       const area = document.getElementById("cboAreas");
       const empleado = document.getElementById("cboEmpleados");
@@ -466,7 +492,88 @@ $(document).ready(function() {
       if (!isValid) {
         msgAlert("info", "Mensaje", "Agregue los datos solicitados ");
       }
+      else{
+        insertarIncidencias();
+      }
         
+    
+    }
+
+    function enviarCorreo(){
+      
+
+      const fecha = document.getElementById("txtFechaIncidencia");
+      const estacion = document.getElementById("cboEstaciones");
+      const area = document.getElementById("cboAreas");
+      const empleado = document.getElementById("cboEmpleados");
+      const descripcion = document.getElementById("txtDescripcion");
+      const correo = document.getElementById("txtcorreo");
+
+      const errorFecha = document.getElementById("errorFecha");
+      const errorEstacion = document.getElementById("errorEstacion");
+      const errorArea = document.getElementById("errorArea");
+      const errorEmpleado = document.getElementById("errorEmpleado");
+      const errorDescripcion = document.getElementById("errorDescripcion");
+
+      const errorCorreo = document.getElementById("errorCorreo");
+
+      let isValid = true;
+
+      // Validar fecha
+      if (fecha.value === "") {
+          errorFecha.style.display = "block";
+          isValid = false;
+      } else {
+          errorFecha.style.display = "none";
+      }
+
+      // Validar estación
+      if (estacion.value === "-") {
+          errorEstacion.style.display = "block";
+          isValid = false;
+      } else {
+          errorEstacion.style.display = "none";
+      }
+
+      // Validar área
+      if (area.value === "-") {
+          errorArea.style.display = "block";
+          isValid = false;
+      } else {
+          errorArea.style.display = "none";
+      }
+
+      // Validar empleado
+      if (empleado.value === "-") {
+          errorEmpleado.style.display = "block";
+          isValid = false;
+      } else {
+          errorEmpleado.style.display = "none";
+      }
+
+      // Validar desc
+      if (descripcion.value === "") {
+        errorDescripcion.style.display = "block";
+          isValid = false;
+      } else {
+        errorDescripcion.style.display = "none";
+      }
+
+       // Validar desc
+       if (correo.value === "") {
+        errorCorreo.style.display = "block";
+          isValid = false;
+      } else {
+        errorCorreo.style.display = "none";
+      }
+
+      // Mostrar mensaje si todo está validado
+      if (!isValid) {
+        msgAlert("info", "Mensaje", "Agregue los datos solicitados ");
+      }
+      else{
+        sendEmail();
+      }
         
     
     }
@@ -540,6 +647,109 @@ var html = "";
                         
           }
       });
+
+}
+
+
+function insertarIncidencias(){
+
+  var fecha = document.getElementById("txtFechaIncidencia").value;
+  var estacion = document.getElementById("cboEstaciones").value;
+  var area = document.getElementById("cboAreas").value;
+  var empleado = document.getElementById("cboEmpleados").value;
+  var desc = document.getElementById("txtDescripcion").value;
+  var usuario = localStorage.getItem("id");
+
+
+  
+
+  $.ajax({
+      url: cn + "InsertarIncidencias&Desc=" + desc + "&Fecha=" + fecha + "&Estacion=" + estacion + "&Area=" + area + "&Empleado=" + empleado + "&User=" + usuario + "&Folio=" + folio,
+      success: function (result) {
+          if (result == "OK") {
+            
+
+              document.getElementById("txtFechaIncidencia").value = "";
+              cboEstaciones();
+              folio = generateFolio();
+              document.getElementById("txtFolio").innerHTML = folio;
+        cboAreas();
+        cboEmpleados();
+              document.getElementById("txtDescripcion").value = "";
+              msgAlert("success", "Mensaje", "Incidencia agregada");
+
+          } else {
+              msgAlert("warning", "Mensaje", "Algo salió mal! Vuelve a intentarlo");
+          }
+      },
+      error: function (xhr, status, error) {
+          // Manejar el error
+          console.error("Error en la solicitud AJAX:", error);
+          msgAlert("danger", "Error", "Ocurrió un problema al realizar la solicitud: " + error);
+      }
+  });
+
+
+}
+
+
+
+function sendEmail(){
+
+  var correo = document.getElementById("txtcorreo").value;
+  var fecha = document.getElementById("txtFechaIncidencia").value;
+
+  var fechaObj = new Date(fecha);
+
+// Obtener el día, mes, año, hora y minuto
+var dia = ("0" + fechaObj.getDate()).slice(-2);
+var mes = ("0" + (fechaObj.getMonth() + 1)).slice(-2);
+var año = fechaObj.getFullYear();
+var hora = ("0" + fechaObj.getHours()).slice(-2);
+var minuto = ("0" + fechaObj.getMinutes()).slice(-2);
+
+// Formatear la fecha en el formato dd/mm/yyyy HH:mm
+var fechaFormateada = dia + "/" + mes + "/" + año + " " + hora + ":" + minuto;
+
+  var estacion = document.getElementById("cboEstaciones").options[document.getElementById("cboEstaciones").selectedIndex].text;
+  var area = document.getElementById("cboAreas").options[document.getElementById("cboAreas").selectedIndex].text;
+  var empleado = document.getElementById("cboEmpleados").options[document.getElementById("cboEmpleados").selectedIndex].text;
+  var desc = document.getElementById("txtDescripcion").value;
+  var usuarion = localStorage.getItem("nombre") + " " + localStorage.getItem("apellidop") + " " + localStorage.getItem("apellidom");
+  var correousuario = localStorage.getItem("correo");
+
+  // Expresión regular para validar correos electrónicos
+var correoValido = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+if (correoValido.test(correo)) {
+
+      $.ajax({
+          url: cn + "SendEmailIncidencia&Email="+correo+"&Desc=" + desc + "&Fecha=" + fechaFormateada + "&Estacion=" + estacion + "&Area=" + area + "&Empleado=" + empleado + "&User=" + usuarion + "&CorreoUser=" + correousuario + "&Folio=" + folio,
+          success: function (result) {
+
+            result = JSON.parse(result);
+            console.log(result);
+              if (result == "OK") {
+                
+                  document.getElementById("txtcorreo").value = "";
+                  msgAlert("success", "Mensaje", "Correo Enviado");
+
+              } 
+          },
+          error: function (xhr, status, error) {
+              // Manejar el error
+              console.error("Error en la solicitud AJAX:", error);
+              msgAlert("error", "Error", "Ocurrió un problema al realizar la solicitud: " + error);
+          }
+      });
+
+
+} else {
+  msgAlert("warning", "Mensaje", "Agregue una dirección de correo válido");
+}
+
+
+
 
 }
 
