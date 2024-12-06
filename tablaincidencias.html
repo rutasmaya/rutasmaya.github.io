@@ -18,20 +18,13 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
 
+
 <link href="css/style-alert.css" rel="stylesheet" media="all">
-
-<link href="css/core.css" rel="stylesheet" media="all">
-
-<link href="css/remixicon.css" rel="stylesheet" media="all">
-
-
-
-
 
   <style id="INLINE_PEN_STYLESHEET_ID">
 
 .container {
-        max-width: 100%!important;
+        max-width: 90%!important;
     }
 
 
@@ -161,42 +154,6 @@ div.dataTables_wrapper div.dataTables_filter {
 	background-size: cover;
 }
 
-.col-3{
-
-
-  border: 1px solid rgba(38,43,67,.075);
-  padding: 10px;
-}
-
-
-.bg-label-primary {
-    background-color: #e7e7ff !important;
-    color: #666cff !important
-}
-
-.bg-label-warning {
-    background-color: #fff3dd !important;
-    color: #fdb528 !important;
-}
-
-.bg-label-info {
-    background-color: #dcf6fe !important;
-    color: #26c6f9 !important;
-}
-
-.bg-label-success {
-    background-color: #e8fadd !important;
-    color: #72e128 !important;
-}
-
-.bg-label-danger {
-    background-color: #ffe3e2 !important;
-    color: #ff4d49 !important;
-}
-.bg-label-secondary {
-    background-color: #e8e9ed !important;
-    color: #6d788d !important;
-}
 
 
   </style>
@@ -221,7 +178,7 @@ div.dataTables_wrapper div.dataTables_filter {
                   <div class="rd-navbar-brand">
                     <a class="brand" style="font-size: 200%; color: #fff; font-weight:500;">
                       <img src="img/logox.png" alt="" width="130"  style="padding: 0 30px; background-color: #ffffff8e;">
-                      Inicio
+                      Objetos Registrados
                     </a>    
 
                  
@@ -250,83 +207,80 @@ div.dataTables_wrapper div.dataTables_filter {
 <div class="container">
   
 
+  <div class="row">
     
-   
-<br>
+    <div class="col-12" >
+
     
 
 
       <div class="row">
-        <div class="col-4">
-          <label for="fechaInicial">Bienvenido</label>
-            <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
+        <div class="col-3">
+          <label for="fechaInicial">
+
+          <a href="inicio.html"  style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+            <span class="fa fa-home "> </span> Inicio
+        </a>
+      </label>
+             <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
         </div>
-    
+
+        <div class="col-2">
+          <label for="fechaInicial">Folio</label>
+          <input type="text" id="txtFolio" class="form-control">
+      </div>
+
+        <div class="col-2">
+            <label for="fechaInicial">Fecha inicial</label>
+            <input type="date" id="txtFechaIni" class="form-control">
+        </div>
+        <div class="col-2">
+            <label for="fechaFinal">Fecha Final</label>
+            <input type="date" id="txtFechaFin" class="form-control">
+        </div>
+      
+        <div class="col-1">
+            <br>
+            <a target="_blank" id="btnBuscarServ" onclick="listaIncidencias()" style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+
+        </div>
+
+        <div class="col-2">
+          <br>
+          
+
+          <a target="_blank" href="incidencias.html" 
+          style="padding: 5px; color: #fff; height: 45px; display: flex; align-items: center; justify-content: center;" 
+          class="btn btn-success">
+          Nueva Incidencia
+       </a>
+       
+      </div>
+
+       
     
     </div>
     
     
 
-    <div class="row">
+
+      <div id="divTablaIncidencias">
 
 
-        <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                <div class="avatar">
-                  <div class="avatar-initial bg-label-success rounded-3">
-                    <i class="ri-search-eye-line ri-24px"></i>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center">
-                  <!--<p class="mb-0 text-success me-1">+22%</p>-->
-                  <a href="tabla.html"><i class="ri-arrow-right-s-line text-success"></i></a>
-                </div>
-              </div>
-              <div class="card-info mt-5">
-                <!--<h5 class="mb-1">10</h5>--><center>
-                <p>Explora en este apartado la lista de objetos perdidos, encontrados y recuperados </p>
-                <a href="tabla.html" class="badge bg-label-secondary rounded-pill"><b>Objetos Perdidos</a></b></center>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                <div class="avatar">
-                  <div class="avatar-initial bg-label-danger rounded-3">
-                    <i class="ri-alert-line ri-24px"></i>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center">
-                  <!--<p class="mb-0 text-success me-1">+22%</p>-->
-                  <a href="tablaincidencias.html"><i class="ri-arrow-right-s-line text-danger"> </i></a>
-                </div>
-              </div>
-              <div class="card-info mt-5">
-                <!--<h5 class="mb-1">10</h5>--><center>
-                <p>Registra y gestiona fácilmente las incidencias reportadas. Mantén un seguimiento detallado</p>
-              <a href="tablaincidencias.html" class="badge bg-label-secondary rounded-pill"><b>Incidencias</a></b></center>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-    </div>
+      </div>
+      
       
      
       
       
       
       
-
-
+    </div>
+  </div>
   
   
   
@@ -350,7 +304,7 @@ div.dataTables_wrapper div.dataTables_filter {
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
   <script  src="https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-f96409df-a53e-c6d4-3b22-f1d796255cb0" crossorigin></script>
   <script src="js/cn.js"></script>
-  <script src="js/objetos.js"></script>
+  <script src="js/incidencias.js"></script>
   <script src="js/cute-alert.js"></script>
   <script src="js/notis.js"></script>
 
