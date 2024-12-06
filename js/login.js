@@ -1,60 +1,38 @@
 function login() {
-  //load.display = 'block';
-    var user = document.getElementById("username").value;
-    var user1 = user;
-    localStorage.setItem('usuario', user);
-    var pwd = document.getElementById("password").value;
+  var user = document.getElementById("username").value.trim();
+  var pwd = document.getElementById("password").value.trim();
 
-
-
-    if(user != '' && pwd != ''){  
+  if (user !== '' && pwd !== '') {  
       $.ajax({
-          type: "GET",
-          crossDomain: true,   
-          url: cn + "LoginappK&User="+user+"&Pwd="+pwd ,
+          type: "POST", // Usar método POST
+          url: cn + "LoginappKP", // URL de tu servicio
+          data: { // Enviar los datos como objeto de formulario
+              User: user,
+              Pwd: pwd
+          },
           success: function (result) {
-
-            console.log(result);
-         
-            result = result.split(",");
-        
-              if (result != "0") {
-                localStorage.setItem("sesion", 1);
-
-             
- 
-
-                localStorage.setItem("id", result[0]); 
-                localStorage.setItem("nombre", result[1]);   
-                localStorage.setItem("apellidop", result[2]); 
-                localStorage.setItem("apellidom", result[3]); 
-                localStorage.setItem("telefono", result[4]);   
-                localStorage.setItem("correo", result[5]); 
-
-                setTimeout(window.location.href = "inicio.html", 5000);	
-            
-                //cnotis(user);
-                //info(user);   
-                
-              }
-              else{  
-         
-                msgAlert("error", "Mensaje", "Datos Incorrectos ");
+              result = result.split(",");
+              if (result[0] !== "0") {
+                  localStorage.setItem("sesion", 1);
+                  localStorage.setItem("id", result[0]); 
+                  localStorage.setItem("nombre", result[1]);   
+                  localStorage.setItem("apellidop", result[2]); 
+                  localStorage.setItem("apellidom", result[3]); 
+                  localStorage.setItem("telefono", result[4]);   
+                  localStorage.setItem("correo", result[5]); 
+                   setTimeout(() => window.location.href = "inicio.html", 1000);
+              } else {  
+                  msgAlert("error", "Mensaje", "Datos incorrectos");
               }
           },
-          error: function (jqXmlHttpRequest, textStatus, errorThrown) {
-            //load.display = 'none';
-     
-            msgAlert("warning", "Mensaje", "Verifique su conexión ");
+          error: function () {
+              msgAlert("warning", "Mensaje", "Verifique su conexión");
           }
       });
-    }
-      else{
-       //load.display = 'none';
-   
-        msgAlert("info", "Mensaje", "Agregue los datos solicitados");
-    }          
-  }
+  } else {
+      msgAlert("info", "Mensaje", "Agregue los datos solicitados");
+  }          
+}
 
   function cerrar(){
     localStorage.removeItem("sesion");
