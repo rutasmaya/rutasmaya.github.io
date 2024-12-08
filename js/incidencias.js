@@ -67,6 +67,12 @@ $(document).ready(function(){
                     <span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">Registrado por: ${verificarValor(data[i].usuariocrea)}</span>
                     </td>
 
+                    <td style="position: relative; justify-content: center; align-items: center; vertical-align: middle; ">
+                        <a style="padding: 5px; color: #fff;" id="${verificarValor(data[i].folio)}|${verificarValor(data[i].idarea)}|${verificarValor(data[i].idestacion)}|${data[i].fechaincidencia}|${verificarValor(data[i].idempleado)}|${verificarValor(data[i].descripcion)}" class="btn btn-sm btn-secondary" onclick="modalUpdate(this.id)">
+                            <span class="fa fa-edit"></span> Editar
+                        </a>
+                    </td>
+
 
            
            
@@ -92,6 +98,7 @@ $(document).ready(function(){
      
               <th>Detalle</th>
               <th>Descripcion de la incidencia</th>
+              <th>Acciones</th>
           </tr>
       </thead>
       <tbody>
@@ -282,16 +289,7 @@ $(document).ready(function(){
       
                          
 
-                          {
-                              extend:    'csvHtml5',
-                              text:      '<i class="fa fa-file-text-o"></i>CSV',
-                              title:'Reporte de Incidencias',
-                              titleAttr: 'CSV',
-                              className: 'btn btn-app export csv',
-                              exportOptions: {
-                                  columns: [ 0, 1]
-                              }
-                          },
+                          
                           {
                               extend:    'print',
                               text:      '<i class="fa fa-print"></i>Imprimir',

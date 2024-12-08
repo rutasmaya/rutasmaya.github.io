@@ -159,6 +159,18 @@ div.dataTables_wrapper div.dataTables_filter {
 
 
 
+
+    .modal-lg {
+        max-width: 80%!important;
+    }
+
+
+    .alert-wrapper{
+      z-index: 1500!important;
+    }
+
+
+
   </style>
 
 
@@ -291,6 +303,117 @@ div.dataTables_wrapper div.dataTables_filter {
   
   
 </div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="modalUpdateIncidencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle de incidencia: <p id="txtFolioD" style="float: right; margin-left: 10px; font-weight: bold;"></p> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+
+
+
+
+     
+          <div class="row">
+              
+              <div class="col-12 col-md-3">
+                  <label for="fechaInicial"><b>Fecha</b></label>
+                  <input type="datetime-local" id="txtFechaIncidencia" class="form-control">
+                  <span id="errorFecha" class=" error-text" style="display: none;">Campo requerido</span>
+        
+              </div>
+              <div class="col-12 col-md-3">
+                  <label for="estatus"><b>Estación</b></label>
+                  <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEstaciones" value=""></select>
+                  <span id="errorEstacion" class=" error-text" style="display: none;">Campo requerido</span>
+        
+              </div>
+              <div class="col-12 col-md-3">
+                  <label for="estatus"><b>Área</b></label>
+                  <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboAreas" value=""></select>
+                  <span id="errorArea" class=" error-text" style="display: none;">Campo requerido</span>
+        
+              </div>
+              <div class="col-12 col-md-3">
+                  <label for="estatus"><b>Empleado</b></label>
+                  <select class="form-control multiselect-doctorino" style="width: 100%!important;" name="patient_id" id="cboEmpleados" value=""></select>
+                  <span id="errorEmpleado" class=" error-text" style="display: none;">Campo requerido</span>
+        
+              </div>
+             
+          </div>
+        
+          <br>
+        
+          <div class="row">
+            
+            <div class="col-12 col-md-12">
+              <label for="fechaInicial"><b>Describa la incidencia de forma breve</b> <span id="txtFolio"></span></label>
+              <textarea id="txtDescripcion" class="form-control" rows="10"  placeholder="Escribe aqui..."></textarea>
+              <span id="errorDescripcion" class=" error-text" style="display: none;">Campo requerido</span>
+          </div>
+          
+          <br>
+        
+        </div>
+        
+   
+      
+        
+        <br>
+        
+        
+        
+        <div class="row">
+        
+       
+       
+       
+          <div class="col-12 col-md-12 d-flex justify-content-center align-items-center">
+        <center>
+            <a target="_blank" id="btnGuardarIncidencia" onclick="editarIncidencia()" 
+            style="padding: 5px; color: #fff; height: 45px; display: flex; align-items: center; justify-content: center;" 
+            class="btn btn-lg btn-primary">
+            Actualizar Incidencia
+         </a>
+        </center>
+          </div>
+         
+        </div>
+        
+        
+
+        
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -383,8 +506,245 @@ $(document).ready(function() {
   
  document.getElementById("txtUsuario").value = localStorage.getItem("nombre") +" "+localStorage.getItem("apellidop") +" "+ localStorage.getItem("apellidom");
 
+ cboEstaciones();
+        cboAreas();
+        cboEmpleados();
+
   
 } );
+
+
+
+
+
+
+function cboEstaciones(){
+    var html = "";
+          $.ajax({
+              url:cn + "DropEstaciones", 
+              success: function (result) {   
+            
+                var x = result.replace(/\\r\\n/g, '');  
+                localStorage.setItem("prod", x);  
+                var data = JSON.parse(x)  
+                for (var i = 0; i < data.length; i++) {
+                  html = html + `<option value="${data[i].idestacion}">${data[i].nombre}</option>`; 
+                }
+
+                var inid = '<option value="1" selected>Teya Mérida</option>';
+
+                document.getElementById("cboEstaciones").innerHTML = inid + html ;
+                            
+              }
+          });
+
+    }
+
+
+    function cboAreas(){
+
+    var html = "";
+          $.ajax({
+              url:cn + "DropAreas", 
+              success: function (result) {   
+          
+                var x = result.replace(/\\r\\n/g, '');  
+                localStorage.setItem("prod", x);  
+                var data = JSON.parse(x)  
+                for (var i = 0; i < data.length; i++) {
+                  html = html + `<option value="${data[i].idarea}">${data[i].nombrearea}</option>`; 
+                }
+
+                var inid = '<option value="-" disabled selected>Seleccionar</option>';
+                var find = '<option value="12" >Otro</option>';
+                document.getElementById("cboAreas").innerHTML = inid + html + find;
+                            
+              }
+          });
+
+    }
+
+    function cboEmpleados(){
+
+var html = "";
+      $.ajax({
+          url:cn + "DropEmpleados", 
+          success: function (result) {   
+        
+            var x = result.replace(/\\r\\n/g, '');  
+            localStorage.setItem("prod", x);  
+            var data = JSON.parse(x)  
+            for (var i = 0; i < data.length; i++) {
+              html = html + `<option value="${data[i].iduser}">${data[i].nombre} ${data[i].apellidop} ${data[i].apellidom}</option>`; 
+            }
+
+            var inid = '<option value="-" disabled selected>Seleccionar</option>';
+            var find = '</select><input type="hidden" name="_token" >'
+            document.getElementById("cboEmpleados").innerHTML = inid + html;
+                        
+          }
+      });
+
+}
+
+
+
+function modalUpdate(data){
+
+
+
+
+  data = data.split('|');
+
+  console.log(data);
+
+  var folio = data[0];
+  var area = data[1];
+  var estacion = data[2];
+  var empleado = data[4];
+  var desc = data[5];
+
+  $('#modalUpdateIncidencia').modal('show');
+
+  document.getElementById("txtFechaIncidencia").value = data[3];
+  document.getElementById("cboEstaciones").value = data[2];
+  document.getElementById("cboAreas").value = data[1];
+  document.getElementById("cboEmpleados").value = data[4];
+  document.getElementById("txtDescripcion").value = data[5];
+  document.getElementById("txtFolioD").innerHTML = data[0];
+
+}
+
+
+
+
+function editarIncidencia(){
+
+var fecha = document.getElementById("txtFechaIncidencia").value;
+var estacion = document.getElementById("cboEstaciones").value;
+var area = document.getElementById("cboAreas").value;
+var empleado = document.getElementById("cboEmpleados").value;
+var desc = document.getElementById("txtDescripcion").value;
+var usuario = localStorage.getItem("id");
+var folio =  document.getElementById("txtFolioD").innerHTML;
+
+
+
+
+      const errorFecha = document.getElementById("errorFecha");
+      const errorEstacion = document.getElementById("errorEstacion");
+      const errorArea = document.getElementById("errorArea");
+      const errorEmpleado = document.getElementById("errorEmpleado");
+      const errorDescripcion = document.getElementById("errorDescripcion");
+
+      let isValid = true;
+
+      // Validar fecha
+      if (fecha === "") {
+          errorFecha.style.display = "block";
+          isValid = false;
+      } else {
+          errorFecha.style.display = "none";
+      }
+
+      // Validar estación
+      if (estacion === "-") {
+          errorEstacion.style.display = "block";
+          isValid = false;
+      } else {
+          errorEstacion.style.display = "none";
+      }
+
+      // Validar área
+      if (area === "-") {
+          errorArea.style.display = "block";
+          isValid = false;
+      } else {
+          errorArea.style.display = "none";
+      }
+
+      // Validar empleado
+      if (empleado === "-") {
+          errorEmpleado.style.display = "block";
+          isValid = false;
+      } else {
+          errorEmpleado.style.display = "none";
+      }
+
+      // Validar desc
+      if (desc === "") {
+        errorDescripcion.style.display = "block";
+          isValid = false;
+      } else {
+        errorDescripcion.style.display = "none";
+      }
+
+      // Mostrar mensaje si todo está validado
+      if (!isValid) {
+        msgAlert("info", "Mensaje", "Agregue los datos solicitados ");
+      }
+
+      else{
+
+
+        cuteAlert({
+       type: "question",
+       title: "Mensaje",
+       message: "¿Estás seguro que deseas modificar esta incidencia?",
+       confirmText: "Ok",
+       cancelText: "Cancelar"
+   }).then((e)=>{
+   if (e == ("confirm")){
+     
+
+    $.ajax({
+            url: cn + "EditarIncidencias&Desc=" + desc + "&Fecha=" + fecha + "&Estacion=" + estacion + "&Area=" + area + "&Empleado=" + empleado + "&User=" + usuario + "&Folio=" + folio,
+            success: function (result) {
+              console.log(result);
+                if (result == "OK") {
+                  
+                    $('#modalUpdateIncidencia').modal('hide');
+                    document.getElementById("txtFechaIncidencia").value = "";
+                    cboEstaciones();
+                    cboAreas();
+                    cboEmpleados();
+                    document.getElementById("txtDescripcion").value = "";
+                    listaIncidencias();
+                    msgAlert("success", "Mensaje", "Incidencia editada");
+
+
+                } else {
+                    msgAlert("warning", "Mensaje", "Algo salió mal! Vuelve a intentarlo");
+                }
+            },
+            error: function (xhr, status, error) {
+                // Manejar el error
+                console.error("Error en la solicitud AJAX:", error);
+                msgAlert("danger", "Error", "Ocurrió un problema al realizar la solicitud: " + error);
+            }
+        });
+
+
+   } else {
+     console.log("cancelado");
+   }
+   })
+
+
+     
+
+
+
+      }
+
+
+
+
+
+
+}
+
+
 
   </script>
 
