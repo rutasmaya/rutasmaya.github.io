@@ -1,4 +1,5 @@
 function login() {
+  load.display = 'block';
   var user = document.getElementById("username").value.trim();
   var pwd = document.getElementById("password").value.trim();
 
@@ -23,14 +24,17 @@ function login() {
                    setTimeout(() => window.location.href = "inicio.html", 1000);
               } else {  
                   msgAlert("error", "Mensaje", "Datos incorrectos");
+                  load.display = 'none';
               }
           },
           error: function () {
               msgAlert("warning", "Mensaje", "Verifique su conexión");
+              load.display = 'none';
           }
       });
   } else {
       msgAlert("info", "Mensaje", "Agregue los datos solicitados");
+      load.display = 'none';
   }          
 }
 
@@ -80,10 +84,10 @@ $(document).ready(function(){
   var ses = localStorage.getItem("sesion");
   if(ses == 1){
      //window.location.href = "index.html";	
-     //load.display = 'none';
+     load.display = 'none';
   }
   else{
-    //load.display = 'none';
+    load.display = 'none';
   }
 });
 
