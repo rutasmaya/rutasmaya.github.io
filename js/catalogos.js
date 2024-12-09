@@ -7,8 +7,6 @@ $(document).ready(function(){
    
  });
 
-
-
 function selectEstaciones(){
     var html = "";
     var chek = "";
@@ -78,8 +76,6 @@ function selectEstaciones(){
                   
                 }
 
-               
-
                 document.getElementById("tablaEstaciones").innerHTML =  html ;
                             
               }
@@ -87,8 +83,6 @@ function selectEstaciones(){
 
     }
 
-
-    
 function selectAreas(){
     var html = "";
     var chek = "";
@@ -97,8 +91,6 @@ function selectAreas(){
               url:cn + "SeleccionarAreas", 
               success: function (result) {  
                 
-    
-            
                 var x = result.replace(/\\r\\n/g, '');  
                 localStorage.setItem("prod", x);  
                 var data = JSON.parse(x)  
@@ -167,9 +159,6 @@ function selectAreas(){
           });
 
     }
-
-
-
         
 function selectEmpleados(){
     var html = "";
@@ -179,8 +168,6 @@ function selectEmpleados(){
               url:cn + "SeleccionarEmpleados", 
               success: function (result) {  
                 
-    
-            
                 var x = result.replace(/\\r\\n/g, '');  
                 localStorage.setItem("prod", x);  
                 var data = JSON.parse(x)  
@@ -242,8 +229,6 @@ function selectEmpleados(){
                   
                 }
 
-               
-
                 document.getElementById("tablaEmpleados").innerHTML =  html ;
                             
               }
@@ -251,16 +236,10 @@ function selectEmpleados(){
 
     }
 
-
-
-
-
 function agregarEmpleado(){
     var nombre = document.getElementById("txtNombre").value;
     var apellidos = document.getElementById("txtApellidos").value;
     var tel = document.getElementById("txtTelefono").value;
-
-
     if (nombre === "" || apellidos === "" || tel === "") {
         msgAlert("info", "Mensaje", "Agrega los datos solicitados: <b>Nombre, Apellidos y Teléfono</b>");
     } else {
@@ -282,13 +261,10 @@ function agregarEmpleado(){
     }
 }
 
-
-
 function agregarEstacion(){
     var nombre = document.getElementById("txtEstacion").value;
     var estado = document.getElementById("txtEstado").value;
     var usuario = localStorage.getItem("id");
-
     if (nombre === "" || estado === "") {
         msgAlert("info", "Mensaje", "Agrega los datos solicitados: <b>Nombre de estación y Estado</b>");
     } else {
@@ -312,14 +288,13 @@ function agregarEstacion(){
 function agregarArea(){
     var nombre = document.getElementById("txtArea").value;
     var usuario = localStorage.getItem("id");
-
     if (nombre === "" ) {
         msgAlert("info", "Mensaje", "Agrega los datos solicitados: <b>Nombre de área</b>");
     } else {
         $.ajax({
             url: cn + "InsertarArea&Nom=" + nombre + "&User=" + usuario,
             success: function (result) {
-                console.log(result);
+         
                 selectAreas();
                     document.getElementById("txtArea").value = "";
                     msgAlert("success", "Mensaje", "Área agregada");
@@ -333,19 +308,14 @@ function agregarArea(){
 
 
 function cambiarEstatus(valor){
-
     var valor2 = valor.split('|');
     var catalogo = valor2[0];
     var idreg = valor2[1];
     var estatus = document.getElementById(valor).checked;
     var usuario = localStorage.getItem("id");
- 
         $.ajax({
             url: cn + "cambiarEstatusRegistro&Catalogo=" + catalogo + "&Estatus=" + estatus + "&Id=" + idreg + "&User=" + usuario,
             success: function (result) {
-
-                console.log(result);
-
                 if(catalogo == "Estaciones"){
                     selectEstaciones();
                 }
@@ -355,27 +325,21 @@ function cambiarEstatus(valor){
                 if(catalogo == "Empleados"){
                     selectEmpleados();
                 }
-    
-    
                 if(estatus == true){
                     msgAlert("success", "Mensaje", "Registro activado");
                 }
                 else{
                     msgAlert("error", "Mensaje", "Registro desactivado ");
-                }
-                    
+                }    
             },
             error: function (xhr, status, error) {
                 msgAlert("danger", "Error", "Ocurrió un problema al realizar la solicitud: " + error);
             }
-        });
-
-
-   
+        });  
 }
 
 function verEditar(data){
-  console.log(data);
+
   data  = data.split('|');
   if(data[0] == "Estaciones" ){
     document.getElementById("divAgregarEstacion").style.display = 'none';
@@ -383,7 +347,6 @@ function verEditar(data){
     document.getElementById("txtIdEstacion").value = data[1];
     document.getElementById("txtEstacion").value = data[2];
     document.getElementById("txtEstado").value = data[3];
-
   }
 
   if(data[0] == "Areas" ){
@@ -402,43 +365,32 @@ function verEditar(data){
 
 }
 
-
 function cancelaEditarEstacion(){
-
   document.getElementById("editarEstacion").setAttribute("style", "display: none !important;");
   document.getElementById("divAgregarEstacion").style.display = 'block';
   document.getElementById("txtEstacion").value = "";
   document.getElementById("txtEstado").value = "";
-
 }
 
 function cancelaEditarArea(){
-
   document.getElementById("editarArea").setAttribute("style", "display: none !important;");
   document.getElementById("divAgregarArea").style.display = 'block';
-
   document.getElementById("txtArea").value = "";
-
 }
 
 function cancelaEditarEmpleado(){
-
   document.getElementById("divEditarEmpleado").setAttribute("style", "display: none !important;");
   document.getElementById("btnAgregarEmpleado").style.display = 'block';
-
   document.getElementById("txtNombre").value = "";
   document.getElementById("txtApellidos").value = "";
   document.getElementById("txtTelefono").value = "";
 }
-
-
 
 function editarEstacion(){
   var nombre = document.getElementById("txtEstacion").value;
   var estado = document.getElementById("txtEstado").value;
   var usuario = localStorage.getItem("id");
   var id = document.getElementById("txtIdEstacion").value;
-
   if (nombre === "" || estado === "") {
       msgAlert("info", "Mensaje", "Agrega los datos solicitados: <b>Nombre de estación y Estado</b>");
   } else {
