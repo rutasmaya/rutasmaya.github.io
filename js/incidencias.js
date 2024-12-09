@@ -189,7 +189,8 @@ $(document).ready(function(){
                                             .replace(/<br\s*\/?>/g, '') // Convierte <br> a salto de línea
                                             .replace(/<span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
                                             .replace(/<span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
-                                            .replace(/<\/span>/g, '')  
+                                            .replace(/<\/span>/g, '')
+                                       
                                         }
                                     }
                                 },
@@ -241,6 +242,9 @@ $(document).ready(function(){
                           
       
                           
+                      
+
+
                           {
                             extend: 'excelHtml5',
                             text: '<i class="fa fa-file-excel-o"></i> Excel',
@@ -251,41 +255,66 @@ $(document).ready(function(){
                                 columns: [0, 1],
                                 format: {
                                     body: function (data, row, column, node) {
-                                        // Eliminar etiquetas HTML no deseadas y convertir saltos de línea
-                                        return data
-                                            .replace(/<b>/g, '')       // Elimina <b>
-                                            .replace(/<\/b>/g, '')     // Elimina </b>
-                                            .replace(/<br\s*\/?>/g, '') // Convierte <br> a salto de línea en Excel
-                                            .replace(/<span[^>]*>/g, '') // Elimina cualquier <span> que tenga estilos
-                                            .replace(/<\/span>/g, '');  // Elimina el cierre de <span>
+                                        // Eliminar etiquetas HTML y convertir saltos de línea
+                                        var cleanedData = data
+                                            .replace(/<\/?b>/g, '')              // Eliminar <b> y </b>
+                                            .replace(/<br\s*\/?>/g, '')       // Reemplazar <br> por salto de línea
+                                            .replace(/<[^>]*>/g, '')         // Eliminar cualquier otra etiqueta HTML
+                                            .replace(/^\s+|\s+$/gm, '');          // Eliminar espacios al inicio y al final de cada línea
+       
+                        
+                                        // Agregar salto de línea extra para separar bloques (opcional)
+                                        if (column === 1) {
+                                            cleanedData += '\n\n';
+                                        }
+                        
+                                        return cleanedData;
                                     }
                                 }
                             },
-                            customize: function(xlsx) {
+                            customize: function (xlsx) {
                                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                                
-                                // Ajustar el ancho de las columnas en Excel
-                                var colWidths = [25, 75];  // Establece los anchos de las columnas en Excel
-                
-                                // Encontrar el nodo <cols> que define el ancho de las columnas
+                        
+                                // Ajustar el ancho de las columnas (20% para la primera, 80% para la segunda)
+                                var totalWidth = 100; // Define el ancho total como referencia
+                                var colWidths = [totalWidth * 0.2, totalWidth * 0.8]; // Calcula el ancho relativo
+                        
                                 var cols = sheet.getElementsByTagName('cols')[0];
-                
-                                // Asegurarse de que el nodo <cols> exista
+                        
                                 if (!cols) {
                                     cols = document.createElement('cols');
-                                    sheet.appendChild(cols);
+                                    sheet.getElementsByTagName('worksheet')[0].appendChild(cols);
                                 }
-                
-                               
-                
-                                // Aplicar los nuevos anchos de columna
-                                colWidths.forEach(function(width, index) {
+                        
+                                colWidths.forEach(function (width, index) {
                                     var col = document.createElement('col');
-                                    col.setAttribute('width', width);
+                                    col.setAttribute('min', index + 1); // Número de columna inicial
+                                    col.setAttribute('max', index + 1); // Número de columna final
+                                    col.setAttribute('width', width.toFixed(2)); // Ancho relativo
+                                    col.setAttribute('customWidth', '1'); // Marca que tiene un ancho personalizado
                                     cols.appendChild(col);
                                 });
+                        
+                                // Habilitar ajuste de texto
+                                var rows = sheet.getElementsByTagName('row');
+                                for (var i = 0; i < rows.length; i++) {
+                                    var cells = rows[i].getElementsByTagName('c');
+                                    for (var j = 0; j < cells.length; j++) {
+                                        cells[j].setAttribute('s', '55'); // Aplicar estilo que habilita ajuste de texto
+                                    }
+                                }
                             }
                         },
+                        
+                        
+
+
+
+
+
+
+
+
       
                          
 
