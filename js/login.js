@@ -12,8 +12,9 @@ function login() {
               Pwd: pwd
           },
           success: function (result) {
+    
               result = result.split(",");
-              if (result[0] !== "0") {
+              if (result[0] !== "0" && result[0] !== "") {
                   localStorage.setItem("sesion", 1);
                   localStorage.setItem("id", result[0]); 
                   localStorage.setItem("nombre", result[1]);   
@@ -21,6 +22,7 @@ function login() {
                   localStorage.setItem("apellidom", result[3]); 
                   localStorage.setItem("telefono", result[4]);   
                   localStorage.setItem("correo", result[5]); 
+                  localStorage.setItem("rol", result[6]); 
                    setTimeout(() => window.location.href = "inicio.html", 1000);
               } else {  
                   msgAlert("error", "Mensaje", "Datos incorrectos");
