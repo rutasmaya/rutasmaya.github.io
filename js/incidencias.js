@@ -261,49 +261,58 @@ $(document).ready(function(){
                                             .replace(/<br\s*\/?>/g, '')       // Reemplazar <br> por salto de línea
                                             .replace(/<[^>]*>/g, '')         // Eliminar cualquier otra etiqueta HTML
                                             .replace(/^\s+|\s+$/gm, '');          // Eliminar espacios al inicio y al final de cada línea
-       
-                        
+                                        
                                         // Agregar salto de línea extra para separar bloques (opcional)
-                                        if (column === 1) {
-                                            cleanedData += '\n\n';
-                                        }
-                        
+                                      
+                                            cleanedData += '\n';
+                                 
                                         return cleanedData;
                                     }
                                 }
                             },
                             customize: function (xlsx) {
                                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                        
-                                // Ajustar el ancho de las columnas (20% para la primera, 80% para la segunda)
-                                var totalWidth = 100; // Define el ancho total como referencia
-                                var colWidths = [totalWidth * 0.2, totalWidth * 0.8]; // Calcula el ancho relativo
-                        
+                                
+                                // Ajustar el ancho de las columnas
+                                var colWidths = [40, 100]; // Anchos deseados para las columnas
                                 var cols = sheet.getElementsByTagName('cols')[0];
-                        
                                 if (!cols) {
-                                    cols = document.createElement('cols');
+                                    cols = sheet.createElement('cols');
                                     sheet.getElementsByTagName('worksheet')[0].appendChild(cols);
                                 }
-                        
                                 colWidths.forEach(function (width, index) {
-                                    var col = document.createElement('col');
-                                    col.setAttribute('min', index + 1); // Número de columna inicial
-                                    col.setAttribute('max', index + 1); // Número de columna final
-                                    col.setAttribute('width', width.toFixed(2)); // Ancho relativo
-                                    col.setAttribute('customWidth', '1'); // Marca que tiene un ancho personalizado
+                                    var col = sheet.createElement('col');
+                                    col.setAttribute('min', index + 1);
+                                    col.setAttribute('max', index + 1);
+                                    col.setAttribute('width', width);
+                                    col.setAttribute('customWidth', '1');
                                     cols.appendChild(col);
                                 });
-                        
-                                // Habilitar ajuste de texto
+                            
+                                // Aplicar estilo de ajuste de texto a todas las celdas
                                 var rows = sheet.getElementsByTagName('row');
                                 for (var i = 0; i < rows.length; i++) {
                                     var cells = rows[i].getElementsByTagName('c');
+                                    rows[i].setAttribute('s', '55'); // Ajuste de texto
                                     for (var j = 0; j < cells.length; j++) {
-                                        cells[j].setAttribute('s', '55'); // Aplicar estilo que habilita ajuste de texto
+                                        cells[j].setAttribute('s', '55');
                                     }
+
                                 }
+                            
+                                // Configurar la hoja en orientación horizontal
+                                var worksheet = sheet.getElementsByTagName('worksheet')[0];
+                                var pageSetup = sheet.getElementsByTagName('pageSetup')[0];
+                                if (!pageSetup) {
+                                    pageSetup = sheet.createElement('pageSetup');
+                                    worksheet.appendChild(pageSetup);
+                                }
+                                pageSetup.setAttribute('orientation', 'landscape'); // Configurar orientación horizontal
+                                pageSetup.setAttribute('paperSize', '9'); // Tamaño de papel A4 (opcional)
+
                             }
+                            
+                            
                         },
                         
                         
