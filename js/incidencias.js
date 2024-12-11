@@ -48,26 +48,26 @@ $(document).ready(function(){
 
           html = html + ` 
 
-                 <tr>
+                 <tr >
               
-                      <td style="width: auto; white-space: nowrap;">
-                      <b>Folio:</b> ${verificarValor(data[i].folio)} <br> 
-                      <b>Área:</b> ${verificarValor(data[i].area)} <br> 
-                      <b>Estacion:</b> ${verificarValor(data[i].estacion)} <br> 
-                      <b>Fecha de incidencia:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
-                      <b>Empleado:</b> ${verificarValor(data[i].empleado)} 
+                      <td style="width: auto; white-space: nowrap;" data-a-wrap="true" data-f-color="000" data-f-bold="true" data-a-v="top" data-f-underline="false" data-b-a-s="thin"  >
+                      <b >Folio:</b> ${verificarValor(data[i].folio)} <br> 
+                      <b >Área:</b> ${verificarValor(data[i].area)} <br> 
+                      <b >Estacion:</b> ${verificarValor(data[i].estacion)} <br> 
+                      <b >Fecha de incidencia:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
+                      <b >Empleado:</b> ${verificarValor(data[i].empleado)} 
                       
                      
                 
                       </td>
-                    <td style="position: relative; padding-bottom: 30px;">
+                    <td style="position: relative; padding-bottom: 30px;" data-a-wrap="true" data-a-v="top" data-b-a-s="thin" >
                     ${verificarValor(data[i].descripcion)}
                     <br><br>
                     <span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">Fecha de registro: ${formatearFecha(data[i].fecharegistro)}</span>
                     <span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">Registrado por: ${verificarValor(data[i].usuariocrea)}</span>
                     </td>
 
-                    <td style="position: relative; justify-content: center; align-items: center; vertical-align: middle; ">
+                    <td style="position: relative; justify-content: center; align-items: center; vertical-align: middle; " data-exclude="true">
                         <a style="padding: 5px; color: #fff;" id="${verificarValor(data[i].folio)}|${verificarValor(data[i].idarea)}|${verificarValor(data[i].idestacion)}|${data[i].fechaincidencia}|${verificarValor(data[i].idempleado)}|${verificarValor(data[i].descripcion)}" class="btn btn-sm btn-secondary" onclick="modalUpdate(this.id)">
                             <span class="fa fa-edit"></span> Editar
                         </a>
@@ -90,15 +90,40 @@ $(document).ready(function(){
 
         document.getElementById("divTablaIncidencias").innerHTML = 
 
-        ` 
+        `
+        
+        <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;"><i class="fa fa-file-excel-o"></i> Excel</button>
 
-          <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px">
+          <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="35,115">
       <thead>
+      <tr style="display:none">
+            <td
+              class="header"
+              colspan="2"
+              data-f-sz="25"
+              data-f-color="000"
+              data-a-h="center"
+              data-a-v="middle"
+              data-f-underline="true"
+              data-f-bold="true"
+            >
+              Reporte de Incidencias
+            </td>
+          </tr>
+          <tr style="display:none"
+           class="header"
+              colspan="2"
+              data-f-sz="25"
+              data-f-color="000"
+              data-a-h="center"
+              data-a-v="middle"
+              data-f-underline="true"
+         ></tr>
           <tr>
      
-              <th>Detalle</th>
-              <th>Descripcion de la incidencia</th>
-              <th>Acciones</th>
+              <th data-b-a-s="thin" data-fill-color="28a745" data-f-sz="14" data-f-color="FFFFFFFF" data-f-bold="true">Detalle</th>
+              <th data-b-a-s="thin" data-fill-color="28a745" data-f-sz="14" data-f-color="FFFFFFFF" data-f-bold="true">Descripcion de la incidencia</th>
+              <th data-exclude="true">Acciones</th>
           </tr>
       </thead>
       <tbody>
@@ -121,6 +146,14 @@ $(document).ready(function(){
 
 
         var table = $('#ejemplo').DataTable( {
+
+      
+
+     
+
+
+
+
   
           "paging": true,
           "lengthChange": true,
@@ -244,7 +277,7 @@ $(document).ready(function(){
                           
                       
 
-
+/*
                           {
                             extend: 'excelHtml5',
                             text: '<i class="fa fa-file-excel-o"></i> Excel',
@@ -261,19 +294,13 @@ $(document).ready(function(){
                                             .replace(/<br\s*\/?>/g, '')       // Reemplazar <br> por salto de línea
                                             .replace(/<[^>]*>/g, '')         // Eliminar cualquier otra etiqueta HTML
                                             .replace(/^\s+|\s+$/gm, '');          // Eliminar espacios al inicio y al final de cada línea
-                                        
-                                        // Agregar salto de línea extra para separar bloques (opcional)
-                                      
                                             cleanedData += '\n';
-                                 
                                         return cleanedData;
                                     }
                                 }
                             },
                             customize: function (xlsx) {
                                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                                
-                                // Ajustar el ancho de las columnas
                                 var colWidths = [40, 100]; // Anchos deseados para las columnas
                                 var cols = sheet.getElementsByTagName('cols')[0];
                                 if (!cols) {
@@ -289,7 +316,6 @@ $(document).ready(function(){
                                     cols.appendChild(col);
                                 });
                             
-                                // Aplicar estilo de ajuste de texto a todas las celdas
                                 var rows = sheet.getElementsByTagName('row');
                                 for (var i = 0; i < rows.length; i++) {
                                     var cells = rows[i].getElementsByTagName('c');
@@ -300,7 +326,6 @@ $(document).ready(function(){
 
                                 }
                             
-                                // Configurar la hoja en orientación horizontal
                                 var worksheet = sheet.getElementsByTagName('worksheet')[0];
                                 var pageSetup = sheet.getElementsByTagName('pageSetup')[0];
                                 if (!pageSetup) {
@@ -315,17 +340,7 @@ $(document).ready(function(){
                             
                         },
                         
-                        
-
-
-
-
-
-
-
-
-      
-                         
+                       */ 
 
                           
                           {
@@ -344,8 +359,20 @@ $(document).ready(function(){
                               className: 'selectTable'
                           }
                       ]
-              }  
+              } 
+              
+              
+              
+
           });
+
+
+
+
+          
+
+
+
         },
         error: function (jqXmlHttpRequest, textStatus, errorThrown) {
           //console.log(jqXmlHttpRequest + textStatus + errorThrown);
@@ -381,3 +408,23 @@ function formatearFecha(fecha) {
         year: 'numeric'
     });
   }
+
+
+
+  
+
+  async function nuevoExcel() {
+    try {
+      // Paso 1: Convertir la tabla en un archivo Excel usando TableToExcel
+      const table = document.querySelector("#ejemplo");
+      const blob = await TableToExcel.convert(table, {
+        name: "Reporte de Incidencias.xlsx",
+        sheet: { name: "Hoja1" }
+      });
+  
+
+    } catch (error) {
+      console.error("Ocurrió un error al generar el archivo Excel:", error);
+    }
+  }
+  

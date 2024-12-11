@@ -276,7 +276,7 @@ div.dataTables_wrapper div.dataTables_filter {
        
       </div>
 
-       
+ 
     
     </div>
     
@@ -438,6 +438,13 @@ div.dataTables_wrapper div.dataTables_filter {
   <script src="js/notis.js"></script>
 
 
+  <script src='https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+  
+ 
+
+
 
 
   <script>
@@ -509,11 +516,15 @@ $(document).ready(function() {
   
  document.getElementById("txtUsuario").value = localStorage.getItem("nombre") +" "+localStorage.getItem("apellidop") +" "+ localStorage.getItem("apellidom");
 
- cboEstaciones();
+        cboEstaciones();
         cboAreas();
         cboEmpleados();
 
-  
+
+        
+
+        
+
 } );
 
 
