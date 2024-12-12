@@ -6,12 +6,14 @@ function login() {
   if (user !== '' && pwd !== '') {  
       $.ajax({
           type: "POST", // Usar método POST
-          url: cn + "LoginappKP", // URL de tu servicio
+          url: cn + "LoginappSecure", // URL de tu servicio
           data: { // Enviar los datos como objeto de formulario
               User: user,
               Pwd: pwd
           },
           success: function (result) {
+
+            console.log(result);
     
               result = result.split(",");
               if (result[0] !== "0" && result[0] !== "") {
@@ -23,6 +25,19 @@ function login() {
                   localStorage.setItem("telefono", result[4]);   
                   localStorage.setItem("correo", result[5]); 
                   localStorage.setItem("rol", result[6]); 
+                 
+                   // Establecer la cookie del token con opciones de seguridad
+                   //document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
+
+                   //document.cookie = `token=${result[7]}; SameSite=Strict; max-age=3600`; // Expira en 1 hora SINSECURE PARA HTTP
+                  
+                  // document.cookie = `token=${result[7]}; max-age=3600; path=/`;
+
+                  document.cookie = `token=${result[7]}; max-age=3600; path=/; SameSite=None`;
+                   console.log("Cookies actuales:", document.cookie);
+
+
+
                    setTimeout(() => window.location.href = "inicio.html", 1000);
               } else {  
                   msgAlert("error", "Mensaje", "Datos incorrectos");
