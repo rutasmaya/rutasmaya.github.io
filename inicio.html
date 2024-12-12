@@ -452,10 +452,55 @@ $(document).ready(function() {
   
  document.getElementById("txtUsuario").value = localStorage.getItem("nombre") +" "+localStorage.getItem("apellidop") +" "+ localStorage.getItem("apellidom");
 
+ 
+
+ 
+  // Función para obtener el valor de una cookie
+  function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+
+    // Obtener el token desde la cookie
+    const token = getCookie('token');
+    console.log("Token obtenido:", token); // Debug
+
+    if (!token) {
+        // Si el token no existe, redirige al login
+        //window.location.href = "login.html";
+        return;
+    }
+
+    // Validar el token con el servidor
+    $.ajax({
+        type: "POST",
+        url: cn + "ValidateToken",
+        data: { Token: token },
+        success: function (response) {
+            console.log(response); // Procesar la respuesta
+            if (response === "Token válido") {
+                alert("El token es válido");
+            } else {
+                alert(response); // Mostrar el mensaje de error
+                window.location.href = "login.html";
+            }
+        },
+        error: function () {
+            alert("Error al validar el token");
+            window.location.href = "login.html";
+        }
+    });
+
+
+
   
 } );
 
   </script>
+
+
 
 
 

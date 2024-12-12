@@ -2,8 +2,9 @@
 $(document).ready(function(){  
 
   var rol = localStorage.getItem("rol"); 
+  
+ 
 
-  console.log(rol);
 
 if(rol == 1){
   document.getElementById("catEmpleados").style.display = 'block';
