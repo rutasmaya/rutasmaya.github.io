@@ -43,17 +43,14 @@ function validaTk(){
         url: cn + "ValidateToken",
         data: { TokenK: token },
         success: function (response) {
-            console.log(response); // Procesar la respuesta
             if (response === "TokenOK") {
                 console.log("© RutasMayaSystem 2024");
             } else {
-                console.log(response); // Mostrar el mensaje de error
                 window.location.href = "login.html";
             }
         },
         error: function () {
-            console.log("Error al validar el token");
-        // window.location.href = "login.html";
+           window.location.href = "login.html";
         }
     });   
 
