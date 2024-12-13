@@ -20,3 +20,41 @@ if (loadingElement) {
 
 var spancnotis = document.getElementById("cnotis");
 
+
+  // Función para obtener el valor de una cookie
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+
+
+function validaTk(){
+
+    var token = getCookie('token');
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: cn + "ValidateToken",
+        data: { TokenK: token },
+        success: function (response) {
+            console.log(response); // Procesar la respuesta
+            if (response === "TokenOK") {
+                console.log("© RutasMayaSystem 2024");
+            } else {
+                console.log(response); // Mostrar el mensaje de error
+                window.location.href = "login.html";
+            }
+        },
+        error: function () {
+            console.log("Error al validar el token");
+        // window.location.href = "login.html";
+        }
+    });   
+
+}
