@@ -460,7 +460,7 @@ $(document).ready(function() {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
+        //return null;
     }
 
     // Obtener el token desde la cookie
@@ -470,14 +470,14 @@ $(document).ready(function() {
     if (!token) {
         // Si el token no existe, redirige al login
         //window.location.href = "login.html";
-        return;
+        //return;
     }
 
     // Validar el token con el servidor
     $.ajax({
         type: "POST",
         url: cn + "ValidateToken",
-        data: { Token: token },
+        data: { TokenK: token },
         success: function (response) {
             console.log(response); // Procesar la respuesta
             if (response === "Token válido") {
