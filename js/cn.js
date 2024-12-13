@@ -48,12 +48,13 @@ function validaTk(){
             if (response === "TokenOK") {
                 console.log("El token es válido.");
             } else {
-                window.location.href = "login.html"; // Redirigir si el token no es válido
+                console.log("El token no es válido.");
+                //window.location.href = "login.html"; // Redirigir si el token no es válido
             }
         },
         error: function() {
             console.log("Error al validar el token.");
-            window.location.href = "login.html";
+            //window.location.href = "login.html";
         }
     });
 
