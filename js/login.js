@@ -26,19 +26,9 @@ function login() {
                   localStorage.setItem("correo", result[5]); 
                   localStorage.setItem("rol", result[6]); 
                  
-                   // Establecer la cookie del token con opciones de seguridad
-                   document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
+                  document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
 
-                   //document.cookie = `token=${result[7]}; SameSite=Strict; max-age=3600`; // Expira en 1 hora SINSECURE PARA HTTP
-                  
-                  // document.cookie = `token=${result[7]}; max-age=3600; path=/`;
-
-                  //document.cookie = `token=${result[7]}; max-age=3600; path=/; SameSite=None`;
-                   console.log("Cookies actuales:", document.cookie);
-
-
-
-                   setTimeout(() => window.location.href = "inicio.html", 1000);
+                  setTimeout(() => window.location.href = "inicio.html", 1000);
               } else {  
                   msgAlert("error", "Mensaje", "Datos incorrectos");
                   load.display = 'none';
