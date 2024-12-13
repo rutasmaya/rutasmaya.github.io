@@ -27,14 +27,14 @@ function login() {
                   localStorage.setItem("rol", result[6]); 
                  
                    // Establecer la cookie del token con opciones de seguridad
-                  // document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
+                   document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
 
                    //document.cookie = `token=${result[7]}; SameSite=Strict; max-age=3600`; // Expira en 1 hora SINSECURE PARA HTTP
                   
                   // document.cookie = `token=${result[7]}; max-age=3600; path=/`;
 
                   //document.cookie = `token=${result[7]}; max-age=3600; path=/; SameSite=None`;
-                  // console.log("Cookies actuales:", document.cookie);
+                   console.log("Cookies actuales:", document.cookie);
 
 
 
