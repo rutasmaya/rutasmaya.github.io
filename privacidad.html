@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Head -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+
+        <title>Recuperar</title>
+
+        <!-- Template CSS -->
+        <link class="css-lt" rel="stylesheet" href="css/template.bundle.css" media="(prefers-color-scheme: light)">
+        <link class="css-dk" rel="stylesheet" href="css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
+
+        <!-- Theme mode -->
+        <script>
+            if (localStorage.getItem('color-scheme')) {
+                let scheme = localStorage.getItem('color-scheme');
+
+                const LTCSS = document.querySelectorAll('link[class=css-lt]');
+                const DKCSS = document.querySelectorAll('link[class=css-dk]');
+
+                [...LTCSS].forEach((link) => {
+                    link.media = (scheme === 'light') ? 'all' : 'not all';
+                });
+
+                [...DKCSS].forEach((link) => {
+                    link.media = (scheme === 'dark') ? 'all' : 'not all';
+                });
+            }
+        </script>
+
+
+<style>
+    .col-12 {
+    text-align: justify;
+}
+</style>
+
+
+    </head>
+
+    <body class="bg-light">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center min-vh-100 gx-0">
+
+                <div class="col-12 col-md-5 col-lg-4">
+                    <div class="card card-shadow border-0">
+                        <div class="card-body">
+                            <div class="row g-6">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <h3 class="fw-bold mb-2">Política de Privacidad</h3>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                   <p>
+                                    La presente Política de Privacidad establece los términos en que Kashan usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. 
+                                    Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, 
+                                    lo hacemos asegurando que sólo se emplea de acuerdo con los términos de este documento. Sin embargo, esta Política de Privacidad puede cambiar con el tiempo o ser actualizada 
+                                    por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.
+                                   </p>
+
+                                   <p>
+                                    Cookies Una cookie se refiere a un fichero que es enviado con la finalidad de solicitar permiso para almacenarse en su ordenador, al aceptar dicho fichero se crea y la cookie sirve entonces para tener información respecto al tráfico web,
+                                     y también facilita las futuras visitas a una web recurrente. Otra función que tienen las cookies es que con ellas las web pueden reconocerse individualmente y por tanto brindarte el mejor servicio personalizado de su web. 
+                                     Nuestro sitio web emplea las cookies para poder identificar las páginas que son visitadas y su frecuencia. Esta información es empleada únicamente para análisis estadístico y después la información se elimina de forma permanente. 
+                                     Usted puede eliminar las cookies en cualquier momento desde su ordenador. Sin embargo las cookies ayudan a proporcionar un mejor servicio de los sitios web, 
+                                     estás no dan acceso a información de su ordenador ni de usted, a menos de que usted así lo quiera y la proporcione directamente, visitas a una web . 
+                                     Usted puede aceptar o negar el uso de cookies, sin embargo la mayoría de navegadores aceptan cookies automáticamente pues sirve para tener un mejor servicio web. 
+                                     También usted puede cambiar la configuración de su ordenador para declinar las cookies. Si se declinan es posible que no pueda utilizar algunos de nuestros servicios. 
+                                     Kashan está altamente comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos constantemente para asegurarnos que no exista ningún acceso no autorizado.
+                                   </p>
+
+                                   <p>
+                                    USO DE LA INFORMACIÓN RECOGIDA Nuestra app emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de usuarios, de pedidos en caso que aplique, 
+                                    y mejorar nuestros productos y servicios. Es posible que sean enviados correos electrónicos periódicamente a través de nuestro sitio con ofertas especiales, 
+                                    nuevos productos y otra información publicitaria que consideremos relevante para usted o que pueda brindar algún beneficio, 
+                                    estos correos electrónicos serán enviados a la dirección que usted proporcione y podrán ser cancelados en cualquier momento.
+                                   </p>
+
+                                   <center><p>Última actualización: <b>Noviembre 2024</b></p></center>
+
+
+                                </div>
+
+                     
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+                    <div class="text-center mt-8">
+                        <p>¿Ya tienes una cuenta? <a href="./login.html">Iniciar sesión</a></p>
+                    </div>
+                </div>
+            </div> <!-- / .row -->
+        </div>
+
+        <!-- Scripts -->
+        <script src="js/vendor.js"></script>
+        <script src="js/template.js"></script>
+    </body>
+</html>

@@ -81,3 +81,11 @@ function confirmLogout() {
         }
     });
  }
+
+
+ const warningTitleCSS = 'color:red; font-size:40px; font-weight: bold; -webkit-text-stroke: 1px black;';
+    const warningDescCSS = 'font-size: 16px;';
+    console.log('%c 🚫Stop!', warningTitleCSS);
+    console.log("%cEsta es una función del navegador destinada a desarrolladores. Si alguien le dijo que copiara y pegara algo aquí para habilitar una función de RutasMayaSystem o \"hackear\" la cuenta de alguien, es una estafa.", warningDescCSS);
+    console.log('%cConsulte https://rutasmaya.github.io/privacidad.html/ para obtener más información.', warningDescCSS);
+           
