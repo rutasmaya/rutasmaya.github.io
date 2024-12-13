@@ -385,25 +385,7 @@ div.dataTables_wrapper div.dataTables_filter {
 
   <script>
 
-function confirmLogout() {
-   
-   cuteAlert({
-       type: "question",
-       title: "Mensaje",
-       message: "¿Estás seguro que deseas cerrar la sesión?",
-       confirmText: "Ok",
-       cancelText: "Cancelar"
-   }).then((e)=>{
-   if (e == ("confirm")){
-        document.cookie = "token=; max-age=0; path=/;";
-       localStorage.removeItem("sesion");
-       window.location.href = "index.html";
-   } else {
-     console.log("cancelado");
-   }
-   })
 
-}
 
 var idioma=
 

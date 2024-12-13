@@ -53,12 +53,31 @@ function validaTk(){
            window.location.href = "login.html";
         }
     });  
-    
-    
-
-    
-
-
-
 
 }
+
+
+
+
+function confirmLogout() {
+    cuteAlert({
+        type: "question",
+        title: "Mensaje",
+        message: "¿Estás seguro que deseas cerrar la sesión?",
+        confirmText: "Ok",
+        cancelText: "Cancelar"
+    }).then((e) => {
+        if (e === "confirm") {
+            // Eliminar las cookies del token
+            document.cookie = "token=; max-age=0; path=/;";
+ 
+            // Eliminar cualquier dato adicional de la sesión
+            localStorage.removeItem("sesion");
+ 
+            // Redirigir al usuario al inicio de sesión o página principal
+            window.location.href = "index.html";
+        } else {
+            console.log("Cancelado");
+        }
+    });
+ }

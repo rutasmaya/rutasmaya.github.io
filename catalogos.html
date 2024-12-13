@@ -676,25 +676,7 @@ html:not([dir=rtl]) .me-2 {
 
   <script>
 
-function confirmLogout() {
-   
 
-   cuteAlert({
-       type: "question",
-       title: "Mensaje",
-       message: "¿Estás seguro que deseas cerrar la sesión?",
-       confirmText: "Ok",
-       cancelText: "Cancelar"
-   }).then((e)=>{
-   if (e == ("confirm")){
-       localStorage.removeItem("sesion");
-       window.location.href = "index.html";
-   } else {
-     console.log("cancelado");
-   }
-   })
-
-}
 
 
 
