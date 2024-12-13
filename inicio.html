@@ -395,6 +395,7 @@ function confirmLogout() {
        cancelText: "Cancelar"
    }).then((e)=>{
    if (e == ("confirm")){
+        document.cookie = "token=; max-age=0; path=/;";
        localStorage.removeItem("sesion");
        window.location.href = "index.html";
    } else {
