@@ -33,25 +33,31 @@ function getCookie(name) {
 
 function validaTk(){
 
-    var token = getCookie('token');
-    if (!token) {
-        window.location.href = "login.html";
-        return;
-    }
+  
+
+
+
     $.ajax({
         type: "POST",
         url: cn + "ValidateToken",
-        data: { TokenK: token },
-        success: function (response) {
+        data: {}, // No es necesario enviar el token manualmente
+        xhrFields: {
+            withCredentials: true // Asegura que las cookies se envíen
+        },
+        success: function(response) {
             if (response === "TokenOK") {
-                console.log("© RutasMayaSystem 2024");
+                console.log("El token es válido.");
             } else {
-                window.location.href = "login.html";
+                window.location.href = "login.html"; // Redirigir si el token no es válido
             }
         },
-        error: function () {
-           window.location.href = "login.html";
+        error: function() {
+            console.log("Error al validar el token.");
+            window.location.href = "login.html";
         }
-    });   
+    });
+
+
+
 
 }
