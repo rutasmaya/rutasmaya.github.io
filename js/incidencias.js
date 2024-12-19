@@ -250,8 +250,8 @@ $(document).ready(function(){
                                                 .replace(/<\/span>/g, ''); // Elimina etiquetas </span>
                                         }
                                     }
-                                }
-                            },
+                                },
+                            
 
                                
 
