@@ -42,8 +42,21 @@ $(document).ready(function(){
             result = result[0];
         var x = result.replace(/\\r\\n/g, '');   
         var data = JSON.parse(x)  
-        var html = "";            
+        var html = "";   
+        var rol = localStorage.getItem("rol"); 
+        var btnEditar = "";
+        
         for (var i = 0; i < data.length; i++) {
+
+
+          if(rol == "1"){
+            btnEditar =  ` 
+
+            <a style="padding: 5px; color: #fff;" id="${verificarValor(data[i].folio)}|${verificarValor(data[i].idarea)}|${verificarValor(data[i].idestacion)}|${data[i].fechaincidencia}|${verificarValor(data[i].idempleado)}|${verificarValor(data[i].descripcion)}" class="btn btn-sm btn-secondary" onclick="modalUpdate(this.id)">
+                            <span class="fa fa-edit"></span> Editar
+                        </a>
+                         ` ;
+          }
 
 
           html = html + ` 
@@ -68,9 +81,7 @@ $(document).ready(function(){
                     </td>
 
                     <td style="position: relative; justify-content: center; align-items: center; vertical-align: middle; " data-exclude="true">
-                        <a style="padding: 5px; color: #fff;" id="${verificarValor(data[i].folio)}|${verificarValor(data[i].idarea)}|${verificarValor(data[i].idestacion)}|${data[i].fechaincidencia}|${verificarValor(data[i].idempleado)}|${verificarValor(data[i].descripcion)}" class="btn btn-sm btn-secondary" onclick="modalUpdate(this.id)">
-                            <span class="fa fa-edit"></span> Editar
-                        </a>
+                        ${btnEditar}
                     </td>
 
 
