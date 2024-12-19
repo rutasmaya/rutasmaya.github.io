@@ -216,28 +216,37 @@ $(document).ready(function(){
                                   columns: [0, 1]
                               },*/
 
-                              extend: 'pdfHtml5',
-                                text: '<i class="fa fa-file-pdf-o"></i>PDF',
-                                title: 'Reporte de Incidencias',
-                                titleAttr: 'PDF',
-                                className: 'btn btn-app export pdf',
-                                orientation: 'landscape',
-                                exportOptions: {
-                                    columns: [0, 1],
-                                    format: {
-                                        body: function (data, row, column, node) {
-                                            // Reemplazar <br> con saltos de línea en el PDF
-                                            return data
-                                            .replace(/<b>/g, '')       // Elimina <b>
-                                            .replace(/<\/b>/g, '')     // Elimina </b>
-                                            .replace(/<br\s*\/?>/g, '') // Convierte <br> a salto de línea
-                                            .replace(/<span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
-                                            .replace(/<span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
-                                            .replace(/<\/span>/g, '')
-                                       
-                                        }
-                                    }
-                                },
+                              // Uso en el botón PDF
+extend: 'pdfHtml5',
+text: '<i class="fa fa-file-pdf-o"></i>PDF',
+title: 'Reporte de Incidencias',
+titleAttr: 'PDF',
+className: 'btn btn-app export pdf',
+orientation: 'landscape',
+exportOptions: {
+    columns: [0, 1],
+    format: {
+        body: function (data, row, column, node) {
+            return data
+                .replace(/<b>/g, '')
+                .replace(/<\/b>/g, '')
+                .replace(/<br\s*\/?>/g, '')
+                .replace(/<span style=".*?">/g, '')
+                .replace(/<\/span>/g, '');
+        }
+    }
+},
+customize: function (doc) {
+    // Cargar la imagen desde la URL y agregarla al PDF
+    getBase64FromImageUrl('https://rutasmaya.github.io/img/logox.png', function (base64Image) {
+        doc.content.splice(0, 0, {
+            image: base64Image,
+            width: 600, // Ajusta el tamaño
+            absolutePosition: { x: 0, y: 0 },
+            opacity: 0.3
+        });
+    });
+},
 
                                
 
@@ -439,3 +448,18 @@ function formatearFecha(fecha) {
     }
   }
   
+
+  function getBase64FromImageUrl(url, callback) {
+    var img = new Image();
+    img.crossOrigin = 'Anonymous'; // Permitir cargar imágenes de diferentes dominios
+    img.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL('image/png');
+        callback(dataURL);
+    };
+    img.src = url;
+}
