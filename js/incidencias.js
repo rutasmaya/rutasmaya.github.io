@@ -216,7 +216,7 @@ $(document).ready(function(){
                                   columns: [0, 1]
                               },*/
 
-                              {
+                              
                                 extend: 'pdfHtml5',
                                 text: '<i class="fa fa-file-pdf-o"></i>PDF',
                                 title: 'Reporte de Incidencias',
