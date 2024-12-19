@@ -216,28 +216,42 @@ $(document).ready(function(){
                                   columns: [0, 1]
                               },*/
 
-                              extend: 'pdfHtml5',
+                              {
+                                extend: 'pdfHtml5',
                                 text: '<i class="fa fa-file-pdf-o"></i>PDF',
                                 title: 'Reporte de Incidencias',
-                                titleAttr: 'PDF',
+                                titleAttr: 'Exportar a PDF',
                                 className: 'btn btn-app export pdf',
                                 orientation: 'landscape',
+                                customize: function (doc) {
+                                    // Aplica la tipografía personalizada
+                                    doc.defaultStyle = {
+                                        font: 'MiTipografia',
+                                        fontSize: 10 // Ajusta el tamaño según lo necesario
+                                    };
+                    
+                                    // Opcional: Configura estilos adicionales
+                                    doc.styles.tableHeader = {
+                                        font: 'MiTipografia',
+                                        bold: true,
+                                        fontSize: 20,
+                                        alignment: 'center'
+                                    };
+                                },
                                 exportOptions: {
-                                    columns: [0, 1],
+                                    columns: [0, 1], // Selecciona las columnas a exportar
                                     format: {
                                         body: function (data, row, column, node) {
-                                            // Reemplazar <br> con saltos de línea en el PDF
                                             return data
-                                            .replace(/<b>/g, '')       // Elimina <b>
-                                            .replace(/<\/b>/g, '')     // Elimina </b>
-                                            .replace(/<br\s*\/?>/g, '') // Convierte <br> a salto de línea
-                                            .replace(/<span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
-                                            .replace(/<span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
-                                            .replace(/<\/span>/g, '')
-                                       
+                                                .replace(/<b>/g, '')       // Elimina etiquetas <b>
+                                                .replace(/<\/b>/g, '')     // Elimina etiquetas </b>
+                                                .replace(/<br\s*\/?>/g, '\n') // Convierte <br> a saltos de línea
+                                                .replace(/<span .*?>/g, '') // Elimina etiquetas <span>
+                                                .replace(/<\/span>/g, ''); // Elimina etiquetas </span>
                                         }
                                     }
-                                },
+                                }
+                            },
 
                                
 
