@@ -217,36 +217,36 @@ $(document).ready(function(){
                               },*/
 
                               // Uso en el botón PDF
-extend: 'pdfHtml5',
-text: '<i class="fa fa-file-pdf-o"></i>PDF',
-title: 'Reporte de Incidencias',
-titleAttr: 'PDF',
-className: 'btn btn-app export pdf',
-orientation: 'landscape',
-exportOptions: {
-    columns: [0, 1],
-    format: {
-        body: function (data, row, column, node) {
-            return data
-                .replace(/<b>/g, '')
-                .replace(/<\/b>/g, '')
-                .replace(/<br\s*\/?>/g, '')
-                .replace(/<span style=".*?">/g, '')
-                .replace(/<\/span>/g, '');
-        }
-    }
-},
-customize: function (doc) {
-    // Cargar la imagen desde la URL y agregarla al PDF
-    getBase64FromImageUrl('https://rutasmaya.github.io/img/logox.png', function (base64Image) {
-        doc.content.splice(0, 0, {
-            image: base64Image,
-            width: 600, // Ajusta el tamaño
-            absolutePosition: { x: 0, y: 0 },
-            opacity: 0.3
-        });
-    });
-},
+      extend: 'pdfHtml5',
+      text: '<i class="fa fa-file-pdf-o"></i>PDF',
+      title: 'Reporte de Incidencias',
+      titleAttr: 'PDF',
+      className: 'btn btn-app export pdf',
+      orientation: 'landscape',
+      exportOptions: {
+          columns: [0, 1],
+          format: {
+              body: function (data, row, column, node) {
+                  return data
+                      .replace(/<b>/g, '')
+                      .replace(/<\/b>/g, '')
+                      .replace(/<br\s*\/?>/g, '')
+                      .replace(/<span style=".*?">/g, '')
+                      .replace(/<\/span>/g, '');
+              }
+          }
+      },
+      customize: function (doc) {
+          // Cargar la imagen desde la URL y agregarla al PDF
+          getBase64FromImageUrl('https://rutasmaya.github.io/img/logox.png', function (base64Image) {
+              doc.content.splice(0, 0, {
+                  image: base64Image,
+                  width: 6000, // Ajusta el tamaño
+                  absolutePosition: { x: 0, y: 0 },
+                  opacity: 0.3
+              });
+          });
+      },
 
                                
 
