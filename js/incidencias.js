@@ -217,7 +217,7 @@ $(document).ready(function(){
 
                               extend: 'pdfHtml5',
                                 text: '<i class="fa fa-file-pdf-o"></i>PDF',
-                                //title: 'Reporte de Incidencias', 
+                                title: 'Reporte de Incidencias',
                                 titleAttr: 'PDF',
                                 className: 'btn btn-app export pdf',
                                 orientation: 'landscape',
@@ -273,14 +273,10 @@ $(document).ready(function(){
                                       columns: [
                                           {
                                               image: logo,
-                                              width: 100, // Ajusta el tamaño del logo
-                                              margin: [0, 0, 0, 0] // Margen alrededor del logo
+                                              width: 50, // Ajusta el tamaño del logo
+                                              margin: [0, 0, 10, 0] // Margen alrededor del logo
                                           },
-                                          {
-                                              text: 'Reporte de Incidencias',
-                                              style: 'title',
-                                              margin: [10, 15, 0, 0] // Margen para el texto
-                                          }
+                                        
                                       ],
                                       margin: [0, 0, 0, 10] // Margen alrededor del bloque del encabezado
                                   });
