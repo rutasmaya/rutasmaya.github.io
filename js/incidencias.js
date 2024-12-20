@@ -67,7 +67,7 @@ $(document).ready(function(){
                       <b >FOLIO:</b> ${verificarValor(data[i].folio)} <br> 
                       <b >ÁREA:</b> ${verificarValor(data[i].area)} <br> 
                       <b >ESTACIÓN:</b> ${verificarValor(data[i].estacion)} <br> 
-                      <b >FECHA DE INCIDENCIA:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
+                      <b >FECHA DE INCIDENCIA:</b> ${data[i].fechaincidencia)<br>
                       <b >EMPLEADO:</b> ${verificarValor(data[i].empleado)} 
                       </td>
                     <td style="position: relative; padding-bottom: 30px;" data-a-wrap="true" data-a-v="top" data-b-a-s="thin" >
