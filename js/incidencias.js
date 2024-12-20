@@ -64,14 +64,11 @@ $(document).ready(function(){
                  <tr >
               
                       <td style="width: auto; white-space: nowrap;" data-a-wrap="true" data-f-color="000" data-f-bold="true" data-a-v="top" data-f-underline="false" data-b-a-s="thin"  >
-                      <b >Folio:</b> ${verificarValor(data[i].folio)} <br> 
-                      <b >Área:</b> ${verificarValor(data[i].area)} <br> 
-                      <b >Estacion:</b> ${verificarValor(data[i].estacion)} <br> 
-                      <b >Fecha de incidencia:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
-                      <b >Empleado:</b> ${verificarValor(data[i].empleado)} 
-                      
-                     
-                
+                      <b >FOLIO:</b> ${verificarValor(data[i].folio)} <br> 
+                      <b >ÁREA:</b> ${verificarValor(data[i].area)} <br> 
+                      <b >ESTACIÓN:</b> ${verificarValor(data[i].estacion)} <br> 
+                      <b >FECHA DE INCIDENCIA:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
+                      <b >EMPLEADO:</b> ${verificarValor(data[i].empleado)} 
                       </td>
                     <td style="position: relative; padding-bottom: 30px;" data-a-wrap="true" data-a-v="top" data-b-a-s="thin" >
                     ${verificarValor(data[i].descripcion)}
