@@ -422,7 +422,7 @@ function verificarValor(valor) {
     const seconds = String(fechaObj.getSeconds()).padStart(2, '0');
 
     // Retorna el formato deseado
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }
 
 
