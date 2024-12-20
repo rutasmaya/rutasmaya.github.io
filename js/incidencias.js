@@ -67,7 +67,7 @@ $(document).ready(function(){
                       <b >FOLIO:</b> ${verificarValor(data[i].folio)} <br> 
                       <b >ÁREA:</b> ${verificarValor(data[i].area)} <br> 
                       <b >ESTACIÓN:</b> ${verificarValor(data[i].estacion)} <br> 
-                      <b >FECHA DE INCIDENCIA:</b> ${data[i].fechaincidencia} <br>
+                      <b >FECHA DE INCIDENCIA:</b> ${formatearFecha(data[i].fechaincidencia)} <br>
                       <b >EMPLEADO:</b> ${verificarValor(data[i].empleado)} 
                       </td>
                     <td style="position: relative; padding-bottom: 30px;" data-a-wrap="true" data-a-v="top" data-b-a-s="thin" >
@@ -402,21 +402,29 @@ function verificarValor(valor) {
 
 
 
-function formatearFecha(fecha) {
 
+
+  function formatearFecha(fecha) {
     if (fecha === "1900-01-01T00:00:00" || !fecha) {
-        return ""; // Retorna vacío si la fecha es "01/01/1900" o es null/undefined
+        return ""; // Retorna vacío si la fecha es "1900-01-01T00:00:00" o es null/undefined
     }
+
     const fechaObj = new Date(fecha);
     if (isNaN(fechaObj.getTime())) {
         return ""; // Retorna vacío si la fecha no es válida
     }
-    return fechaObj.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
-  }
+
+    const year = fechaObj.getFullYear();
+    const month = String(fechaObj.getMonth() + 1).padStart(2, '0'); // Mes (0-11) + 1
+    const day = String(fechaObj.getDate()).padStart(2, '0');
+    const hours = String(fechaObj.getHours()).padStart(2, '0');
+    const minutes = String(fechaObj.getMinutes()).padStart(2, '0');
+    const seconds = String(fechaObj.getSeconds()).padStart(2, '0');
+
+    // Retorna el formato deseado
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 
 
 
