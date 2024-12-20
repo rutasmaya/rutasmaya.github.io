@@ -228,7 +228,8 @@ $(document).ready(function(){
                                         body: function (data, row, column, node) {
                                             // Reemplazar <br> con saltos de línea en el PDF
                                             return data
-                                      
+                                            .replace(/<b>/g, '')       // Elimina <b>
+                                            .replace(/<\/b>/g, '')     // Elimina </b>
                                             .replace(/<br\s*\/?>/g, '') // Convierte <br> a salto de línea
                                             .replace(/<span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
                                             .replace(/<span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">/g, '')
