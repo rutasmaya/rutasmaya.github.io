@@ -276,7 +276,10 @@ $(document).ready(function(){
                                               width: 50, // Ajusta el tamaño del logo
                                               margin: [0, 0, 10, 0] // Margen alrededor del logo
                                           },
-                                        
+                                          {
+                                              style: 'title',
+                                              margin: [10, 15, 0, 0] // Margen para el texto
+                                          }
                                       ],
                                       margin: [0, 0, 0, 10] // Margen alrededor del bloque del encabezado
                                   });
