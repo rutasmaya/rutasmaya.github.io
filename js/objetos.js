@@ -196,20 +196,20 @@ function serviciosCliente(){
                                
 
                                     // Ajustes de estilo para el título
-                                    doc.styles.title = {
-                                        color: '#4c8aa0',
-                                        fontSize: 16,
-                                        alignment: 'center'
-                                    };
-                            
-                                    // Ajuste de estilo para encabezados
-                                    doc.styles.tableHeader = {
-                                        fillColor: '#4c8aa0',
-                                        color: 'white',
-                                        alignment: 'center',
-                                        fontSize: 10,
-                                        
-                                    };
+                                  doc.styles.title = {
+                                    color: '#3d6938',
+                                    fontSize: 16,
+                                    alignment: 'center'
+                                };
+                        
+                                // Ajuste de estilo para encabezados
+                                doc.styles.tableHeader = {
+                                    fillColor: '#037c75',
+                                    color: 'white',
+                                    alignment: 'center',
+                                    fontSize: 10,
+                                    
+                                };
                             
                                     // Configuración de márgenes
                                     doc.content[1].margin = [0, 0, 0, 0];
