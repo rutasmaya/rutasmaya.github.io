@@ -249,14 +249,14 @@ $(document).ready(function(){
 
                                   // Ajustes de estilo para el título
                                   doc.styles.title = {
-                                      color: '#018997',
+                                      color: '#3d6938',
                                       fontSize: 16,
                                       alignment: 'center'
                                   };
                           
                                   // Ajuste de estilo para encabezados
                                   doc.styles.tableHeader = {
-                                      fillColor: '#018997',
+                                      fillColor: '#037c75',
                                       color: 'white',
                                       alignment: 'center',
                                       fontSize: 10,
