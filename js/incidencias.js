@@ -73,8 +73,8 @@ $(document).ready(function(){
                     <td style="position: relative; padding-bottom: 30px;" data-a-wrap="true" data-a-v="top" data-b-a-s="thin" >
                     ${verificarValor(data[i].descripcion)}
                     <br><br>
-                    <span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">Fecha de registro: ${formatearFecha(data[i].fecharegistro)}</span>
-                    <span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">Registrado por: ${verificarValor(data[i].usuariocrea)}</span>
+                    <span style="position: absolute; bottom: 20px; right: 5px; color: #78797a !important; font-size: 10px;">FECHA DE REGISTRO: ${formatearFecha(data[i].fecharegistro)}</span>
+                    <span style="position: absolute; bottom: 5px; right: 5px; color: #78797a !important; font-size: 10px;">REGISTRADO POR: ${verificarValor(data[i].usuariocrea)}</span>
                     </td>
 
                     <td style="position: relative; justify-content: center; align-items: center; vertical-align: middle; " data-exclude="true">
