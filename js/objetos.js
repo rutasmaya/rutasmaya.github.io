@@ -101,15 +101,15 @@ function serviciosCliente(){
                         <td>${verificarValor(data[i].nombreObjeto)}</td>
                         <td>${verificarValor(data[i].nombreDueño)}</td>
                         <td>${verificarValor(data[i].telefonoDueño)}</td>
-                        <td>${verificarValor(data[i].descripcion)}<br>${ed}</td>
+                        <td>${verificarValor(data[i].descripcion)}<br><b>${ed}</b></td>
                         <td>${verificarValor(data[i].registradopor)}</td>
                         <td>${formatearFecha(data[i].fecharegistro)}</td>
                         <td>${verificarValor(data[i].encontradopor)}</td>
                         <td>${formatearFecha(data[i].fechaencontrado)}</td>
-                        <td>${verificarValor(data[i].descripencontrado)}<br>${es}</td>
+                        <td>${verificarValor(data[i].descripencontrado)}<br><b>${es}</b></td>
                         <td>${verificarValor(data[i].entregadopor)}</td>
                         <td>${formatearFecha(data[i].fechaentregado)}</td>
-                        <td>${verificarValor(data[i].descriprecuperado)}<br>${ei}</td>
+                        <td>${verificarValor(data[i].descriprecuperado)}<br><b>${ei}</b></td>
                         <td class="${obtenerClaseEstatus(data[i].estatus)}">${verificarValor(data[i].estatus)}</td>
                     </tr>
                     
