@@ -154,11 +154,14 @@ function serviciosCliente(){
     ` 
           
           ;
-          $("#modal-detalle").modal("show");
 
-ed = "";
+          ed = "";
 es = "";
 ei = "";
+
+          $("#modal-detalle").modal("show");
+
+
 
           var table = $('#ejemplo').DataTable( {
     
