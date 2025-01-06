@@ -16,6 +16,10 @@ function validarFecha(fecha) {
 function serviciosCliente(){
    
       var est = document.getElementById("idtxtEstatus").value;
+
+      var ed = "";
+      var es = "";
+      var ei = "";
   
       if(est == "T"){
         est = "todos";
@@ -67,6 +71,26 @@ function serviciosCliente(){
           var html = "";            
           for (var i = 0; i < data.length; i++) {
 
+            if(ed == null){
+              ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
+            }
+            else{
+              ed == "";
+            }
+
+            if(es == null){
+              es = "Estación donde se encontró: " + verificarValor(data[i].estacionencontrado);
+            }
+            else{
+              es == "";
+            }
+
+            if(ei == null){
+              ei = "Estación donde se entregó: " + verificarValor(data[i].estacionrecuperado);
+            }
+            else{
+              ei == "";
+            }
 
             html = html + ` 
 
@@ -75,15 +99,15 @@ function serviciosCliente(){
                         <td>${verificarValor(data[i].nombreObjeto)}</td>
                         <td>${verificarValor(data[i].nombreDueño)}</td>
                         <td>${verificarValor(data[i].telefonoDueño)}</td>
-                        <td>${verificarValor(data[i].descripcion)}<br>Estación donde se perdió: ${verificarValor(data[i].estacionregistro)}</td>
+                        <td>${verificarValor(data[i].descripcion)}<br>${ed}</td>
                         <td>${verificarValor(data[i].registradopor)}</td>
                         <td>${formatearFecha(data[i].fecharegistro)}</td>
                         <td>${verificarValor(data[i].encontradopor)}</td>
                         <td>${formatearFecha(data[i].fechaencontrado)}</td>
-                        <td>${verificarValor(data[i].descripencontrado)}<br>Estación donde se encontró: ${verificarValor(data[i].estacionencontrado)}</td>
+                        <td>${verificarValor(data[i].descripencontrado)}<br>${es}</td>
                         <td>${verificarValor(data[i].entregadopor)}</td>
                         <td>${formatearFecha(data[i].fechaentregado)}</td>
-                        <td>${verificarValor(data[i].descriprecuperado)}<br>Estación donde se entregó: ${verificarValor(data[i].estacionencontrado)}</td>
+                        <td>${verificarValor(data[i].descriprecuperado)}<br>${ei}</td>
                         <td class="${obtenerClaseEstatus(data[i].estatus)}">${verificarValor(data[i].estatus)}</td>
                     </tr>
                     
