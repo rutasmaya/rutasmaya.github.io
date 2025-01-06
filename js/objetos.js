@@ -109,6 +109,10 @@ function serviciosCliente(){
                     
 
         ` ;
+
+        ed = "";
+        es = "";
+        ei = "";
   
 
              
@@ -155,9 +159,7 @@ function serviciosCliente(){
           
           ;
 
-          ed = "";
-es = "";
-ei = "";
+          
 
           $("#modal-detalle").modal("show");
 
