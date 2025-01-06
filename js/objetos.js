@@ -76,23 +76,17 @@ function serviciosCliente(){
             if(data[i].estacionregistro != null){
               ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
             }
-            else{
-              ed == "";
-            }
+         
 
             if(data[i].estacionencontrado != null){
               es = "Estación donde se encontró: " + verificarValor(data[i].estacionencontrado);
             }
-            else{
-              es == "";
-            }
+         
 
             if(data[i].estacionrecuperado != null){
               ei = "Estación donde se entregó: " + verificarValor(data[i].estacionrecuperado);
             }
-            else{
-              ei == "";
-            }
+          
 
             html = html + ` 
 
@@ -162,7 +156,9 @@ function serviciosCliente(){
           ;
           $("#modal-detalle").modal("show");
 
-
+ed = "";
+es = "";
+ei = "";
 
           var table = $('#ejemplo').DataTable( {
     
