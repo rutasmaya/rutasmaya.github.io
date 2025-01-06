@@ -73,21 +73,21 @@ function serviciosCliente(){
 
             console.log(ed);
 
-            if(ed != null){
+            if(data[i].estacionregistro != null){
               ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
             }
             else{
               ed == "";
             }
 
-            if(es != null){
+            if(data[i].estacionencontrado != null){
               es = "Estación donde se encontró: " + verificarValor(data[i].estacionencontrado);
             }
             else{
               es == "";
             }
 
-            if(ei != null){
+            if(data[i].estacionrecuperado != null){
               ei = "Estación donde se entregó: " + verificarValor(data[i].estacionrecuperado);
             }
             else{
