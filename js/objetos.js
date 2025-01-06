@@ -71,21 +71,21 @@ function serviciosCliente(){
           var html = "";            
           for (var i = 0; i < data.length; i++) {
 
-            if(ed == null){
+            if(ed != null){
               ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
             }
             else{
               ed == "";
             }
 
-            if(es == null){
+            if(es != null){
               es = "Estación donde se encontró: " + verificarValor(data[i].estacionencontrado);
             }
             else{
               es == "";
             }
 
-            if(ei == null){
+            if(ei != null){
               ei = "Estación donde se entregó: " + verificarValor(data[i].estacionrecuperado);
             }
             else{
