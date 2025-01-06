@@ -71,7 +71,7 @@ function serviciosCliente(){
           var html = "";            
           for (var i = 0; i < data.length; i++) {
 
-            console.log(data[i].estacionregistro);
+            console.log(data[i].estacionrecuperado);
 
             if(data[i].estacionregistro != null){
               ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
