@@ -112,22 +112,22 @@ function serviciosCliente(){
               fecharpt = data[i].fechaentregado;
               estacionrpt = ei;
               descripcionrpt = data[i].descriprecuperado;
-              observacionrpt = verificarValor(data[i].descripcion) + "<br>" + verificarValor(data[i].descripencontrado);
+              observacionrpt = verificarValor(data[i].descripcion) + verificarValor(data[i].descripencontrado);
             }
           
 
             html = html + ` 
 
                    <tr>
-                   <td>${verificarValor(i+1)}</td>
-                   <td>${formatearFecha(fecharpt)}</td>
-                   <td>${verificarValor(estacionrpt)}</td>
-                   <td>${verificarValor("<center>1</center>")}</td>
-                   <td>${verificarValor(data[i].nombreObjeto)}</td>
-                   <td>${verificarValor(descripcionrpt)}</td>
-                   <td>${verificarValor(observacionrpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(i+1)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(fecharpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(estacionrpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor("<center>1</center>")}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(data[i].nombreObjeto)}</td>
+                   <td data-a-wrap="true" data-a-v="top" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
+                   <td data-a-wrap="true" data-a-v="top" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
 
-                    <td class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
+                  <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
 
 
                         
@@ -150,17 +150,54 @@ function serviciosCliente(){
 
           ` 
 
-            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px">
+              <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;"><i class="fa fa-file-excel-o"></i> Excel</button>
+
+            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="5,15,20,10,20,50,30,15">
         <thead>
+        
+         <tr style="display:none">
+            <td
+              class="header"
+              colspan="8"
+              data-f-sz="16"
+              data-f-color="000"
+              data-a-h="center"
+              data-a-v="middle"
+              data-f-underline="false"
+              data-f-bold="true"
+              data-height="200"
+            >
+            <img src="https://rutasmaya.github.io/img/Imagen1rptt.png" width="200">  Coordinación General de Gestión de Infraestructura Ferroviaria
+            </td>
+          </tr>
+       
+         <tr style="display:none; he">
+            <td
+              class="header"
+              colspan="8"
+              data-f-sz="16"
+              data-f-color="000" 
+              data-fill-color="DAE9F8"
+              data-a-h="center"
+              data-a-v="middle"
+              data-f-underline="false"
+              data-f-bold="true"
+            >
+           
+              Reporte de Objetos Perdidos en Estación 
+              
+            </td>
+          </tr>
+        
             <tr>
-            <th>No</th>
-                <th>Fecha</th>
-                <th>Estación</th>
-                <th>Cantidad</th>
-                <th>Objeto Perdido</th>
-                <th>Descripción del Objeto Extraviado</th>
-                 <th>Observaciones</th>
-                  <th>Estatus</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">No</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Estación</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Cantidad</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Objeto Perdido</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Descripción del Objeto Extraviado</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Observaciones</th>
+            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Estatus</th>
               
             </tr>
         </thead>
@@ -362,4 +399,18 @@ function obtenerClaseEstatus(estatus) {
         default:
             return ""; // Clase vacía si no hay coincidencia
     }
+}
+
+
+async function nuevoExcel() {
+  try {
+    // Paso 1: Convertir la tabla en un archivo Excel usando TableToExcel
+    const table = document.querySelector("#ejemplo");
+    const blob = await TableToExcel.convert(table, {
+      name: "Informe de Objetos Perdidos-Para Transparencia.xlsx",
+      sheet: { name: "Obj Extraviados" }
+    });
+  } catch (error) {
+    console.error("Ocurrió un error al generar el archivo Excel:", error);
+  }
 }
