@@ -124,8 +124,8 @@ function serviciosCliente(){
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(estacionrpt)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor("<center>1</center>")}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(data[i].nombreObjeto)}</td>
-                   <td data-a-wrap="true" data-a-v="top" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
-                   <td data-a-wrap="true" data-a-v="top" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
 
                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
 
@@ -152,7 +152,7 @@ function serviciosCliente(){
 
               <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;"><i class="fa fa-file-excel-o"></i> Excel</button>
 
-            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="5,15,20,10,20,50,30,15">
+            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="5,15,20,10,20,40,40,15">
         <thead>
         
          <tr style="display:none">
@@ -183,9 +183,9 @@ function serviciosCliente(){
               data-f-underline="false"
               data-f-bold="true"
             >
-           
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               Reporte de Objetos Perdidos en Estación 
-              
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
           </tr>
         
@@ -316,7 +316,7 @@ function serviciosCliente(){
                             
         
                         
-        
+        /*
                             {
                                 extend:    'excelHtml5',
                                 text:      '<i class="fa fa-file-excel-o"></i>Excel',
@@ -327,6 +327,7 @@ function serviciosCliente(){
                                     columns: [ 0, 1,2,3,4,5,6,7]
                                 },
                             },
+                            */
                            
                             {
                                 extend:    'print',
