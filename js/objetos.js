@@ -68,43 +68,69 @@ function serviciosCliente(){
               result = result[0];
           var x = result.replace(/\\r\\n/g, '');   
           var data = JSON.parse(x)  
-          var html = "";            
+          var html = "";     
+          var fecharpt="";
+          var estacionrpt = "";
+          var descripcionrpt = "";
+          var observacionrpt = "";
+
           for (var i = 0; i < data.length; i++) {
+
+          
 
       
 
             if(data[i].estacionregistro != null){
-              ed = "Estación donde se perdió: " + verificarValor(data[i].estacionregistro);
+              ed = verificarValor(data[i].estacionregistro);
             }
          
 
             if(data[i].estacionencontrado != null){
-              es = "Estación donde se encontró: " + verificarValor(data[i].estacionencontrado);
+              es =  verificarValor(data[i].estacionencontrado);
             }
          
 
             if(data[i].estacionrecuperado != null){
-              ei = "Estación donde se entregó: " + verificarValor(data[i].estacionrecuperado);
+              ei =  verificarValor(data[i].estacionrecuperado);
+            }
+
+            if(data[i].estatus == "perdido"){
+              fecharpt = data[i].fecharegistro;
+              estacionrpt = ed;
+              descripcionrpt = data[i].descripcion;
+              observacionrpt = "";
+            } 
+
+            if(data[i].estatus == "encontrado"){
+              fecharpt = data[i].fechaencontrado;
+              estacionrpt = es;
+              descripcionrpt = data[i].descripencontrado;
+              observacionrpt = verificarValor(data[i].descripcion);
+            }
+
+            if(data[i].estatus == "recuperado"){
+              fecharpt = data[i].fechaentregado;
+              estacionrpt = ei;
+              descripcionrpt = data[i].descriprecuperado;
+              observacionrpt = verificarValor(data[i].descripcion) + "<br>" + verificarValor(data[i].descripencontrado);
             }
           
 
             html = html + ` 
 
                    <tr>
-                
-                        <td>${verificarValor(data[i].nombreObjeto)}</td>
-                        <td>${verificarValor(data[i].nombreDueño)}</td>
-                        <td>${verificarValor(data[i].telefonoDueño)}</td>
-                        <td>${verificarValor(data[i].descripcion)}<br><b>${ed}</b></td>
-                        <td>${verificarValor(data[i].registradopor)}</td>
-                        <td>${formatearFecha(data[i].fecharegistro)}</td>
-                        <td>${verificarValor(data[i].encontradopor)}</td>
-                        <td>${formatearFecha(data[i].fechaencontrado)}</td>
-                        <td>${verificarValor(data[i].descripencontrado)}<br><b>${es}</b></td>
-                        <td>${verificarValor(data[i].entregadopor)}</td>
-                        <td>${formatearFecha(data[i].fechaentregado)}</td>
-                        <td>${verificarValor(data[i].descriprecuperado)}<br><b>${ei}</b></td>
-                        <td class="${obtenerClaseEstatus(data[i].estatus)}">${verificarValor(data[i].estatus)}</td>
+                   <td>${verificarValor(i+1)}</td>
+                   <td>${formatearFecha(fecharpt)}</td>
+                   <td>${verificarValor(estacionrpt)}</td>
+                   <td>${verificarValor("<center>1</center>")}</td>
+                   <td>${verificarValor(data[i].nombreObjeto)}</td>
+                   <td>${verificarValor(descripcionrpt)}</td>
+                   <td>${verificarValor(observacionrpt)}</td>
+
+                    <td class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
+
+
+                        
                     </tr>
                     
 
@@ -127,20 +153,15 @@ function serviciosCliente(){
             <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px">
         <thead>
             <tr>
-       
-                <th>Objeto</th>
-                <th>Dueño</th>
-                <th>Teléfono</th>
-                <th>Detalle</th>
-                <th>Registrado por</th>
-                <th>Registro</th>
-                <th>Encontrado por</th>
-                <th>Encontrado</th>
-                <th>Detalle encontrado</th>
-                <th>Entregado por</th>
-                <th>Entregado</th>
-                <th>Detalle recuperado</th>
-                <th>Estatus</th>
+            <th>No</th>
+                <th>Fecha</th>
+                <th>Estación</th>
+                <th>Cantidad</th>
+                <th>Objeto Perdido</th>
+                <th>Descripción del Objeto Extraviado</th>
+                 <th>Observaciones</th>
+                  <th>Estatus</th>
+              
             </tr>
         </thead>
         <tbody>
@@ -209,12 +230,12 @@ function serviciosCliente(){
                             {
                                 extend: 'pdfHtml5',
                                 text: '<i class="fa fa-file-pdf-o"></i>PDF',
-                                title: 'Objetos registrados',
+                                title: 'Reporte de Objetos Perdidos en Estación',
                                 titleAttr: 'PDF',
                                 className: 'btn btn-app export pdf',
                                 orientation: 'landscape', // Establece la orientación a horizontal
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                 },
                                 customize: function(doc) {
 
@@ -262,22 +283,22 @@ function serviciosCliente(){
                             {
                                 extend:    'excelHtml5',
                                 text:      '<i class="fa fa-file-excel-o"></i>Excel',
-                                title:'Objetos registrados',
+                                title:'Reporte de Objetos Perdidos en Estación',
                                 titleAttr: 'Excel',
                                 className: 'btn btn-app export excel',
                                 exportOptions: {
-                                    columns: [ 0, 1,2,3,4,5,6,7,8,9,10,11,12 ]
+                                    columns: [ 0, 1,2,3,4,5,6,7]
                                 },
                             },
                            
                             {
                                 extend:    'print',
                                 text:      '<i class="fa fa-print"></i>Imprimir',
-                                title:'Objetos registrados',
+                                title:'Reporte de Objetos Perdidos en Estación',
                                 titleAttr: 'Imprimir',
                                 className: 'btn btn-app export imprimir',
                                 exportOptions: {
-                                    columns: [ 0, 1,2,3,4,5,6,7,8,9,10,11,12 ]
+                                    columns: [ 0, 1,2,3,4,5,6,7]
                                 }
                             },
                             {
