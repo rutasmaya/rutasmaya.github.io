@@ -127,7 +127,7 @@ function serviciosCliente(){
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
 
-                  <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
 
 
                         
@@ -171,22 +171,21 @@ function serviciosCliente(){
             </td>
           </tr>
        
-         <tr style="display:none; he">
+         <tr style="display:none; ">
             <td
-              class="header"
+              
               colspan="8"
               data-f-sz="16"
               data-f-color="000" 
               data-fill-color="DAE9F8"
               data-a-h="center"
               data-a-v="middle"
-              data-f-underline="false"
+     
               data-f-bold="true"
-            >
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Reporte de Objetos Perdidos en Estación 
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </td>
+              data-a-wrap="true" 
+              data-b-a-s="thin"
+
+            >Reporte de Objetos Perdidos en Estación </td>
           </tr>
         
             <tr>
