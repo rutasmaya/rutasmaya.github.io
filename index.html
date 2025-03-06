@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
 
+
+	<link href="css/remixicon.css" rel="stylesheet" media="all">
+	<link href="css/core.css" rel="stylesheet" media="all">
 	<meta name="google-site-verification" content="Ysx6nwLaw78kmzBlipBisUndl9BFmY4-N2ZrVfnLHtA" />
 
   <style>
@@ -28,6 +31,56 @@
 	margin-right: auto;
 	padding: 0 30px;
 	transition: padding .35s ease-in-out;
+}
+
+.avatar {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.textpop2 {
+    background-color: #FFF;
+    font-size: 12px;
+    padding: 0px 0;
+	margin-bottom: 0px;
+	text-align: justify;
+}
+
+.textpop3 {
+    background-color: #FFF;
+    font-size: 12px;
+    padding: 0px 0;
+	margin-bottom: 0px;
+	text-align: center;
+}
+
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    margin-top: 0;
+    margin-bottom: 0rem;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--bs-heading-color);
+}
+
+.iconpop{
+	height: 70px;
+}
+
+
+    .modal-lg, .modal-xl {
+        --bs-modal-width: 90%!important;
+    }
+
+	.bg-label-success {
+    background-color: #e8fadd !important;
+    color: #00a65a !important;
+}
+
+.text-success {
+    --bs-text-opacity: 1;
+	color: #00a65a !important;
 }
 
 	  </style>
@@ -286,6 +339,12 @@
 			  </div>
 		    </div>
 		  </div>
+
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary">Save changes</button>
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  </div>
+
 	    </div>
 	  </div>
     </div>
@@ -306,9 +365,9 @@
 	<!-- Global Mailform Output-->
 	<div class="snackbars" id="form-output-global"></div>
 	<!-- Javascript-->
-
 	<script src="js/core.min.js"></script>
 	<script src="js/script.js"></script>
+	<script src="js/cn.js"></script>
 	<script src="js/estaciones.js"></script>
 </body>
 </html>
