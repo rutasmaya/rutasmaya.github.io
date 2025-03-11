@@ -12,7 +12,8 @@ function listarRutasTransporte(filtro){
               var x = result.replace(/\\r\\n/g, '');   
               var data = JSON.parse(x)  
               var html = "";    
-              var htmlinterno = "";        
+              var htmlinterno = "";    
+             
               for (var i = 0; i < data.length; i++) {
 
                 $.ajax({
@@ -24,8 +25,46 @@ function listarRutasTransporte(filtro){
                     var data = JSON.parse(x)  
                     var bgestatus = "";
                     var txtestatus = ""
-                 
+                    var icono = ""; 
+                    var titulo = "";
                     for (var i = 0; i < data.length; i++) {
+                       icono = ""; 
+                       titulo = "";
+                      if(data[i].tipo == "hotel"){
+                        icono = 'ri-hotel-line';
+                        titulo = "Hotel";
+                      }
+
+                      if(data[i].tipo == "transporte"){
+                        icono = 'ri-bus-fill';
+                        titulo = "Transporte"
+                      }
+
+                      if(data[i].tipo == "restaurante"){
+                        icono = 'ri-restaurant-line';
+                        titulo = "Restaurante";
+                      }
+
+                      if(data[i].tipo == "aeropuerto"){
+                        icono = 'ri-flight-takeoff-line';
+                        titulo = "Aeropuerto";
+                      }
+
+                      if(data[i].tipo == "tren"){
+                        icono = 'ri-train-line';
+                        titulo = "Tren";
+                      }
+
+                      if(data[i].tipo == "destino"){
+                        icono = 'ri-road-map-line';
+                        titulo = "Destino Turistico";
+                      }
+
+
+               
+
+
+                
                     
                       if(data[i].estatus == "Actualizado"){
                         bgestatus = "bg-label-success";
@@ -49,11 +88,11 @@ function listarRutasTransporte(filtro){
                                   <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                                     <div class="avatar">
                                       <div class="avatar-initial ${bgestatus} rounded-3">
-                                        <i class="ri-bus-fill ri-24px"></i>
+                                         <i class="${icono} ri-24px"></i>
                                       </div>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                      <p class="mb-0 ${txtestatus} me-1">Transporte</p>
+                                      <p class="mb-0 ${txtestatus} me-1">${titulo}</p>
                                       <a ><i class="ri-edit-2-fill ${txtestatus} ri-20px"></i></a>
                                     </div>
                                   </div>
@@ -64,6 +103,7 @@ function listarRutasTransporte(filtro){
                                       <p class="textpop2"><i class="ri-calendar-schedule-fill ri-22px"></i> ${data[i].horario}</p>
                                       <p class="textpop2"><i class="ri-money-dollar-circle-fill ri-22px"></i> ${data[i].precio}</p>
                                       <p class="textpop2"><i class="ri-map-pin-2-fill ri-22px"></i> ${data[i].direccion} </p>
+                                      <p class="textpop2"><i class="ri-phone-fill ri-22px"></i> ${data[i].contacto} </p>
                                     </center>
                                   </div>
                                   <br>
@@ -76,6 +116,7 @@ function listarRutasTransporte(filtro){
                               </div>
                             </div>                        
                     `;
+             
                     }
 
                     document.getElementById("divTransportesEstacion").innerHTML = htmlinterno;
@@ -102,20 +143,23 @@ function listarRutasTransporte(filtro){
                             <div class="row">
                                 <div class=" col-lg-6 col-sm-6 ">
                                   <img src="${data[i].logo}" alt="" class="iconpop">
-                                  <h5>${data[i].nombre}</h5>
+                                  <h5>${data[i].idRuta}.-${data[i].nombre}</h5>
                                   <p class="estadopop">${data[i].estado}</p>
                                 </div>
 
-                                <!--<div class=" col-lg-6 col-sm-6 ">
-                                  <img src="${data[i].imagen}" alt=""  class="iconpop">
-                                  <p class="estadopop">${data[i].descripcionimg}</p>
-                                </div>-->
+                                <div class="col-lg-6 col-sm-6" style="text-align:end">
+                                  <img src="img/logomodal.png" alt="" width="100px" >
+                                  <!--<p class="estadopop">${data[i].descripci2nimg}</p>-->
+                                 
+                                </div>
                             </div>
 
-                        <!--
-                            <p id="labelDescripcion" class="textpop">
-                              ${data[i].descripcion}
-                            </p>
+                             <p id="labelDescripcion" class="textpop4">
+                                    ${data[i].descripcion}
+                                  </p>
+                      
+                            
+                              <!--
                             <textarea id="txtDescripcion" class="textpop" name="comentarios" rows="15"  style="width: 100%; display: none">${data[i].descripcion}</textarea>    
                             <br>
                             <img src="${imgestatus}" alt="" class="iconpop">
