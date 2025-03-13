@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Kashan</title>
+
+  <meta name="robots" content="noindex">
+
+
+  <link rel="icon" href="https://trenmaya.gob.mx/images/Kukulkan.svg" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW8DWiWWosy5C8OTppvXozxLKxgedTEVk&libraries=geometry"></script>
+   
+
+
+<link href="css/style-alert.css" rel="stylesheet" media="all">
+
+  <style id="INLINE_PEN_STYLESHEET_ID">
+
+.container {
+        max-width: 100%!important;
+    }
+
+
+    
+:after, :before {
+    box-sizing: border-box;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+i{
+  margin-bottom:4px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+
+.btn-app {
+    color: white;
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 10px 15px;
+    margin: 0;
+    min-width: 60px;
+    max-width: 80px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #f4f4f4;
+    font-size: 12px;
+    transition: all .2s;
+    background-color: steelblue !important;
+}
+
+.btn-app > .fa, .btn-app > .glyphicon, .btn-app > .ion {
+    font-size: 30px;
+    display: block;
+}
+
+.btn-app:hover {
+    border-color: #aaa;
+    transform: scale(1.1);
+}
+
+.pdf {
+  background-color: #dc2f2f !important;
+}
+
+.excel {
+    background-color: #3ca23c !important;
+}
+
+.csv {
+    background-color: #e86c3a !important;
+}
+
+.imprimir {
+    background-color: #8766b1 !important;
+}
+
+
+
+.selectTable{
+  height:40px;
+  float:right;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #4682b4;
+    border-color: #4682b4;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #315f86;
+    border-color: #545b62;
+}
+
+
+
+.titulo-tabla{
+  color:#606263;
+  text-align:center;
+  margin-top:15px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+
+
+
+
+
+.inline{
+  display:inline-block;
+  padding:0;
+}
+
+
+
+.rd-navbar-wrap, .rd-navbar,
+.rd-menu,
+.rd-navbar-nav,
+.rd-navbar-panel, .rd-navbar-static .rd-menu, .rd-navbar-fixed .rd-navbar-nav-wrap, .rd-navbar-fixed .rd-navbar-submenu, .rd-navbar-project {
+	transition: 0.35s all cubic-bezier(0.65, 0.05, 0.36, 1);
+	background-image:   url('css/fondo.jpg' ); 
+	background-size: cover;
+}
+
+
+
+  </style>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#Mapa {
+    height: calc(100vh - 125px);
+}
+  #info {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+  }
+</style>
+
+</head>
+
+<body>
+  
+
+    <header class="section page-header" style="position: fixed; width: 100%; z-index: 100; ">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap rd-navbar-modern-wrap" style="height: 70px;">
+          <nav class="rd-navbar rd-navbar-modern rd-navbar-original rd-navbar-static rd-navbar--is-stuck" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="70px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+             
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand">
+                    <a class="brand" style="font-size: 200%; color: #fff; font-weight:500;">
+                      <img src="img/logox.png" alt="" width="130"  style="padding: 0 30px; background-color: #ffffff8e;">
+                      Ubicaciones aproximadas
+                    </a>    
+
+                 
+
+                    <a onclick="return confirmLogout()" style="padding: 5px; color:#fff; margin: 10px 20px 0px 0px; float: right; background-color: #0f4d0e!important; padding: 15px; font-weight: bold;" class="btn btn-sm btn-secondary  ">
+                      Cerrar sesión
+                  </a>
+                   
+                   
+                  </div>
+
+                  
+
+                </div>
+              
+               
+
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>      <!-- Swiper-->
+            
+<br><br><br>
+
+<div class="container">
+  
+
+  <div class="row">
+    
+    <div class="col-12" >
+
+    
+
+
+      <div class="row" style="height: 50px;">
+        <div class="col-4">
+          <label for="fechaInicial">
+
+          <a href="inicio.html"  style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+            <span class="fa fa-home "> </span> Inicio
+        </a>
+      </label>
+             <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
+        </div>
+        <div class="col-3">
+           
+        </div>
+        
+        <div class="col-4" >
+            <select id="txtTrenes" class="form-control" >
+                <option value="0" class="text-success">Selecciona el tren</option>
+                <option value="101" class="text-primary">101-Palenque a Cancún</option>
+                <option value="102" class="text-primary">102-Cancún a Palenque</option>
+                <option value="201" class="text-primary">201-Campeche a Cancún</option>
+                <option value="202" class="text-primary">202-Cancún a Campeche</option>
+                <option value="301" class="text-danger">301-Mérida a Tulum Aeropuerto</option>
+                <option value="302" class="text-primary">302-Cancún a Mérida</option>
+                <option value="302x" class="text-danger">302-Tulum aeropuerto a Mérida</option>
+                <option value="303" class="text-primary">303-Mérida a Cancún</option>
+            </select>
+        </div>
+        <div class="col-1" style="text-align: end;">
+            <a target="_blank" id="btnBuscarServ" onclick="verUbicacion()" style="padding: 5px; color:#fff; width: 100%;" class="btn btn-sm btn-secondary  ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+    
+    </div>
+    
+      <div id="info" style="display: none;" >Tiempo restante: 0 min | Progreso: 0%</div> 
+      <div id="Mapa"></div>
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+<script src="js/cn.js"></script>
+<script src="js/cute-alert.js"></script>
+<script src="js/notis.js"></script>
+
+<script>
+
+
+
+        var map, markerA, markerB, directionsService, directionsRenderer;
+        var routePoints = [];
+        var currentPointIndex = 0;
+        var totalDuration = 0; // Duración total del viaje en segundos
+
+        function animateMarkerTo(marker, start, end, duration) {
+            const startTime = performance.now();
+
+            function animate() {
+                const now = performance.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+
+                const lat = start.lat() + (end.lat() - start.lat()) * progress;
+                const lng = start.lng() + (end.lng() - start.lng()) * progress;
+
+                marker.setPosition(new google.maps.LatLng(lat, lng));
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+      
+    
+    
+        function timeToDecimal(timeString) {
+    const [hour, minute] = timeString.split(':').map(Number);
+    return hour + minute / 60;
+}
+
+function initializeMap(lat1, lon1, lat2, lon2, horaini, horafin) {
+    var origin  = { lat: lat1, lng: lon1 };
+    var destination = { lat: lat2, lng: lon2 };
+
+    var mapOptions = {
+        zoom: 7,
+        center: origin,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("Mapa"), mapOptions);
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({
+        map: map,
+        suppressMarkers: true
+    });
+
+    markerA = new google.maps.Marker({
+        position: origin,
+        map: map,
+        icon: { url: "img/mkt3.png", scaledSize: new google.maps.Size(30, 30) }
+    });
+
+    markerB = new google.maps.Marker({
+        position: destination,
+        map: map,
+        icon: { url: "img/17_Izamal.png", scaledSize: new google.maps.Size(30, 30) }
+    });
+
+    // Aquí, puedes poner las horas con minutos en formato "HH:MM"
+    calculateAndDisplayRoute(origin, destination, horaini , horafin);
+}
+
+function calculateAndDisplayRoute(origin, destination, horaSalida, horaLlegada) {
+    const horaSalidaDecimal = timeToDecimal(horaSalida); // Convertir hora de salida a decimal
+    const horaLlegadaDecimal = timeToDecimal(horaLlegada); // Convertir hora de llegada a decimal
+
+    const request = {
+        origin: origin,
+        destination: destination,
+        travelMode: 'TRANSIT',
+        transitOptions: {
+          modes: ['RAIL'],  // Intenta filtrar solo trenes
+      }
+    };
+
+    directionsService.route(request, function(result, status) {
+        if (status === 'OK') {
+            directionsRenderer.setDirections(result);
+
+            routePoints = [];
+            result.routes[0].legs.forEach(leg => {
+                leg.steps.forEach(step => {
+                    if (step.polyline) {
+                        const decodedPath = google.maps.geometry.encoding.decodePath(step.polyline.points);
+                        routePoints = routePoints.concat(decodedPath);
+                    }
+                });
+            });
+
+            totalDuration = result.routes[0].legs[0].duration.value; // Duración total en segundos
+            currentPointIndex = 0;
+
+            if (!markerA) {
+                markerA = new google.maps.Marker({
+                    position: routePoints[0],
+                    map: map,
+                    icon: { url: "img/mkt3.png", scaledSize: new google.maps.Size(30, 30) }
+                });
+            } else {
+                markerA.setPosition(routePoints[0]);
+            }
+
+            startRealTimeUpdate(horaSalidaDecimal, horaLlegadaDecimal);
+        } else {
+            alert("Error al calcular la ruta: " + status);
+        }
+    });
+}
+
+
+function actualizarInfo(progreso, tiempoRestante) {
+    document.getElementById("info").innerText = `Tiempo restante: ${tiempoRestante.toFixed(0)} min | Progreso: ${(progreso * 100).toFixed(2)}%`;
+}
+
+window.onload = function() {
+   /// initializeMap();
+};
+
+
+
+
+function startRealTimeUpdate(horaSalida, horaLlegada) {
+    if (routePoints.length === 0) return;
+
+    const ahora = new Date();
+    const horaActual = ahora.getHours() + ahora.getMinutes() / 60;
+
+    const horaInicio = horaSalida; // Ya en formato decimal
+    const horaFin = horaLlegada; // Ya en formato decimal
+
+    let progreso = (horaActual - horaInicio) / (horaFin - horaInicio);
+    progreso = Math.max(0, Math.min(1, progreso)); 
+
+    currentPointIndex = Math.floor(routePoints.length * progreso);
+    markerA.setPosition(routePoints[currentPointIndex]);
+
+    let tiempoRestanteMin = Math.max(0, (1 - progreso) * (horaFin - horaInicio) * 60);
+
+    // Ajustamos el tiempo de la animación según el tiempo restante
+    const intervalDuration = (totalDuration / routePoints.length) * 1000;  // Duración total del viaje en intervalos
+    const timeRemainingRatio = (tiempoRestanteMin / ((horaFin - horaInicio) * 60)); // Porcentaje de tiempo restante
+
+    // Ajustamos la duración del movimiento según el tiempo restante
+    const adjustedIntervalDuration = intervalDuration * timeRemainingRatio;
+
+    actualizarInfo(progreso, tiempoRestanteMin);
+
+    console.log(`Tiempo restante: ${tiempoRestanteMin.toFixed(0)} min | Progreso: ${(progreso * 100).toFixed(2)}%`);
+
+    function moveMarkerSmoothly() {
+        if (currentPointIndex < routePoints.length - 1) {
+            const start = routePoints[currentPointIndex];
+            const end = routePoints[currentPointIndex + 1];
+
+            animateMarkerTo(markerA, start, end, adjustedIntervalDuration); // Usamos la duración ajustada
+            currentPointIndex++;
+
+            let tiempoRestanteMin = Math.max(0, (1 - (currentPointIndex / routePoints.length)) * (horaFin - horaInicio) * 60);
+            let progresoActual = (currentPointIndex / routePoints.length);
+
+            actualizarInfo(progresoActual, tiempoRestanteMin);
+
+            console.log(`Tiempo restante: ${tiempoRestanteMin.toFixed(0)} min | Progreso: ${(progresoActual * 100).toFixed(2)}%`);
+
+            setTimeout(moveMarkerSmoothly, adjustedIntervalDuration); // Usamos la duración ajustada en el setTimeout
+        }
+    }
+
+    moveMarkerSmoothly();
+}
+
+
+
+    
+   
+
+
+
+
+
+function verUbicacion(){
+  if(document.getElementById("txtTrenes").value == "101" ){ // Palenque a cancun
+    initializeMap(17.533009666208976, -91.97947470749587, 21.027931402220684, -86.871600342286 , "09:00", "19:53"); //10 horas y 53 minutos.
+  }
+  if(document.getElementById("txtTrenes").value == "102" ){ // Cancun a Palenque
+    initializeMap(21.027931402220684, -86.871600342286, 17.533009666208976, -91.97947470749587, "09:30", "20:23"); //10 horas y 53 minutos.
+  }
+  if(document.getElementById("txtTrenes").value == "201" ){//Campeche a Cancun
+    initializeMap(19.093296085615812, -90.522778704055, 21.027931402220684, -86.871600342286, "07:00", "13:00"); //6 horas
+  } 
+  if(document.getElementById("txtTrenes").value == "202" ){//Cancun a Campeche
+    initializeMap(21.027931402220684, -86.871600342286, 19.092839979959024, -90.52306632010468, "16:40", "22:40");//6 horas.
+  } 
+  if(document.getElementById("txtTrenes").value == "301" ){
+    msgAlert("warning", "Mensaje", "No se pudo trazar una ruta para este tren");
+  }
+  if(document.getElementById("txtTrenes").value == "302" ){// Cancun a Merida
+    initializeMap(21.027841864925236, -86.87157018133811, 20.92945689580779, -89.51553949595701, "11:45", "18:57");
+  }
+  if(document.getElementById("txtTrenes").value == "303" ){//Merida a Cancun
+    initializeMap(20.92945689580779, -89.51553949595701, 21.027841864925236, -86.87157018133811, "15:20", "18:51");
+  }
+  if(document.getElementById("txtTrenes").value == "302x" ){
+    msgAlert("warning", "Mensaje", "No se pudo trazar una ruta para este tren");
+  }
+  if(document.getElementById("txtTrenes").value == "0" ){
+    msgAlert("info", "Mensaje", "Seleccione un Tren");
+  }
+  // initializeMap(19.093296085615812, -90.522778704055, 21.028359345127463, -86.87153653451442, "18:00", "22:40");
+}
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>
