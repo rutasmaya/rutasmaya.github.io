@@ -251,10 +251,10 @@ div.dataTables_wrapper div.dataTables_filter {
                 <option value="102" class="text-primary">102-Cancún a Palenque</option>
                 <option value="201" class="text-primary">201-Campeche a Cancún</option>
                 <option value="202" class="text-primary">202-Cancún a Campeche</option>
-                <option value="301" class="text-danger">301-Mérida a Tulum Aeropuerto</option>
-                <option value="302" class="text-primary">302-Cancún a Mérida</option>
-                <option value="302x" class="text-danger">302-Tulum aeropuerto a Mérida</option>
+                <option value="301" class="text-primary">301-Mérida a Playa del Carmen</option>
+                <option value="302" class="text-primary">302-Playa del Carmen a Mérida</option>
                 <option value="303" class="text-primary">303-Mérida a Cancún</option>
+                <option value="304" class="text-primary">304-Cancún a Mérida</option>
             </select>
         </div>
         <div class="col-1" style="text-align: end;">
@@ -472,26 +472,27 @@ function verUbicacion(){
     initializeMap(17.533009666208976, -91.97947470749587, 21.027931402220684, -86.871600342286 , "09:00", "19:53"); //10 horas y 53 minutos.
   }
   if(document.getElementById("txtTrenes").value == "102" ){ // Cancun a Palenque
-    initializeMap(21.027931402220684, -86.871600342286, 17.533009666208976, -91.97947470749587, "09:30", "20:23"); //10 horas y 53 minutos.
+    initializeMap(21.027931402220684, -86.871600342286, 17.533009666208976, -91.97947470749587, "09:30", "19:31"); //10 horas y 53 minutos.
   }
   if(document.getElementById("txtTrenes").value == "201" ){//Campeche a Cancun
-    initializeMap(19.093296085615812, -90.522778704055, 21.027931402220684, -86.871600342286, "07:00", "13:00"); //6 horas
+    initializeMap(19.093296085615812, -90.522778704055, 21.027931402220684, -86.871600342286, "07:00", "12:49"); //6 horas
   } 
   if(document.getElementById("txtTrenes").value == "202" ){//Cancun a Campeche
-    initializeMap(21.027931402220684, -86.871600342286, 19.092839979959024, -90.52306632010468, "16:40", "22:40");//6 horas.
+    initializeMap(21.027931402220684, -86.871600342286, 19.092839979959024, -90.52306632010468, "15:40", "21:37");//6 horas.
   } 
-  if(document.getElementById("txtTrenes").value == "301" ){
-    msgAlert("warning", "Mensaje", "No se pudo trazar una ruta para este tren");
+  if(document.getElementById("txtTrenes").value == "301" ){//Merida a Playa del Carmen
+    initializeMap(20.92945689580779, -89.51553949595701, 20.678508650253466, -87.1166474896782, "07:00", "11:35");
   }
-  if(document.getElementById("txtTrenes").value == "302" ){// Cancun a Merida
-    initializeMap(21.027841864925236, -86.87157018133811, 20.92945689580779, -89.51553949595701, "11:45", "18:57");
+  if(document.getElementById("txtTrenes").value == "302" ){//Playa del Carmen a Merida
+    initializeMap(20.678508650253466, -87.1166474896782, 20.92945689580779, -89.51553949595701, "18:10", "22:34");
   }
   if(document.getElementById("txtTrenes").value == "303" ){//Merida a Cancun
     initializeMap(20.92945689580779, -89.51553949595701, 21.027841864925236, -86.87157018133811, "15:20", "18:51");
   }
-  if(document.getElementById("txtTrenes").value == "302x" ){
-    msgAlert("warning", "Mensaje", "No se pudo trazar una ruta para este tren");
+  if(document.getElementById("txtTrenes").value == "304" ){// Cancun a Merida
+    initializeMap(21.027841864925236, -86.87157018133811, 20.92945689580779, -89.51553949595701, "11:45", "14:20");
   }
+  
   if(document.getElementById("txtTrenes").value == "0" ){
     msgAlert("info", "Mensaje", "Seleccione un Tren");
   }
