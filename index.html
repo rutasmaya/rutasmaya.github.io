@@ -21,6 +21,9 @@
 	<link href="css/core.css" rel="stylesheet" media="all">
 	<meta name="google-site-verification" content="Ysx6nwLaw78kmzBlipBisUndl9BFmY4-N2ZrVfnLHtA" />
 
+	<link href="css/style-alert.css" rel="stylesheet" media="all">
+
+
   <style>
 	  .rd-navbar-modern.rd-navbar-static .rd-navbar-main {
 	display: flex;
@@ -104,6 +107,16 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 	.row + .row {
     margin-top: 5px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #666cff;
+    border-color: #666cff;
+}
+
+.alert-wrapper{
+	z-index: 10000;
 }
 
 
@@ -332,36 +345,58 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 			  <span aria-hidden="true">×</span>
 			</button>
 		  </div>
+
+
+		  <div class="popup" id="formularioAdd" style="display: none;">
+		    
+			<form id="paymentDetailsForm" onsubmit="return false">           
+				<a class="d-block mb-3 small" data-bs-toggle="modal" data-bs-target="#addNewCCModal"> Detalle del registro </a>
+				
+				<div class="col-12 mb-3 d-flex gap-2">
+					<input id="txtNombre" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Nombre">
+					
+					<select id="opciones" class="form-control form-control-sm" name="opciones">
+						<option value="0">Selecciona el tipo</option>
+						<option value="tren">Tren</option>
+						<option value="hotel">Hotel</option>
+						<option value="destino">Destino</option>
+						<option value="transporte">Transporte</option>
+						<option value="aeropuerto">Aeropuerto</option>
+						<option value="restaurante">Restaurante</option>
+					</select>
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<textarea id="txtHorario" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de horario" rows="3"></textarea>
+					<textarea id="txtPrecio" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de precio" rows="3"></textarea>
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<textarea id="txtUbicacion" name="addEmail" class="form-control form-control-sm" placeholder="Describe la ubicación o referencias" rows="3"></textarea>
+					<textarea id="txtContacto" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de contacto o teléfono" rows="3"></textarea>
+				</div>
+
+				<div class="col-12 mb-3 d-flex gap-2">
+					<input id="txtIdEstacion" class="form-control form-control-sm" type="text" style="display: none;" >
+					<input id="txtIdTransporte" class="form-control form-control-sm" type="text" style="display: none;" >
+				</div>
+				
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<button type="submit" style="display: none!important;" id="btnAddRegistro" class="btn btn-success w-100 waves-effect waves-light" onclick="guardarRegistro()"><span class="me-1">Agregar</span></button>
+					<button type="submit" style="display: none!important;" id="btnEditarRegistro" class="btn btn-primary w-100 waves-effect waves-light" onclick="guardarRegistro()"><span class="me-1">Editar registro</span></button>
+					<button type="submit" id="btnCancelar" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelarAddEdicion()"><span class="me-1">Cancelar</span></button>
+				</div>
+			</form>
+			
+
+		  </div>
+
+
+
 		  <div class="popup" id="divPopup">
-		    <div class="row">
-		      <div class="col-sm-6 col-lg-6 col-md-6">
-			    <img src="img/1_Palenque.png" alt="" class="iconpop">
-				<h5>Palenque</h5>
-				<p class="estadopop">Chiapas</p>
-				<p class="textpop">
-				Esta primera estación es el paraíso de los amantes de la arqueología, aquí recorrerás la historia de Dioses y mundo maya.<br><br>
-				Cercano a esta estación encontrarás la zona arqueológica de Palenque, patrimonio de la humanidad por la UNESCO desde 1987. 
-				En el pueblo mágico de Palenque encontrarás artesanías inspiradas en la cosmovisión de la época prehispánica, el Parque Nacional de 
-				Palenque y próximamente el hotel Tren Maya Palenque, todos ellos rodeados de flora y fauna silvestre que muestra la belleza y 
-				la biodiversidad que nos regala el sureste mexicano.
-				</p>
-				<br>
-				<img src="img/successimg.png" alt="" class="iconpop">
-				<h5>Actualizado</h5>
-				<p class="estadopop">Estatus</p>
-				<br><br>
-			  </div>
-			  <div class="col-sm-6 col-lg-6 col-md-6 mapalto">
-				<h5>Vista Superior</h5>
-			    <img src="img/palenque.png" class="imagepop" alt="">
-				<h5>Haga click para actualizar la información</h5>
-				<br>
-				<center>
-					<a class="button button-width-xl-280 button-default-outline button-wapasha" style="margin-top: 3px;" >Actualizar</a>
-				</center>
-				<br>
-			  </div>
-		    </div>
+		    <center><img src="img/loaderkashan.gif" width="200" alt=""></center>
+
 		  </div>
 
 		  <div class="modal-footer">
@@ -393,5 +428,9 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 	<script src="js/script.js"></script>
 	<script src="js/cn.js"></script>
 	<script src="js/estaciones.js"></script>
+
+	<script src="js/cute-alert.js"></script>
+	<script src="js/notis.js"></script>
+
 </body>
 </html>
