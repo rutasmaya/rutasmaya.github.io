@@ -267,7 +267,7 @@ function cancelarAddEdicion(){
 
 function verAgregarRegistro(){
   document.getElementById("txtNombre").value = "";
-  document.getElementById("opciones").value = "";
+  document.getElementById("opciones").value = 0;
   document.getElementById("txtHorario").value = "";
   document.getElementById("txtPrecio").value = "";
   document.getElementById("txtUbicacion").value = "";
