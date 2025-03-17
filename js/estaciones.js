@@ -1,4 +1,5 @@
 function listarRutasTransporte(filtro){  
+  document.getElementById("txtIdEstacion").value = filtro;
         $.ajax({
           type: "GET",
           url: "https://airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=SelectRutasTransporte&Filtro="+filtro, 
@@ -93,7 +94,9 @@ function listarRutasTransporte(filtro){
                                     </div>
                                     <div class="d-flex align-items-center">
                                       <p class="mb-0 ${txtestatus} me-1">${titulo}</p>
-                                      <a ><i class="ri-edit-2-fill ${txtestatus} ri-20px"></i></a>
+                                      <a name="${data[i].idtransporte}|${data[i].nombretransporte}|${data[i].tipo}|${data[i].horario}|${data[i].precio}|${data[i].direccion}|${data[i].contacto}" onclick="editarCard(this.name)">
+                                      <i class="ri-edit-2-fill ${txtestatus} ri-20px"></i>
+                                      </a>
                                     </div>
                                   </div>
                                   <div class="card-info ">
@@ -141,14 +144,19 @@ function listarRutasTransporte(filtro){
                         <div class="col-sm-6 col-lg-12 col-md-6">
                    
                             <div class="row">
-                                <div class=" col-lg-6 col-sm-6 ">
+                                <div class=" col-lg-5 col-sm-5 ">
                                   <img src="${data[i].logo}" alt="" class="iconpop">
                                   <h5>${data[i].idRuta}.-${data[i].nombre}</h5>
                                   <p class="estadopop">${data[i].estado}</p>
                                 </div>
-
-                                <div class="col-lg-6 col-sm-6" style="text-align:end">
-                                  <img src="img/logomodal.png" alt="" width="100px" >
+                                <div class=" col-lg-2 col-sm-2 ">
+                                      
+                                </div>
+                                <div class="col-lg-5 col-sm-5" style="text-align:end">
+                                <button type="submit" id="btnVerAgregar" class="btn btn-success  waves-effect waves-light" onclick="verAgregarRegistro()">
+                                        <span class="me-1">Agregar nuevo registro</span>
+                                      </button>
+                                  <!--<img src="img/logomodal.png" alt="" width="100px" >-->
                                   <!--<p class="estadopop">${data[i].descripci2nimg}</p>-->
                                  
                                 </div>
@@ -232,4 +240,86 @@ function listarRutasTransporte(filtro){
         error: function (jqXmlHttpRequest, textStatus, errorThrown) {
         }
     });
+}
+
+
+function editarCard(valor){
+
+  var dato = valor.split('|');
+  document.getElementById("formularioAdd").style.display = 'block'
+  document.getElementById("divPopup").style.display = 'none'
+  document.getElementById("btnAddRegistro").setAttribute("style", "display: none !important;");
+  document.getElementById("btnEditarRegistro").setAttribute("style", "display: block !important;");
+
+  document.getElementById("txtIdTransporte").value = dato[0];
+  document.getElementById("txtNombre").value = dato[1];
+  document.getElementById("opciones").value = dato[2];
+  document.getElementById("txtHorario").value = dato[3];
+  document.getElementById("txtPrecio").value = dato[4];
+  document.getElementById("txtUbicacion").value = dato[5];
+  document.getElementById("txtContacto").value = dato[6];
+}
+
+function cancelarAddEdicion(){
+    document.getElementById("formularioAdd").style.display = 'none'
+    document.getElementById("divPopup").style.display = 'block'
+}
+
+function verAgregarRegistro(){
+  document.getElementById("txtNombre").value = "";
+  document.getElementById("opciones").value = "";
+  document.getElementById("txtHorario").value = "";
+  document.getElementById("txtPrecio").value = "";
+  document.getElementById("txtUbicacion").value = "";
+  document.getElementById("txtContacto").value = "";
+  document.getElementById("formularioAdd").style.display = 'block'
+  document.getElementById("divPopup").style.display = 'none'
+  document.getElementById("btnAddRegistro").setAttribute("style", "display: block !important;");
+  document.getElementById("btnEditarRegistro").setAttribute("style", "display: none !important;");
+  document.getElementById("txtIdTransporte").value = 0;
+}
+
+function guardarRegistro(){
+  
+
+  var nombre = document.getElementById("txtNombre").value;
+  var tipo = document.getElementById("opciones").value;
+  var horario = document.getElementById("txtHorario").value;
+  var precio = document.getElementById("txtPrecio").value;
+  var ubicacion = document.getElementById("txtUbicacion").value;
+  var contacto = document.getElementById("txtContacto").value;
+  var idtransporte = document.getElementById("txtIdTransporte").value
+  var idestacion = document.getElementById("txtIdEstacion").value
+  if(nombre != "" && horario != "" && precio != "" && ubicacion != ""){
+    $.ajax({
+      type: "GET",
+      url: cn + "AgregarModificarInfoEstacion&Nom="+nombre+"&Tipo="+tipo+"&Horario="+horario+"&Precio="+precio+"&Ubicacion="+ubicacion+"&Contacto="+contacto+"&IdTransporte="+idtransporte+"&IdEstacion="+idestacion, 
+        success: function (result) {
+            console.log(result);
+            document.getElementById("formularioAdd").style.display = 'none';
+            document.getElementById("divPopup").style.display = 'block';
+            if(idestacion == 0){
+              msgAlert("success", "Mensaje", "Registro agregado");
+            }
+            else{
+              msgAlert("info", "Mensaje", "Registro modificado");
+            }
+            document.getElementById("txtNombre").value = "";
+            document.getElementById("opciones").value = "";
+            document.getElementById("txtHorario").value = "";
+            document.getElementById("txtPrecio").value = "";
+            document.getElementById("txtUbicacion").value = "";
+            document.getElementById("txtContacto").value = "";
+            listarRutasTransporte(idestacion);
+            
+        },
+        error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+        }
+    });
+  }
+  else{
+    msgAlert("warning", "Mensaje", "Agreguelos datos solicitados");
+  }
+  
+
 }
