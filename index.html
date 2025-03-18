@@ -121,6 +121,51 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 
 	  </style>
+
+
+<style>
+    .floating-group {
+        position: relative;
+        width: 100%;
+    }
+
+    .floating-label {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        font-size: 14px;
+        color: gray;
+        background: white; /* Fondo igual al del formulario */
+        padding: 0 5px; /* Agrega un pequeño padding para que el fondo cubra bien */
+        transition: all 0.3s ease-in-out;
+        pointer-events: none;
+    }
+
+    .floating-input:focus ~ .floating-label,
+    .floating-input:not(:placeholder-shown) ~ .floating-label {
+        top: 0px; /* Mueve la etiqueta arriba */
+        left: 10px;
+        font-size: 12px;
+        color: #007bff;
+    }
+
+    .floating-input {
+        width: 100%;
+        padding: 10px;
+        padding-top: 20px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        background: white;
+    }
+
+    /* Ajuste para que el borde no se vea detrás de la etiqueta */
+    .floating-group:focus-within .floating-label {
+        color: #007bff;
+    }
+</style>
+
+
   <body background="img/Back.png" style="font-family: revert;"> 
 	
 
@@ -349,45 +394,71 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 		  <div class="popup" id="formularioAdd" style="display: none;">
 		    
-			<form id="paymentDetailsForm" onsubmit="return false">           
-				<a class="d-block mb-3 small" data-bs-toggle="modal" data-bs-target="#addNewCCModal"> Detalle del registro </a>
-				
-				<div class="col-12 mb-3 d-flex gap-2">
-					<input id="txtNombre" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Nombre">
-					
-					<select id="opciones" class="form-control form-control-sm" name="opciones">
-						<option value="0">Selecciona el tipo</option>
-						<option value="tren">Tren</option>
-						<option value="hotel">Hotel</option>
-						<option value="destino">Destino</option>
-						<option value="transporte">Transporte</option>
-						<option value="aeropuerto">Aeropuerto</option>
-						<option value="restaurante">Restaurante</option>
-					</select>
-				</div>
 			
-				<div class="col-12 mb-3 d-flex gap-2">
-					<textarea id="txtHorario" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de horario" rows="3"></textarea>
-					<textarea id="txtPrecio" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de precio" rows="3"></textarea>
-				</div>
-			
-				<div class="col-12 mb-3 d-flex gap-2">
-					<textarea id="txtUbicacion" name="addEmail" class="form-control form-control-sm" placeholder="Describe la ubicación o referencias" rows="3"></textarea>
-					<textarea id="txtContacto" name="addEmail" class="form-control form-control-sm" placeholder="Descripción de contacto o teléfono" rows="3"></textarea>
-				</div>
 
-				<div class="col-12 mb-3 d-flex gap-2">
-					<input id="txtIdEstacion" class="form-control form-control-sm" type="text" style="display: none;" >
-					<input id="txtIdTransporte" class="form-control form-control-sm" type="text" style="display: none;" >
-				</div>
-				
+			<form id="paymentDetailsForm" onsubmit="return false">
+				<a class="d-block mb-3 small" data-bs-toggle="modal" data-bs-target="#addNewCCModal"> Detalle del registro </a>
 			
 				<div class="col-12 mb-3 d-flex gap-2">
-					<button type="submit" style="display: none!important;" id="btnAddRegistro" class="btn btn-success w-100 waves-effect waves-light" onclick="guardarRegistro()"><span class="me-1">Agregar</span></button>
-					<button type="submit" style="display: none!important;" id="btnEditarRegistro" class="btn btn-primary w-100 waves-effect waves-light" onclick="guardarRegistro()"><span class="me-1">Editar registro</span></button>
-					<button type="submit" id="btnCancelar" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelarAddEdicion()"><span class="me-1">Cancelar</span></button>
+					<div class="floating-group">
+						<input id="txtNombre" name="addEmail" class="form-control form-control-sm floating-input" type="text" placeholder=" ">
+						<label for="txtNombre" class="floating-label">Nombre</label>
+					</div>
+			
+					<div class="floating-group">
+						<select id="opciones" class="form-control form-control-sm floating-input" name="opciones">
+							<option value="" disabled selected>Selecciona el tipo</option>
+							<option value="tren">Tren</option>
+							<option value="hotel">Hotel</option>
+							<option value="destino">Destino</option>
+							<option value="transporte">Transporte</option>
+							<option value="aeropuerto">Aeropuerto</option>
+							<option value="restaurante">Restaurante</option>
+						</select>
+						<label for="opciones" class="floating-label">Tipo</label>
+					</div>
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<div class="floating-group">
+						<textarea id="txtHorario" name="addEmail" class="form-control form-control-sm floating-input" placeholder=" " rows="3"></textarea>
+						<label for="txtHorario" class="floating-label">Descripción de horario</label>
+					</div>
+					<div class="floating-group">
+						<textarea id="txtPrecio" name="addEmail" class="form-control form-control-sm floating-input" placeholder=" " rows="3"></textarea>
+						<label for="txtPrecio" class="floating-label">Descripción de precio</label>
+					</div>
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<div class="floating-group">
+						<textarea id="txtUbicacion" name="addEmail" class="form-control form-control-sm floating-input" placeholder=" " rows="3"></textarea>
+						<label for="txtUbicacion" class="floating-label">Ubicación</label>
+					</div>
+					<div class="floating-group">
+						<textarea id="txtContacto" name="addEmail" class="form-control form-control-sm floating-input" placeholder=" " rows="3"></textarea>
+						<label for="txtContacto" class="floating-label">Contacto o teléfono</label>
+					</div>
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<input id="txtIdEstacion" class="form-control form-control-sm" type="text" style="display: none;">
+					<input id="txtIdTransporte" class="form-control form-control-sm" type="text" style="display: none;">
+				</div>
+			
+				<div class="col-12 mb-3 d-flex gap-2">
+					<button type="submit" style="display: none!important;" id="btnAddRegistro" class="btn btn-success w-100 waves-effect waves-light" onclick="guardarRegistro()">
+						<span class="me-1">Agregar</span>
+					</button>
+					<button type="submit" style="display: none!important;" id="btnEditarRegistro" class="btn btn-primary w-100 waves-effect waves-light" onclick="guardarRegistro()">
+						<span class="me-1">Editar registro</span>
+					</button>
+					<button type="submit" id="btnCancelar" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelarAddEdicion()">
+						<span class="me-1">Cancelar</span>
+					</button>
 				</div>
 			</form>
+			
 			
 
 		  </div>
