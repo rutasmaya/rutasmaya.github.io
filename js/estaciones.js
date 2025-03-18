@@ -290,15 +290,15 @@ function guardarRegistro(){
   var contacto = document.getElementById("txtContacto").value;
   var idtransporte = document.getElementById("txtIdTransporte").value
   var idestacion = document.getElementById("txtIdEstacion").value
-  if(nombre != "" && horario != "" && precio != "" && ubicacion != ""){
+  if(nombre != "" && horario != "" && precio != "" && ubicacion != "" && tipo != 0){
     $.ajax({
       type: "GET",
       url: cn + "AgregarModificarInfoEstacion&Nom="+nombre+"&Tipo="+tipo+"&Horario="+horario+"&Precio="+precio+"&Ubicacion="+ubicacion+"&Contacto="+contacto+"&IdTransporte="+idtransporte+"&IdEstacion="+idestacion, 
         success: function (result) {
-            console.log(result);
+            console.log(idestacion);
             document.getElementById("formularioAdd").style.display = 'none';
             document.getElementById("divPopup").style.display = 'block';
-            if(idestacion == 0){
+            if(idtransporte == 0){
               msgAlert("success", "Mensaje", "Registro agregado");
             }
             else{
