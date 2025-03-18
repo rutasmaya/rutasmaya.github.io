@@ -163,7 +163,7 @@ function listarRutasTransporte(filtro){
                                   <option value="-1">Todos</option>
                                   <option value="tren">Tren</option>
                                   <option value="hotel">Hotel</option>
-                                  <option value="destino">Destino</option>
+                                  <option value="destino">Destino Turístico</option>
                                   <option value="transporte">Transporte</option>
                                   <option value="aeropuerto">Aeropuerto</option>
                                   <option value="restaurante">Restaurante</option>
@@ -180,9 +180,9 @@ function listarRutasTransporte(filtro){
                                 </div>
                             </div>
 
-                             <p id="labelDescripcion" class="textpop4">
+                            <!-- <p id="labelDescripcion" class="textpop4">
                                     ${data[i].descripcion}
-                                  </p>
+                                  </p> -->
                       
                             
                               <!--
