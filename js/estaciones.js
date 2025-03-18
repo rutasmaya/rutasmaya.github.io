@@ -1,5 +1,9 @@
+
 function listarRutasTransporte(filtro){  
   document.getElementById("txtIdEstacion").value = filtro;
+
+
+
         $.ajax({
           type: "GET",
           url: "https://airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=SelectRutasTransporte&Filtro="+filtro, 
@@ -18,9 +22,9 @@ function listarRutasTransporte(filtro){
               for (var i = 0; i < data.length; i++) {
 
                 $.ajax({
-                  url: cn + "SeleccionarTransportesEstacion&id="+ data[i].idRuta, 
+                  url: cn + "SeleccionarTransportesEstacionFiltro&id="+ data[i].idRuta+"&Filtro=-1", 
                   success: function (result) {   
-                
+                console.log(result);
                     var x = result.replace(/\\r\\n/g, '');  
                     localStorage.setItem("prod", x);  
                     var data = JSON.parse(x)  
@@ -83,7 +87,7 @@ function listarRutasTransporte(filtro){
                       }
     
                       htmlinterno = htmlinterno +   `
-                          <div class=" col-lg-4 col-sm-6 ">
+                          <div class=" col-lg-4 col-sm-6" data-tipo="${data[i].tipo}">
                               <div class="card h-100">
                                 <div class="card-body">
                                   <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
@@ -139,6 +143,8 @@ function listarRutasTransporte(filtro){
                 imgestatus = "img/errorimg.png"
               }
 
+              var idest = document.getElementById("txtIdEstacion").value;
+
                 html = html + `
                     <div class="row">
                         <div class="col-sm-6 col-lg-12 col-md-6">
@@ -150,6 +156,18 @@ function listarRutasTransporte(filtro){
                                   <p class="estadopop">${data[i].estado}</p>
                                 </div>
                                 <div class=" col-lg-2 col-sm-2 ">
+
+                                
+
+                                <select id="txtFiltroTipoN" onchange="filtrarInfo()" class="form-control form-control-sm" name="opciones">
+                                  <option value="-1">Todos</option>
+                                  <option value="tren">Tren</option>
+                                  <option value="hotel">Hotel</option>
+                                  <option value="destino">Destino</option>
+                                  <option value="transporte">Transporte</option>
+                                  <option value="aeropuerto">Aeropuerto</option>
+                                  <option value="restaurante">Restaurante</option>
+                                </select>
                                       
                                 </div>
                                 <div class="col-lg-5 col-sm-5" style="text-align:end">
@@ -288,8 +306,8 @@ function guardarRegistro(){
   var precio = document.getElementById("txtPrecio").value;
   var ubicacion = document.getElementById("txtUbicacion").value;
   var contacto = document.getElementById("txtContacto").value;
-  var idtransporte = document.getElementById("txtIdTransporte").value
-  var idestacion = document.getElementById("txtIdEstacion").value
+  var idtransporte = document.getElementById("txtIdTransporte").value;
+  var idestacion = document.getElementById("txtIdEstacion").value;
   if(nombre != "" && horario != "" && precio != "" && ubicacion != "" && tipo != 0){
     $.ajax({
       type: "GET",
@@ -320,6 +338,26 @@ function guardarRegistro(){
   else{
     msgAlert("warning", "Mensaje", "Agreguelos datos solicitados");
   }
-  
+}
 
+
+function filtrarInfo() {
+  // Obtener el valor seleccionado en el select
+  const tipoSeleccionado = document.getElementById("txtFiltroTipoN").value;
+
+  // Obtener todos los cards
+  const cards = document.querySelectorAll("#divTransportesEstacion .col-lg-4");
+
+  // Iterar sobre cada card
+  cards.forEach(card => {
+    // Obtener el tipo del card desde el atributo data-tipo
+    const tipoCard = card.getAttribute("data-tipo");
+
+    // Si se seleccionó "Todos" o el tipo del card coincide con el seleccionado
+    if (tipoSeleccionado === "-1" || tipoCard === tipoSeleccionado) {
+      card.style.display = "block"; // Mostrar el card
+    } else {
+      card.style.display = "none"; // Ocultar el card
+    }
+  });
 }
