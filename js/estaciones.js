@@ -24,7 +24,7 @@ function listarRutasTransporte(filtro){
                 $.ajax({
                   url: cn + "SeleccionarTransportesEstacionFiltro&id="+ data[i].idRuta+"&Filtro=-1", 
                   success: function (result) {   
-                console.log(result);
+                //console.log(result);
                     var x = result.replace(/\\r\\n/g, '');  
                     localStorage.setItem("prod", x);  
                     var data = JSON.parse(x)  
@@ -98,8 +98,11 @@ function listarRutasTransporte(filtro){
                                     </div>
                                     <div class="d-flex align-items-center">
                                       <p class="mb-0 ${txtestatus} me-1">${titulo}</p>
-                                      <a name="${data[i].idtransporte}|${data[i].nombretransporte}|${data[i].tipo}|${data[i].horario}|${data[i].precio}|${data[i].direccion}|${data[i].contacto}" onclick="editarCard(this.name)">
+                                      <a style="cursor: pointer" name="${data[i].idtransporte}|${data[i].nombretransporte}|${data[i].tipo}|${data[i].horario}|${data[i].precio}|${data[i].direccion}|${data[i].contacto}" onclick="editarCard(this.name)">
                                       <i class="ri-edit-2-fill ${txtestatus} ri-20px"></i>
+                                      </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <a style="cursor: pointer" name="${data[i].idtransporte}" onclick="eliminarCard(this.name)">
+                                      <i class="ri-delete-bin-fill ${txtestatus} ri-20px"></i>
                                       </a>
                                     </div>
                                   </div>
@@ -200,13 +203,6 @@ function listarRutasTransporte(filtro){
                         </div>
                         
                     </div>
-
-
-
-
-                    
-
-
 
 
                 `;
@@ -360,4 +356,33 @@ function filtrarInfo() {
       card.style.display = "none"; // Ocultar el card
     }
   });
+}
+
+function eliminarCard(valor){
+  var idestacion = document.getElementById("txtIdEstacion").value;
+    cuteAlert({
+      type: "question",
+      title: "Mensaje de confirmación",
+      message: "Estás a punto de eliminar este registro de forma permanente.<br><b>¿Estás seguro de continuar con la eliminación?</b>",
+      confirmText: "Si",
+      cancelText: "Cancelar"
+    }).then((e)=>{
+      if (e == ("confirm")){
+        console.log(cn + "eliminarCard&id="+valor);
+        $.ajax({
+          type: "GET",
+          url: cn + "eliminarCard&id="+valor, 
+            success: function (result) {
+              console.log(result);
+                msgAlert("success", "Mensaje", "Registro eliminado");
+                listarRutasTransporte(idestacion)
+            },
+            error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+      } else {
+        console.log("cancelado");
+      }
+    })
 }
