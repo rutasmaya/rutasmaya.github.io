@@ -26,7 +26,7 @@ function login() {
                   localStorage.setItem("correo", result[5]); 
                   localStorage.setItem("rol", result[6]); 
                  
-                  document.cookie = `token=${result[7]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
+                  document.cookie = `token=${result[9]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
 
                   setTimeout(() => window.location.href = "inicio.html", 1000);
               } else {  
