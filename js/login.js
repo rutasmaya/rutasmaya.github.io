@@ -25,6 +25,8 @@ function login() {
                   localStorage.setItem("telefono", result[4]);   
                   localStorage.setItem("correo", result[5]); 
                   localStorage.setItem("rol", result[6]); 
+                  localStorage.setItem("idestacion", result[7]); 
+                  localStorage.setItem("nombreestacion", result[8]); 
                  
                   document.cookie = `token=${result[9]}; Secure; SameSite=Strict; max-age=3600`; // Expira en 1 hora
 
