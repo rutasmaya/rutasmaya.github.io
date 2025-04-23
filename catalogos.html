@@ -502,8 +502,9 @@ html:not([dir=rtl]) .me-2 {
                 </div>
 
                 <div class="col-12 mb-3 d-flex gap-2" id="editarArea" style="display: none!important;">
-                  <button type="submit" class="btn btn-primary w-100 waves-effect waves-light" onclick="editarEstacion()"><span class="me-1">Editar área</span></button>
+                  <button type="submit" class="btn btn-primary w-100 waves-effect waves-light" onclick="editarArea()"><span class="me-1">Editar área</span></button>
                   <button type="submit" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelaEditarArea()"><span class="me-1">Cancelar</span></button>
+                  <input id="txtIdArea" name="addEmail" style="display: none;" type="text" placeholder="Estado...">
                 </div>
 
               </form>
@@ -608,8 +609,9 @@ html:not([dir=rtl]) .me-2 {
                 </div>
 
                 <div class="col-12 mb-3 d-flex gap-2" id="divEditarEmpleado" style="display: none!important;">
-                  <button type="submit" class="btn btn-primary w-100 waves-effect waves-light" onclick="editarEstacion()"><span class="me-1">Editar empleado</span></button>
+                  <button type="submit" class="btn btn-primary w-100 waves-effect waves-light" onclick="editarEmpleado()"><span class="me-1">Editar empleado</span></button>
                   <button type="submit" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelaEditarEmpleado()"><span class="me-1">Cancelar</span></button>
+                  <input id="txtIdEmpleado" name="addEmail" style="display: none;" type="text" placeholder="Estado...">
                 </div>
           
                
@@ -621,6 +623,113 @@ html:not([dir=rtl]) .me-2 {
       
       
         
+            <!-- Upgrade Plan -->
+            <div class="col-md-6 col-xxl-4" id="catTrenes" >
+              <div class="card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                  <h5 class="card-title m-0 me-2">Catalogo de Trenes</h5>
+                  <div class="dropdown">
+                    <button class="btn btn-text-secondary rounded-pill text-muted border-0 p-1 waves-effect waves-light" type="button" id="upgradePlanCard" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="ri-more-2-line ri-20px"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="upgradePlanCard">
+                      <a class="dropdown-item waves-effect" href="javascript:void(0);">Last 28 Days</a>
+                      <a class="dropdown-item waves-effect" href="javascript:void(0);">Last Month</a>
+                      <a class="dropdown-item waves-effect" href="javascript:void(0);">Last Year</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" >
+    
+    
+                
+    
+                    
+    
+                    <div class="table-responsive text-nowrap" style="height: 300px; overflow-y: scroll;">
+                      <table class="table border-top">
+                        
+                        <tbody class="table-border-bottom-0" id="tablaTrenes">
+    
+                          <tr>
+                            <td style="vertical-align: middle;">
+                              <div class="me-2">
+                                <div class="avatar flex-shrink-0">
+                                  <div class="avatar-initial bg-label-success rounded-3">
+                                    <div>
+                                      <i class="ri-user-line ri-24px img-fluid"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td style="vertical-align: middle;">
+                              <div class="me-4">
+                                <h6 class="mb-1">Arturo</h6>
+                                <p class="mb-0">Morales Villavicencio</p>
+                              </div>
+                            </td>
+                            <td class="text-success fw-medium text-end" style="vertical-align: middle;" >
+                              <div class="user-progress d-flex align-items-center gap-2">
+                                <label class="switch switch-secondary">
+                                  <input type="checkbox" class="switch-input" checked>
+                                  <span class="switch-toggle-slider">
+                                    <span class="switch-on">
+                                      <i class="ri-check-line"></i>
+                                    </span>
+                                    <span class="switch-off">
+                                      <i class="ri-close-line"></i>
+                                    </span>
+                                  </span>
+                                </label>
+                              </div>
+                            </td>
+                            <td class="text-end fw-medium" style="vertical-align: middle;">
+                              <button type="button" class="btn rounded-pill btn-icon btn-primary waves-effect waves-light">
+                                <span class="tf-icons ri-edit-2-fill ri-22px"></span>
+                              </button>
+                            </td>
+                          </tr>
+    
+          
+                        
+                      
+                        </tbody>
+                      </table>
+                    </div>
+    
+                  
+                  <form id="paymentDetailsForm" onsubmit="return false">
+                  
+                   
+                    <a  class="d-block mb-3 small" data-bs-toggle="modal" data-bs-target="#addNewCCModal"> Agregar nuevo tren </a>
+                    <div class="col-12 mb-3 d-flex gap-2" >
+                      <input id="txtTren" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Número de Tren---">
+                      <input id="txtOrigen" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Origen">
+                    </div>
+                    <div class="col-12 mb-3 d-flex gap-2" >
+                      <input id="txtDestino" name="addEmail" class="form-control form-control-sm" type="text" placeholder="Destino---">
+                      <input id="txtSalida" name="addEmail" class="form-control form-control-sm" type="time" placeholder="Salida">
+                    </div>
+    
+                    <div class="col-12 mb-3 d-flex gap-2" >
+                      <input id="txtLlegada" name="addEmail" class="form-control form-control-sm" type="time" placeholder="Llegada">
+                      <button type="submit" id="btnAgregarTren" class="btn btn-success w-100 waves-effect waves-light" onclick="agregarTren()"><span class="me-1">Agregar tren</span></button>
+                      
+                    </div>
+    
+                    <div class="col-12 mb-3 d-flex gap-2" id="divEditarTren" style="display: none!important;">
+                      <button type="submit" class="btn btn-primary w-100 waves-effect waves-light" onclick="editarTren()"><span class="me-1">Editar tren</span></button>
+                      <button type="submit" class="btn btn-danger w-100 waves-effect waves-light" onclick="cancelaEditarTren()"><span class="me-1">Cancelar</span></button>
+                      <input id="txtIdTren" name="addEmail" style="display: block;" type="text" placeholder="Estado...">
+                    </div>
+              
+                   
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--/ Upgrade Plan -->
       
       
      
