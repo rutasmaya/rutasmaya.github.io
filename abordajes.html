@@ -406,7 +406,7 @@
                              
                               <div class="profile-body">
                   
-                                  <center><h4 class="mb-1" id="lblModalTren">TREN</h4></center>
+                                  <center> <h4 class="mb-1" id="lblModalTren">TREN</h4></center>
                                   <p id="lblCorreo3"></p>
                               </div>
                           </div>
@@ -630,7 +630,7 @@ function seleccionarTrenes(){
                                 <i class="ri-train-line ri-24px"></i> 
                               </div>
                             </div>
-                            <h5>Tren ${data[i].tren}</h5>
+                            <h6> ${data[i].origen} - ${data[i].destino} </h6>
                             <div class="d-flex align-items-center">
                               <a href="#" id="${data[i].tren}|${data[i].origen}|${data[i].destino}|${data[i].salida}" onclick="verModalAbordaje(this.id);" ><i class="ri-edit-2-fill text-primary"></i></a>
                             </div>
@@ -639,7 +639,7 @@ function seleccionarTrenes(){
                             <center>
                               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                 <div class="me-2">
-                                  <h6 class="mb-0">${data[i].origen} - ${data[i].destino}</h6>
+                                  <h6 class="mb-0" style="text-align: left;">Tren ${data[i].tren} </h6>
                                   <small class="d-flex align-items-center">
                                     <i class="ri-time-line ri-16px"></i>
                                     <span class="ms-2">Salida: ${data[i].salida}</span>
@@ -773,7 +773,7 @@ function compartirWhatsApp(elemento) {
 
         valor = valor.split('|');
         $("#modal-abordaje").modal("show");
-        document.getElementById("lblModalTren").innerHTML = "<b>Tren" + valor[0] + "</b>";
+        document.getElementById("lblModalTren").innerHTML =  valor[0];
         document.getElementById("lblModalOrigenDestino").innerHTML = valor[1] + " - " + valor[2];
         document.getElementById("txtModalSuben").value = document.getElementById(`lblSuben${valor[0]}`).innerHTML.trim();
         document.getElementById("txtModalBajan").value = document.getElementById(`lblBajan${valor[0]}`).innerHTML.trim();
