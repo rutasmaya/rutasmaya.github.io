@@ -398,7 +398,7 @@
 
             <!-- Modal: Editar Abordajes -->
             <div class="modal fade" id="modal-abordaje" tabindex="-1" aria-labelledby="modal-abordaje" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-fullscreen-xl-down">
+              <div class="modal-dialog modal-dialog-centered ">
                   <div class="modal-content">
                       <!-- Modal body -->
                       <div class="modal-body py-0">
@@ -643,7 +643,7 @@ function seleccionarTrenes(){
                                   <h6 class="mb-0" style="text-align: left;">Tren ${data[i].tren} </h6>
                                   <small class="d-flex align-items-center">
                                     <i class="ri-time-line ri-16px"></i>
-                                    <span class="ms-2">Salida: ${data[i].salida}</span>
+                                    <span >Salida: ${data[i].salida}</span>
                                   </small>
                                 </div>
                                 <div class="badge bg-label-success rounded-pill">Suben: <b id="lblSuben${data[i].tren}"> 0</b></div>
@@ -651,7 +651,7 @@ function seleccionarTrenes(){
                               </div>
                               <br>
                               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <i class="ri-group-line ri-16px"> Suben reales:</i> 
+                                <i class="ri-group-line ri-16px">Suben reales:</i> 
                               <a href="#" class="badge bg-label-secondary rounded-pill"><b id="lblReales${data[i].tren}">0</b></a>
                               </div>
                             </center>
