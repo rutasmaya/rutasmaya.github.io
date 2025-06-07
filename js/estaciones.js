@@ -155,7 +155,7 @@ function listarRutasTransporte(filtro){
                             <div class="row">
                                 <div class=" col-lg-5 col-sm-5 ">
                                   <img src="${data[i].logo}" alt="" class="iconpop">
-                                  <h5>${data[i].idRuta}.-${data[i].nombre}</h5>
+                                  <h5>${data[i].nombre}</h5>
                                   <p class="estadopop">${data[i].estado}</p>
                                 </div>
                                 <div class=" col-lg-2 col-sm-2 ">
