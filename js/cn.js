@@ -32,7 +32,7 @@ function getCookie(name) {
 
 
 function validaTk(){
-
+  load.display = 'block';
     var token = getCookie('token');
     if (!token) {
         window.location.href = "login.html";
@@ -48,6 +48,7 @@ function validaTk(){
             } else {
                 window.location.href = "login.html";
             }
+              load.display = 'none';
         },
         error: function () {
            window.location.href = "login.html";
