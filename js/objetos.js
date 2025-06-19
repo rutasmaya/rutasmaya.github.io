@@ -1,7 +1,5 @@
 $(document).ready(function(){  
-  
-   serviciosCliente();
-  
+   serviciosCliente(); 
 });
 
 
@@ -12,11 +10,8 @@ function validarFecha(fecha) {
   return formatearFecha(fecha); // Formatea la fecha normalmente
 }
 
-
 function serviciosCliente(){
-   
       var est = document.getElementById("idtxtEstatus").value;
-
       var ed = "";
       var es = "";
       var ei = "";
@@ -34,10 +29,7 @@ function serviciosCliente(){
         est = "recuperado";
       }
   
-     
-  
       var nombre = "";
-  
       var f1 = document.getElementById("txtFechaIni").value;
       var f2 = document.getElementById("txtFechaFin").value;
   
@@ -53,8 +45,6 @@ function serviciosCliente(){
         f2 = "";
       }
   
-
-  
       var estatus = "";
       var cliente = "";
       var serv = "";
@@ -63,9 +53,8 @@ function serviciosCliente(){
           url: cn + "SeleccionarObjetosK2&Nom=" + nombre + "&Estatus=" + est + "&FechaIni=" + f1 + "&FechaFin=" + f2, 
           success: function (result) {
   
-
-            result = result.split("<");
-              result = result[0];
+          result = result.split("<");
+          result = result[0];
           var x = result.replace(/\\r\\n/g, '');   
           var data = JSON.parse(x)  
           var html = "";     
@@ -76,20 +65,14 @@ function serviciosCliente(){
 
           for (var i = 0; i < data.length; i++) {
 
-          
-
-      
-
             if(data[i].estacionregistro != null){
               ed = verificarValor(data[i].estacionregistro);
             }
          
-
             if(data[i].estacionencontrado != null){
               es =  verificarValor(data[i].estacionencontrado);
             }
          
-
             if(data[i].estacionrecuperado != null){
               ei =  verificarValor(data[i].estacionrecuperado);
             }
@@ -115,10 +98,9 @@ function serviciosCliente(){
               observacionrpt = verificarValor(data[i].descripcion) + verificarValor(data[i].descripencontrado);
             }
           
-
             html = html + ` 
 
-                   <tr>
+              <tr>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(i+1)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(fecharpt)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(estacionrpt)}</td>
@@ -127,11 +109,8 @@ function serviciosCliente(){
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
 
-                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>
-
-
-                        
-                    </tr>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>  
+              </tr>
                     
 
         ` ;
