@@ -63,6 +63,8 @@ function serviciosCliente(){
           var descripcionrpt = "";
           var observacionrpt = "";
 
+          var tipoestatus = "";
+
           for (var i = 0; i < data.length; i++) {
 
             if(data[i].estacionregistro != null){
@@ -82,6 +84,7 @@ function serviciosCliente(){
               estacionrpt = ed;
               descripcionrpt = data[i].descripcion;
               observacionrpt = "";
+              tipoestatus = "OP";
             } 
 
             if(data[i].estatus == "encontrado"){
@@ -89,6 +92,7 @@ function serviciosCliente(){
               estacionrpt = es;
               descripcionrpt = data[i].descripencontrado;
               observacionrpt = verificarValor(data[i].descripcion);
+              tipoestatus = "OE";
             }
 
             if(data[i].estatus == "recuperado"){
@@ -96,20 +100,23 @@ function serviciosCliente(){
               estacionrpt = ei;
               descripcionrpt = data[i].descriprecuperado;
               observacionrpt = verificarValor(data[i].descripcion) + verificarValor(data[i].descripencontrado);
+              tipoestatus = "OR";
             }
           
             html = html + ` 
 
               <tr>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(i+1)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(data[i].idobjeto)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(fecharpt)}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" class="${obtenerClaseTipoEstatus(tipoestatus)}"><b>${verificarValor(tipoestatus)}</b></td>  
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(estacionrpt)}</td>
-                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor("<center>1</center>")}</td>
+                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(data[i].tren)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(data[i].nombreObjeto)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10" >${verificarValor(descripcionrpt)}</td>
                    <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(observacionrpt)}</td>
 
-                   <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-b-a-s="thin" class="${obtenerClaseEstatus(data[i].estatus)}"><b>${verificarValor(data[i].estatus)}</b></td>  
+                   
               </tr>
                     
 
@@ -131,13 +138,13 @@ function serviciosCliente(){
 
               <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;"><i class="fa fa-file-excel-o"></i> Excel</button>
 
-            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="5,15,20,10,20,40,40,15">
+            <table id="ejemplo" class="table table-striped table-bordered" style="width:100%; font-size:12px" data-cols-width="5,10,12,7,10,7,25,30,25">
         <thead>
         
          <tr style="display:none">
             <td
               class="header"
-              colspan="8"
+              colspan="9"
               data-f-sz="16"
               data-f-color="000"
               data-a-h="center"
@@ -153,7 +160,7 @@ function serviciosCliente(){
          <tr style="display:none; ">
             <td
               
-              colspan="8"
+              colspan="9"
               data-f-sz="16"
               data-f-color="000" 
               data-fill-color="DAE9F8"
@@ -164,18 +171,20 @@ function serviciosCliente(){
               data-a-wrap="true" 
               data-b-a-s="thin"
 
-            >Reporte de Objetos Perdidos en Estación </td>
+            >Bitácora de Objetos Perdidos/Olvidados </td>
           </tr>
         
             <tr>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">No</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Estación</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Cantidad</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Objeto Perdido</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Descripción del Objeto Extraviado</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Observaciones</th>
-            <th data-a-h="center" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Estatus</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">No</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true" data-a-wrap="true">No de Registro</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Tipo</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Estación</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Tren</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Objeto Perdido</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Descripción del Objeto</th>
+            <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Observaciones</th>
+           
               
             </tr>
         </thead>
@@ -250,7 +259,7 @@ function serviciosCliente(){
                                 className: 'btn btn-app export pdf',
                                 orientation: 'landscape', // Establece la orientación a horizontal
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 },
                                 customize: function(doc) {
 
@@ -314,7 +323,7 @@ function serviciosCliente(){
                                 titleAttr: 'Imprimir',
                                 className: 'btn btn-app export imprimir',
                                 exportOptions: {
-                                    columns: [ 0, 1,2,3,4,5,6,7]
+                                    columns: [ 0, 1,2,3,4,5,6,7, 8]
                                 }
                             },
                             {
@@ -374,6 +383,21 @@ function obtenerClaseEstatus(estatus) {
         case "encontrado":
             return "text-success";
         case "recuperado":
+            return "text-primary";
+        default:
+            return ""; // Clase vacía si no hay coincidencia
+    }
+}
+
+function obtenerClaseTipoEstatus(estatus) {
+    switch (estatus) {
+        case "todos":
+            return "text-success";
+        case "OP":
+            return "text-danger";
+        case "OE":
+            return "text-success";
+        case "OR":
             return "text-primary";
         default:
             return ""; // Clase vacía si no hay coincidencia
