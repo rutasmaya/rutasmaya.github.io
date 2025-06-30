@@ -299,6 +299,9 @@ div.dataTables_wrapper div.dataTables_filter {
 
   <script src='https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js'></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 
   <script>
 
@@ -357,6 +360,31 @@ $(document).ready(function() {
   </script>
 
 
+<style>
+/* 1) Barra como flex */
+.dt-buttons {
+  display: flex !important;
+  align-items: center;
+  margin-left:80px;
+}
+
+/* 2) Espacio entre todos los botones */
+.dt-buttons .btn {
+  margin-right: 8px;   /* ajusta el espacio horizontal */
+}
+
+/* 3) Empujar “Mostrar filas” a la derecha */
+.dt-buttons .buttons-page-length  {
+  margin-left: auto !important;
+  margin-right: 0;     /* quita el margin-right extra si no lo deseas */
+}
+
+.dt-button-collection {
+  right: 0 !important;   /* Al pegarlo al borde derecho */
+  left: auto !important; /* Ignora el left que pone inline */
+}
+
+</style>
 
 
 </body>
