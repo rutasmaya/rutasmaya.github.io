@@ -368,10 +368,10 @@ function eliminarCard(valor){
       cancelText: "Cancelar"
     }).then((e)=>{
       if (e == ("confirm")){
-        console.log(cn + "eliminarCard&id="+valor);
+        console.log(cn + "eliminarCardTransporte&id="+valor);
         $.ajax({
           type: "GET",
-          url: cn + "eliminarCard&id="+valor, 
+          url: cn + "eliminarCardTransporte&Id="+valor, 
             success: function (result) {
               console.log(result);
                 msgAlert("success", "Mensaje", "Registro eliminado");
@@ -386,3 +386,4 @@ function eliminarCard(valor){
       }
     })
 }
+
