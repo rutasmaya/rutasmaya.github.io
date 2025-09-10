@@ -2,7 +2,7 @@
 
 //ar cn = "http://airestsh.somee.com/Api/wsaires.ashx?Comando=";
 
-var cn2 = "https://airestsh.somee.com/Api/CrudServicios.ashx?Comando=";
+var cn2 = "https://www.airestsh.somee.com/Api/CrudServicios.ashx?Comando=";
 var cn = "https://amahcarev2.somee.com/requestnoti.ashx?Comando=";
 
 //var cn = "http://localhost:51134/requestnoti.ashx?Comando=";
@@ -90,3 +90,4 @@ function confirmLogout() {
     console.log("%cEsta es una función del navegador destinada a desarrolladores. Si alguien le dijo que copiara y pegara algo aquí para habilitar una función de RutasMayaSystem o \"hackear\" la cuenta de alguien, es una estafa.", warningDescCSS);
     console.log('%cConsulte https://rutasmaya.github.io/privacidad.html para obtener más información.', warningDescCSS);
            
+
