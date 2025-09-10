@@ -6,7 +6,7 @@ function listarRutasTransporte(filtro){
 
         $.ajax({
           type: "GET",
-          url: "https://airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=SelectRutasTransporte&Filtro="+filtro, 
+          url: "https://www.airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=SelectRutasTransporte&Filtro="+filtro, 
            success: function (result) {
 
             var imgestatus = "";
@@ -242,7 +242,7 @@ function listarRutasTransporte(filtro){
     var desc = document.getElementById("txtDescripcion").value;
     $.ajax({
       type: "GET",
-      url: "https://airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=ActualizarRutasTransporte&IdRuta="+id + "&Descripcion=" + desc, 
+      url: "https://www.airestsh.somee.com/Api/CrudEstaciones.ashx?Comando=ActualizarRutasTransporte&IdRuta="+id + "&Descripcion=" + desc, 
         success: function (result) {
             listarRutasTransporte(id)
             document.getElementById("labelDescripcion").style.display = 'block';
@@ -386,4 +386,5 @@ function eliminarCard(valor){
       }
     })
 }
+
 
