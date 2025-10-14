@@ -290,11 +290,11 @@ div.dataTables_wrapper div.dataTables_filter {
         </div>
         <div class="col-2" style="text-align: center;">
             <label for="fechaInicial">Fecha inicial</label>
-            <input type="date" id="txtFechaIni" class="form-control" value="2025-10-06">
+            <input type="date" id="txtFechaIni" class="form-control" value="">
         </div>
         <div class="col-2" style="text-align: center;">
             <label for="fechaFinal">Fecha Final</label>
-            <input type="date" id="txtFechaFin" class="form-control" value="2025-10-12">
+            <input type="date" id="txtFechaFin" class="form-control" value="">
         </div>
      
         <div class="col-1" style="text-align: left;">
@@ -459,7 +459,17 @@ function cargarRendimiento(){
                     const reg = datos.find(d => d.Nombre === u && d.FechaRegistro === f);
                     if (reg) {
                       const boletos = reg.BoletosEfectivo + reg.BoletosTarjeta;
-                      html += `<td data-a-h="right">${boletos}</td><td data-a-h="right">${(reg.MontoEfectivo).toFixed(2)}</td><td data-a-h="right">${(reg.MontoTarjeta).toFixed(2)}</td>`;
+                     // html += `<td data-a-h="right">${boletos}</td><td data-a-h="right">${(reg.MontoEfectivo).toFixed(2)}</td><td data-a-h="right">${(reg.MontoTarjeta).toFixed(2)}</td>`;
+
+                    
+                     html += `
+                      <td data-a-h="right">${!boletos || boletos == 0 ? '' : boletos}</td>
+                      <td data-a-h="right">${!reg.MontoEfectivo || reg.MontoEfectivo == 0 ? '' : reg.MontoEfectivo.toFixed(2)}</td>
+                      <td data-a-h="right">${!reg.MontoTarjeta || reg.MontoTarjeta == 0 ? '' : reg.MontoTarjeta.toFixed(2)}</td>
+                    `;
+
+
+
                     } else {
                       html += '<td></td><td></td><td></td>';
                     }
@@ -913,6 +923,38 @@ async function nuevoExcel() {
     }
   </script>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const hoy = new Date();
+
+    // Normalizar la hora para evitar desfases por zona horaria
+    hoy.setHours(0, 0, 0, 0);
+
+    // Obtener día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
+    const diaSemana = hoy.getDay();
+
+    // Calcular lunes (si es domingo = 0 → restar 6 días)
+    const lunes = new Date(hoy);
+    lunes.setDate(hoy.getDate() - (diaSemana === 0 ? 6 : diaSemana - 1));
+
+    // Calcular domingo (lunes + 6 días)
+    const domingo = new Date(lunes);
+    domingo.setDate(lunes.getDate() + 6);
+
+    // Formatear en yyyy-mm-dd
+    const formato = (fecha) => {
+        const anio = fecha.getFullYear();
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        return `${anio}-${mes}-${dia}`;
+    };
+
+    // Asignar valores
+    document.getElementById("txtFechaIni").value = formato(lunes);
+    document.getElementById("txtFechaFin").value = formato(domingo);
+});
+</script>
 
 
 
