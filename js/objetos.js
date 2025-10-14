@@ -104,6 +104,26 @@ function serviciosCliente(){
           tooltipotipo = "Objeto Recuperado";
         }
 
+         
+        
+        var imgobj = "";
+        var imgcred = "";
+        var imgfirma = "";
+
+        if(data[i].fotoobjeto != null){
+          imgobj = `<img width="50px" src="https://amahcarev2.somee.com/${verificarValor(data[i].fotoobjeto)}"></img>`;
+        }
+        if(data[i].fotocredencial != null){
+          imgcred = `<img width="50px" src="https://amahcarev2.somee.com/${verificarValor(data[i].fotocredencial)}"></img>`;
+        }
+        if(data[i].firmaRecibido != null){
+          imgfirma = `<img width="50px" src="${verificarValor(data[i].firmaRecibido)}"></img>`;
+        }
+
+       
+
+        
+
         html += `
           <tr>
             <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${verificarValor(i+1)}</td>
@@ -120,7 +140,13 @@ function serviciosCliente(){
             <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(data[i].fechaencontrado)}</td>
             <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(data[i].fechaentregado)}</td>
             <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${formatearFecha(data[i].fechaentregado)}</td>
-          </tr>`;
+         
+            <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${imgobj}</td>
+            <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${imgcred}</td>
+            <td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-sz="10">${imgfirma}</td>
+         
+         
+            </tr>`;
 
         ed = "";
         es = "";
@@ -166,6 +192,10 @@ function serviciosCliente(){
               <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha Hallazgo</th>
               <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha Solicitud</th>
               <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Fecha Entrega</th>
+
+              <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Foto</th>
+              <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Cedencial</th>
+              <th data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true">Firma</th>
             </tr>
           </thead>
           <tbody>
@@ -368,14 +398,14 @@ async function nuevoExcel(data) {
   });
 
   // Títulos
-  sheet.mergeCells('A1:M1');
+  sheet.mergeCells('A1:P1');
   let titleCell = sheet.getCell('A1');
   titleCell.value = 'Coordinación General de Gestión de Infraestructura Ferroviaria';
   titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
   titleCell.font = { size: 16, bold: true };
   sheet.getRow(1).height = 35;
 
-  sheet.mergeCells('A2:M2');
+  sheet.mergeCells('A2:P2');
   let subtitleCell = sheet.getCell('A2');
   subtitleCell.value = 'Bitácora de Objetos Perdidos/Olvidados';
   subtitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
@@ -388,7 +418,16 @@ async function nuevoExcel(data) {
   sheet.getRow(2).height = 35;
 
   // Encabezados
-  const headers = ['No', 'No de Registro', 'Fecha', 'Tipo', 'Estación', 'Tren', 'Objeto Perdido', 'Descripción del Objeto', 'Valor', 'Observaciones', 'Fecha Hallazgo', 'Fecha de Solicitud', 'Fecha de Entrega'];
+  //const headers = ['No', 'No de Registro', 'Fecha', 'Tipo', 'Estación', 'Tren', 'Objeto Perdido', 'Descripción del Objeto', 'Valor', 'Observaciones', 'Fecha Hallazgo', 'Fecha de Solicitud', 'Fecha de Entrega'];
+  
+  const headers = [
+  'No', 'No de Registro', 'Fecha', 'Tipo', 'Estación', 'Tren', 
+  'Objeto Perdido', 'Descripción del Objeto', 'Valor', 'Observaciones', 
+  'Fecha Hallazgo', 'Fecha de Solicitud', 'Fecha de Entrega',
+  'Foto', 'Credencial', 'Firma'  // 👈 nuevas columnas
+];
+
+  
   // Insertar encabezados en fila 3
 sheet.addRow(headers);
 
@@ -418,11 +457,18 @@ headerRow.eachCell((cell) => {
   ];
 
   // Ancho columnas
-  sheet.columns = [
+  /*sheet.columns = [
     { width: 5 }, { width: 10 }, { width: 11 }, { width: 7 },
     { width: 15 }, { width: 7 }, { width: 20 }, { width: 30 }, 
     { width: 7 }, { width: 22 }, { width: 11 }, { width: 11 }, { width: 11 }
-  ];
+  ];*/
+
+  sheet.columns = [
+  { width: 5 }, { width: 10 }, { width: 11 }, { width: 7 },
+  { width: 15 }, { width: 7 }, { width: 20 }, { width: 30 }, 
+  { width: 7 }, { width: 22 }, { width: 11 }, { width: 11 }, { width: 11 },
+  { width: 11 }, { width: 11 }, { width: 11 } // 👈 Foto, Credencial, Firma
+];
 
   // Parámetros para altura dinámica
   const LINE_HEIGHT = 15;             // Pt por línea
@@ -460,6 +506,22 @@ headerRow.eachCell((cell) => {
       tipoestatus = "OR";
     }
 
+    /*const row = sheet.addRow([
+      i + 1,
+      verificarValor(data[i].idobjeto),
+      formatearFecha(fecharpt),
+      tipoestatus,
+      verificarValor(estacionrpt),
+      verificarValor(data[i].tren),
+      verificarValor(data[i].nombreObjeto),
+      verificarValor(descripcionrpt),
+      verificarValor(data[i].valor),
+      verificarValor(observacionrpt),
+      formatearFecha(data[i].fechaencontrado),
+      formatearFecha(data[i].fechaentregado),
+      formatearFecha(data[i].fechaentregado)  
+    ]);*/
+
     const row = sheet.addRow([
       i + 1,
       verificarValor(data[i].idobjeto),
@@ -471,12 +533,12 @@ headerRow.eachCell((cell) => {
       verificarValor(descripcionrpt),
       verificarValor(data[i].valor),
       verificarValor(observacionrpt),
-
       formatearFecha(data[i].fechaencontrado),
       formatearFecha(data[i].fechaentregado),
-      formatearFecha(data[i].fechaentregado)
-         
+      formatearFecha(data[i].fechaentregado),
+      '', '', '' // 👈 Celdas vacías para imagen, las llenaremos abajo
     ]);
+
 
     // Formato por celda de fila datos
 
@@ -506,6 +568,52 @@ headerRow.eachCell((cell) => {
       if (lines > maxLines) maxLines = lines;
     });
     row.height = maxLines * LINE_HEIGHT;
+
+
+     // --- Aquí agregamos las imágenes ---
+    const fotoBase64 = await getBase64Image("https://amahcarev2.somee.com/"+data[i].fotoobjeto);
+    const credencialBase64 = await getBase64Image("https://amahcarev2.somee.com/"+data[i].fotocredencial);
+
+    // === AGREGAR IMÁGENES ===
+    let fila = row.number;
+
+
+// Ajustar altura de la fila una sola vez
+const altoCelda = 60; // altura en píxeles de tus imágenes
+sheet.getRow(fila).height = altoCelda * 0.75; // convertir a puntos (~45)
+
+// 📸 Foto centrada
+if (fotoBase64) {
+  const idFoto = workbook.addImage({ base64: fotoBase64, extension: 'png' });
+  const pos = getCenteredPosition(sheet, 13, fila - 1, 50, 40); // columna 13 → índice 12
+  sheet.addImage(idFoto, { ...pos, ext: { width: 50, height: 40 } });
+}
+
+// 🪪 Credencial centrada
+if (credencialBase64) {
+  const idCred = workbook.addImage({ base64: credencialBase64, extension: 'png' });
+  const pos = getCenteredPosition(sheet, 14, fila - 1, 50, 40); // columna 14 → índice 13
+  sheet.addImage(idCred, { ...pos, ext: { width: 50, height: 40 } });
+}
+
+// ✍️ Firma centrada
+if (data[i].firmaRecibido) {
+  try {
+    const idFirma = workbook.addImage({ base64: data[i].firmaRecibido, extension: 'png' });
+    const pos = getCenteredPosition(sheet, 15, fila - 1, 50, 40); // columna 15 → índice 14
+    sheet.addImage(idFirma, { ...pos, ext: { width: 50, height: 40 } });
+  } catch (err) {
+    console.warn("No se pudo agregar firma base64");
+  }
+}
+
+
+
+
+
+
+
+
   }
 
   // Descargar archivo Excel
@@ -513,6 +621,24 @@ headerRow.eachCell((cell) => {
   const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   saveAs(blob, "Reporte_Servicios_Cliente.xlsx");
 }
+
+
+function getCenteredPosition(sheet, col, row, imgWidth, imgHeight) {
+  // Ancho aproximado de columna en píxeles (1 unidad ≈ 7.5 px)
+  const colWidth = (sheet.getColumn(col + 1).width || 10) * 7.5;
+  // Alto de fila en píxeles (1 punto ≈ 1.33 px)
+  const rowHeight = (sheet.getRow(row + 1).height || 15) * 1.33;
+
+  // Offset para centrar
+  const offsetX = (colWidth - imgWidth) / 2;
+  const offsetY = (rowHeight - imgHeight) / 2;
+
+  // ExcelJS usa coordenadas base 0 para col/row
+  return {
+    tl: { col: col + (offsetX / 64), row: row + (offsetY / 20) },
+  };
+}
+
 
 
 function formatearFecha(fecha) {
@@ -568,4 +694,33 @@ function obtenerClaseTipoEstatus(estatus) {
 }
 
 
+
+
+// Función universal para obtener base64 de una imagen (URL o ya base64)
+async function getBase64Image(imgData) {
+  try {
+    if (!imgData) return null;
+
+    // Si ya viene como base64, la devolvemos directamente
+    if (imgData.startsWith("data:image")) {
+      return imgData.split(',')[1]; // quitar encabezado
+    }
+
+    // Si es una URL
+    const response = await fetch(imgData, { mode: "cors" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const blob = await response.blob();
+
+    // Convertir blob a base64
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) {
+    console.warn("Error cargando imagen:", imgData, e.message);
+    return null;
+  }
+}
 
