@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Rendimiento</title>
+
+  <meta name="robots" content="noindex">
+
+
+  <link rel="icon" href="https://trenmaya.gob.mx/images/Kukulkan.svg" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+
+
+<link href="css/style-alert.css" rel="stylesheet" media="all">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+
+  <script src="js/cn.js"></script>
+
+  <script src="js/cute-alert.js"></script>
+  <script src="js/notis.js"></script>
+
+    <script src='https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js'></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+
+
+    <style id="INLINE_PEN_STYLESHEET_ID">
+
+.container {
+        max-width: 100%!important;
+    }
+
+
+    
+:after, :before {
+    box-sizing: border-box;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+i{
+  margin-bottom:4px;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+
+.btn-app {
+    color: white;
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 10px 15px;
+    margin: 0;
+    min-width: 60px;
+    max-width: 80px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #f4f4f4;
+    font-size: 12px;
+    transition: all .2s;
+    background-color: steelblue !important;
+}
+
+.btn-app > .fa, .btn-app > .glyphicon, .btn-app > .ion {
+    font-size: 30px;
+    display: block;
+}
+
+.btn-app:hover {
+    border-color: #aaa;
+    transform: scale(1.1);
+}
+
+.pdf {
+  background-color: #dc2f2f !important;
+}
+
+.excel {
+    background-color: #3ca23c !important;
+}
+
+.csv {
+    background-color: #e86c3a !important;
+}
+
+.imprimir {
+    background-color: #8766b1 !important;
+}
+
+
+
+.selectTable{
+  height:40px;
+  float:right;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #4682b4;
+    border-color: #4682b4;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #315f86;
+    border-color: #545b62;
+}
+
+
+
+.titulo-tabla{
+  color:#606263;
+  text-align:center;
+  margin-top:15px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+
+
+
+
+
+.inline{
+  display:inline-block;
+  padding:0;
+}
+
+
+
+.rd-navbar-wrap, .rd-navbar,
+.rd-menu,
+.rd-navbar-nav,
+.rd-navbar-panel, .rd-navbar-static .rd-menu, .rd-navbar-fixed .rd-navbar-nav-wrap, .rd-navbar-fixed .rd-navbar-submenu, .rd-navbar-project {
+	transition: 0.35s all cubic-bezier(0.65, 0.05, 0.36, 1);
+	background-image:   url('css/fondo.jpg' ); 
+	background-size: cover;
+}
+
+
+
+  </style>
+
+
+  <style>
+   
+    h2 {
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 5px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .subheader {
+      background-color: #e0e0e0;
+      font-weight: bold;
+    }
+    .buttons {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      margin-left: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body onload="cargarRendimiento()">
+
+    <header class="section page-header" style="position: fixed; width: 100%; z-index: 100; ">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap rd-navbar-modern-wrap" style="height: 70px;">
+          <nav class="rd-navbar rd-navbar-modern rd-navbar-original rd-navbar-static rd-navbar--is-stuck" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="70px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+             
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand">
+                    <a class="brand" style="font-size: 200%; color: #fff; font-weight:500;">
+                      <img src="img/logox.png" alt="" width="130"  style="padding: 0 30px; background-color: #ffffff8e;">
+                     Reporte de Rendimientos
+                    </a>    
+
+                 
+
+                    <a onclick="return confirmLogout()" style="padding: 5px; color:#fff; margin: 10px 20px 0px 0px; float: right; background-color: #0f4d0e!important; padding: 15px; font-weight: bold;" class="btn btn-sm btn-secondary  ">
+                      Cerrar sesión
+                  </a>
+                   
+                   
+                  </div>
+
+                  
+
+                </div>
+              
+               
+
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>      <!-- Swiper-->
+
+      <br><br><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12" >
+
+<div class="buttons" style="display: none;">
+  <button onclick="exportarExcel()">📗 Descargar Excel</button>
+  <button onclick="exportarPDF()">📕 Descargar PDF</button>
+  <button onclick="window.print()">🖨️ Imprimir</button>
+  <button onclick="exportarExcelConEncabezado()">📗 Descargar Excel 2</button>
+
+</div>
+
+     <div class="row">
+        <div class="col-3">
+          <label for="fechaInicial">
+          <a href="inicio.html"  style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+            <span class="fa fa-home "> </span> Inicio
+        </a>
+      </label>
+             <input type="text" id="txtUsuario" readonly disabled class="form-control" style="border: none; background-color: transparent; font-weight: 500;">
+        </div>
+        <div class="col-2" style="text-align: center;">
+            <label for="fechaInicial">Fecha inicial</label>
+            <input type="date" id="txtFechaIni" class="form-control" value="2025-10-06">
+        </div>
+        <div class="col-2" style="text-align: center;">
+            <label for="fechaFinal">Fecha Final</label>
+            <input type="date" id="txtFechaFin" class="form-control" value="2025-10-12">
+        </div>
+     
+        <div class="col-1" style="text-align: left;">
+            <br>
+            <a target="_blank" id="btnBuscarServ" onclick="serviciosCliente()" style="padding: 5px; color:#fff" class="btn btn-sm btn-secondary  ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+        </div>
+
+       <div class="col-2" style="text-align: end;">
+  <br>
+  
+  <!-- Botón visible -->
+  <label for="fileInput"
+         class="btn btn-lg pdf"
+         style="padding: 8px 16px; color:#fff; background-color:#6c757d; border:none; cursor:pointer; font-size: 1.25rem;">
+    Importar Archivo RTO
+  </label>
+
+  <!-- Input real oculto -->
+  <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none;">
+
+  <!-- Donde se mostrará el nombre del archivo -->
+  <pre id="output" style="margin-top: 8px;"></pre>
+</div>
+
+<script>
+  // Mostrar el nombre del archivo seleccionado
+  document.getElementById("fileInput").addEventListener("change", function(){
+    const file = this.files[0];
+    document.getElementById("output").textContent = file ? `Archivo seleccionado: ${file.name}` : "";
+  });
+</script>
+
+    
+    </div>
+
+<div id="tabla-container"></div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+var idioma=
+
+            {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "NingÃºn dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Ãšltimo",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "buttons": {
+                    "copyTitle": 'Informacion copiada',
+                    "copyKeys": 'Use your keyboard or menu to select the copy command',
+                    "copySuccess": {
+                        "_": '%d filas copiadas al portapapeles',
+                        "1": '1 fila copiada al portapapeles'
+                    },
+
+                    "pageLength": {
+                    "_": "Mostrar %d filas",
+                    "-1": "Mostrar Todo"
+                    }
+                }
+            };
+
+
+
+
+function cargarRendimiento(){
+
+  var id= "1";
+  var f1 = document.getElementById("txtFechaIni").value;
+  var f2 = document.getElementById("txtFechaFin").value;
+
+  var datos = "";
+
+   $.ajax({
+            type: "GET",
+            url: cn + "SeleccionarRendimiento&Id="+id+"&FechaIni="+f1+"&FechaFin="+f2,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                datos = JSON.parse(result); 
+                
+
+                 /*datos = [
+                    { IdRendimiento: 22, Nombre: "EDGAR ANTONIO TLAPA PEREZ -- CANAL TVS", BoletosEfectivo: 24, MontoEfectivo: 8593.0, BoletosTarjeta: 22, MontoTarjeta: 7506.0, FechaRegistro: "2025/10/07" },
+                    { IdRendimiento: 23, Nombre: "LYNDA AKARI JIMENEZ RUIZ Canal--TVS", BoletosEfectivo: 0, MontoEfectivo: 0.0, BoletosTarjeta: 15, MontoTarjeta: 3924.0, FechaRegistro: "2025/10/07" },
+                    { IdRendimiento: 24, Nombre: "PAOLA DEL ROSARIO AGUILAR TUN Canal--TVS", BoletosEfectivo: 55, MontoEfectivo: 6119.0, BoletosTarjeta: 36, MontoTarjeta: 8482.0, FechaRegistro: "2025/10/07" },
+                    { IdRendimiento: 25, Nombre: "Sindy Didiana Sanchez Pérez Canal--TVS", BoletosEfectivo: 17, MontoEfectivo: 4551.5, BoletosTarjeta: 61, MontoTarjeta: 12248.5, FechaRegistro: "2025/10/07" },
+                    { IdRendimiento: 26, Nombre: "VALERIA SINAI POOL GONGORA Canal--TVS", BoletosEfectivo: 35, MontoEfectivo: 7700.5, BoletosTarjeta: 71, MontoTarjeta: 16784.0, FechaRegistro: "2025/10/07" },
+                    { IdRendimiento: 27, Nombre: "Yenny Vianey Castillo Camargo Canal--TVS", BoletosEfectivo: 21, MontoEfectivo: 8734.5, BoletosTarjeta: 76, MontoTarjeta: 18021.0, FechaRegistro: "2025/10/07" }
+                  ];*/
+
+                // Obtener nombres únicos
+                const usuarios = [...new Set(datos.map(d => d.Nombre))];
+                // Obtener fechas únicas
+                const fechas = [...new Set(datos.map(d => d.FechaRegistro))].sort();
+                const totalColumnas = 1 + usuarios.length * 3;
+                const anchoFijo = 11; // ancho deseado por columna (ajusta a gusto)
+                const colsWidth = Array(totalColumnas).fill(anchoFijo).join(',');
+
+                // Crear tabla
+                let html =  ` 
+                <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;">
+                  <i class="fa fa-file-excel-o" style="font-size:12px">  Excel</i> 
+                  </button>
+                <table id="tablaRendimientos" data-cols-width="${colsWidth}">  
+                    <thead>
+                      <tr style="display:none">
+                              <td class="header" colspan="${totalColumnas}" data-f-sz="16" data-f-color="000" data-a-h="center" data-a-v="middle" data-f-underline="false" data-f-bold="true" data-height="30">
+                                <img src="https://rutasmaya.github.io/img/Imagen1rptt.png" width="200">  Coordinación General de Gestión de Infraestructura Ferroviaria
+                              </td>
+                            </tr>
+                            <tr style="display:none;">
+                              <td colspan="${totalColumnas}" data-height="30" data-f-sz="16" data-f-color="000" data-fill-color="DAE9F8" data-a-h="center" data-a-v="middle" data-f-bold="true" data-a-wrap="true" >
+                                Reporte de Rendimiento
+                              </td>
+                            </tr>
+                        <tr><th rowspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-bold="true">FECHA VENTA</th> ` ;
+                usuarios.forEach(u => {
+                  html += `<th colspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true" data-height="30" >${u}</th>`;
+                });
+                html += '</tr><tr>';
+                usuarios.forEach(() => {
+                  html += '<th colspan="3" class="subheader" data-b-a-s="thin">TVS</th>';
+                });
+                html += '</tr><tr>';
+                usuarios.forEach(() => {
+                  html += '<th data-b-a-s="thin">BOLETOS</th><th data-b-a-s="thin">EFECTIVO</th><th data-b-a-s="thin">TDC</th>';
+                });
+                html += '</tr></thead><tbody>';
+                // Crear filas por fecha
+                fechas.forEach(f => {
+                  html += `<tr><td  data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-f-bold="true">${f}</td>`;
+                  usuarios.forEach(u => {
+                    const reg = datos.find(d => d.Nombre === u && d.FechaRegistro === f);
+                    if (reg) {
+                      const boletos = reg.BoletosEfectivo + reg.BoletosTarjeta;
+                      html += `<td data-a-h="right">${boletos}</td><td data-a-h="right">${(reg.MontoEfectivo).toFixed(2)}</td><td data-a-h="right">${(reg.MontoTarjeta).toFixed(2)}</td>`;
+                    } else {
+                      html += '<td></td><td></td><td></td>';
+                    }
+                  });
+                  html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                document.getElementById('tabla-container').innerHTML = html;
+                  var table = $('#tablaRendimientos').DataTable( {
+                            "paging": true,
+                            "lengthChange": true,
+                            "searching": false,
+                            "ordering": false,
+                            "info": true,
+                            "autoWidth": true,
+                            "language": idioma,
+                            "lengthMenu": [[5,10,20, -1],[5,10,50,"Mostrar Todo"]],
+                            dom: 'Bfrt<"col-md-6 inline"i> <"col-md-6 inline"p>',
+                            pageLength: 15, // muestra 50 filas por página
+                            
+                            buttons: {
+                                  dom: {
+                                    container:{
+                                      tag:'div',
+                                      className:'flexcontent'
+                                    },
+                                    buttonLiner: {
+                                      tag: null
+                                    }
+                                  },  
+                                  buttons: [
+                                        ] 
+                                }  
+                            });
+                
+
+            },
+            error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+            setTimeout($("#loading").hide(), 1000);
+            console.log("Verifique su conexión");
+            }
+        });
+  
+  
+}
+
+
+
+
+async function nuevoExcel() {
+  try {
+    const table = document.getElementById('tablaRendimientos');
+    if (!table) { alert("No se encontró la tabla #tablaRendimientos"); return; }
+
+    // ---------- Helpers ----------
+    function parseIntOrDefault(v, d=1){ const n=parseInt(v,10); return isNaN(n)?d:n; }
+    function boolAttr(v){ return (v === true) || (String(v).toLowerCase() === 'true'); }
+    function toARGB(color){
+      if(!color) return undefined;
+      color = String(color).replace('#','').trim().toUpperCase();
+      if(color.length === 8) return color;
+      if(color.length === 6) return 'FF' + color;
+      if(color.length === 3) return 'FF' + color.split('').map(ch=>ch+ch).join('');
+      // fallback
+      return 'FF' + color.padStart(6,'0').slice(0,6).toUpperCase();
+    }
+    async function getBase64FromUrl(url){
+      const res = await fetch(url);
+      const blob = await res.blob();
+      return await new Promise((resolve,reject)=>{
+        const r = new FileReader();
+        r.onloadend = ()=> resolve(r.result.split(',')[1]);
+        r.onerror = reject;
+        r.readAsDataURL(blob);
+      });
+    }
+    function getTotalColsFromTable(tbl){
+      let max = 0;
+      tbl.querySelectorAll('tr').forEach(tr => {
+        let count = 0;
+        tr.querySelectorAll('th,td').forEach(c => {
+          count += parseInt(c.getAttribute('colspan') || '1', 10);
+        });
+        if(count > max) max = count;
+      });
+      return max || 1;
+    }
+
+    // ---------- Workbook / Sheet ----------
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Rendimientos');
+    sheet.pageSetup = {
+      orientation: 'landscape',
+      horizontalCentered: true,
+      margins: { left:0.2, right:0.2, top:0.2, bottom:0.2, header:0.2, footer:0.2 }
+    };
+
+    // ---------- Col widths (desde data-cols-width o uniforme) ----------
+    const colsWidthAttr = table.getAttribute('data-cols-width');
+    const totalCols = getTotalColsFromTable(table);
+    let colWidths = [];
+    if (colsWidthAttr) {
+      // parse a numeric array; si hay menos ancho que columnas, rellenar
+      colWidths = colsWidthAttr.split(',').map(x => {
+        const n = parseFloat(x);
+        return (isNaN(n) ? 15 : n);
+      });
+      while (colWidths.length < totalCols) colWidths.push(colWidths[colWidths.length-1] || 15);
+    } else {
+      const defaultW = 15;
+      colWidths = Array(totalCols).fill(defaultW);
+    }
+    sheet.columns = colWidths.map(w => ({ width: w }));
+
+    // ---------- Imagen si existe en el thead (buscar first img) ----------
+    const firstImg = table.querySelector('thead img') || table.querySelector('img');
+    if (firstImg && firstImg.src) {
+      try {
+        const base64 = await getBase64FromUrl(firstImg.src);
+        const imgId = workbook.addImage({ base64: base64, extension: (firstImg.src.endsWith('.png')? 'png':'png') });
+        // poner en esquina superior (ajusta si lo deseas)
+        sheet.addImage(imgId, { tl: { col: 0, row: 0 }, ext: { width: 180, height: 80 } });
+      } catch(e){
+        console.warn("No se pudo cargar la imagen:", e);
+      }
+    }
+
+    // ---------- Procesar THEAD con soporte colspan/rowspan ----------
+    const thead = table.querySelector('thead');
+    const headerRows = thead ? Array.from(thead.querySelectorAll('tr')) : [];
+    const headerRowCount = headerRows.length;
+
+    // Matriz de ocupación para manejar rowspan
+    const occupancy = Array.from({length: headerRowCount}, ()=> Array(totalCols).fill(false));
+
+    function findNextFreeCol(rowIndex){
+      const rowOcc = occupancy[rowIndex];
+      for(let i=0;i<rowOcc.length;i++) if(!rowOcc[i]) return i;
+      return rowOcc.length;
+    }
+
+    for(let r=0; r<headerRowCount; r++){
+      const tr = headerRows[r];
+      let colPtr = 0;
+      const cells = Array.from(tr.querySelectorAll('th,td'));
+      for(const cell of cells){
+        // buscar la siguiente columna libre
+        while(occupancy[r][colPtr]) colPtr++;
+        const colspan = parseIntOrDefault(cell.getAttribute('colspan')||'1',1);
+        const rowspan = parseIntOrDefault(cell.getAttribute('rowspan')||'1',1);
+        // marcar ocupación
+        for(let rr=r; rr<Math.min(headerRowCount, r+rowspan); rr++){
+          for(let cc=colPtr; cc<colPtr+colspan; cc++){
+            occupancy[rr][cc] = true;
+          }
+        }
+        const startCol = colPtr + 1; // ExcelJS columnas 1-based
+        const endCol = colPtr + colspan;
+        const startRow = r + 1;
+        const endRow = r + rowspan;
+
+        // valor textual (sin la <img>)
+        const imgEl = cell.querySelector('img');
+        let textVal = cell.innerText ? cell.innerText.trim() : '';
+        if (imgEl) {
+          // quitar posible texto redundante
+          // deja el texto (si lo hay) y la imagen ya fue agregada arriba
+          textVal = textVal.replace(/\n/g,' ').trim();
+        }
+
+        // aplicar merge si necesario
+        if (colspan > 1 || rowspan > 1) {
+          sheet.mergeCells(startRow, startCol, endRow, endCol);
+        }
+
+        const target = sheet.getCell(startRow, startCol);
+        target.value = textVal || null;
+
+        // Estilos desde data-*
+        const fsz = cell.getAttribute('data-f-sz');
+        const fcol = cell.getAttribute('data-f-color');
+        const fillc = cell.getAttribute('data-fill-color');
+        const ah = cell.getAttribute('data-a-h');
+        const av = cell.getAttribute('data-a-v');
+        const awrap = cell.getAttribute('data-a-wrap');
+        const borderStyle = cell.getAttribute('data-b-a-s');
+        const dheight = cell.getAttribute('data-height');
+        const fBold = cell.getAttribute('data-f-bold');
+        const fUnderline = cell.getAttribute('data-f-underline');
+
+        // fuente
+        const font = {};
+        if(fsz) font.size = parseFloat(fsz);
+        if(fBold && String(fBold).toLowerCase()==='true') font.bold = true;
+        if(fUnderline && String(fUnderline).toLowerCase()==='true') font.underline = true;
+        if(fcol) font.color = { argb: toARGB(fcol) };
+        if(Object.keys(font).length>0) target.font = font;
+
+        // fill
+        if(fillc) {
+          target.fill = { type: 'pattern', pattern:'solid', fgColor: { argb: toARGB(fillc) } };
+        }
+
+        // alignment
+        const alignment = { wrapText: boolAttr(awrap), vertical: 'middle' };
+        if(ah) {
+          const hh = String(ah).toLowerCase();
+          if(hh === 'center' || hh === 'centro') alignment.horizontal = 'center';
+          else if(hh === 'left' || hh==='start') alignment.horizontal = 'left';
+          else if(hh === 'right' || hh==='end') alignment.horizontal = 'right';
+        } else alignment.horizontal = 'center';
+        if(av) {
+          const vv = String(av).toLowerCase();
+          if(vv === 'middle' || vv === 'center') alignment.vertical = 'middle';
+          else if(vv === 'top') alignment.vertical = 'top';
+          else if(vv === 'bottom') alignment.vertical = 'bottom';
+        }
+        target.alignment = alignment;
+
+        // border
+        if(borderStyle && borderStyle.toLowerCase()==='thin') {
+          const b = { style: 'thin' };
+          target.border = { top: b, left: b, bottom: b, right: b };
+        }
+
+        // row height
+        if(dheight) {
+          const rowNum = sheet.getRow(startRow);
+          // intentar convertir a number, si es grande, lo reducimos para que no sea enorme
+          let h = parseFloat(dheight);
+          if(!isNaN(h)) {
+            if(h > 200) h = Math.round(h / 4);
+            rowNum.height = h;
+          }
+        }
+
+        // avanzar pointer
+        colPtr = colPtr + colspan;
+      } // end cells
+    } // end header rows
+
+    // ---------- Procesar TBODY (o TRs fuera delad) ----------
+    const bodyRows = Array.from(table.querySelectorAll('tbody tr'));
+    let excelRowIndex = headerRowCount + 1;
+
+    for(const tr of bodyRows) {
+      const cells = Array.from(tr.querySelectorAll('td,th'));
+      let colPtr = 0;
+      // crear una row vacía (para que existan celdas)
+      const row = sheet.getRow(excelRowIndex);
+
+      for(const cell of cells) {
+        // encontrar próxima columna libre (no hacemos ocupación compleja para body)
+        while(row.getCell(colPtr+1) && row.getCell(colPtr+1).value !== null) colPtr++;
+        const colspan = parseIntOrDefault(cell.getAttribute('colspan')||'1',1);
+        const rowspan = parseIntOrDefault(cell.getAttribute('rowspan')||'1',1);
+        const startCol = colPtr + 1;
+        const endCol = colPtr + colspan;
+        const startRow = excelRowIndex;
+        const endRow = excelRowIndex + rowspan - 1;
+
+        // merge si necesario
+        if(colspan > 1 || rowspan > 1) {
+          sheet.mergeCells(startRow, startCol, endRow, endCol);
+        }
+
+        const target = sheet.getCell(startRow, startCol);
+        target.value = (cell.innerText||'').trim() || null;
+
+        // aplicar estilos (similares a header)
+        const fsz = cell.getAttribute('data-f-sz');
+        const fcol = cell.getAttribute('data-f-color');
+        const fillc = cell.getAttribute('data-fill-color');
+        const ah = cell.getAttribute('data-a-h');
+        const av = cell.getAttribute('data-a-v');
+        const awrap = cell.getAttribute('data-a-wrap');
+        const borderStyle = cell.getAttribute('data-b-a-s');
+        const dheight = cell.getAttribute('data-height');
+        const fBold = cell.getAttribute('data-f-bold');
+
+        const font = {};
+        if(fsz) font.size = parseFloat(fsz);
+        if(fBold && String(fBold).toLowerCase()==='true') font.bold = true;
+        if(fcol) font.color = { argb: toARGB(fcol) };
+        if(Object.keys(font).length>0) target.font = font;
+
+        if(fillc) target.fill = { type:'pattern', pattern:'solid', fgColor: { argb: toARGB(fillc) } };
+
+        const alignment = { wrapText: boolAttr(awrap), vertical:'middle' };
+        if(ah) {
+          const hh = String(ah).toLowerCase();
+          alignment.horizontal = (hh==='center'?'center': (hh==='left'?'left':'right'));
+        } else alignment.horizontal = 'left';
+        if(av) {
+          const vv = String(av).toLowerCase();
+          alignment.vertical = (vv==='top'?'top': (vv==='bottom'?'bottom':'middle'));
+        }
+        target.alignment = alignment;
+
+        if(borderStyle && borderStyle.toLowerCase()==='thin') {
+          const b = { style:'thin' };
+          target.border = { top:b, left:b, bottom:b, right:b };
+        }
+
+        // calcular height estimado para esta fila más adelante
+        colPtr = colPtr + colspan;
+      } // end cell loop
+
+      // calcular altura estimada de fila con base en el contenido y colWidths
+      let maxLines = 1;
+      for(let c = 1; c <= totalCols; c++){
+        const cellVal = (sheet.getRow(excelRowIndex).getCell(c).value || '').toString();
+        if(!cellVal) continue;
+        const approxColWidth = (colWidths[c-1] || 15);
+        // aproximación: dividir longitud texto entre ancho (caracteres)
+        const lines = Math.ceil(cellVal.length / (approxColWidth * 1.2));
+        if(lines > maxLines) maxLines = lines;
+      }
+      sheet.getRow(excelRowIndex).height = Math.max(18, maxLines * 14);
+
+      excelRowIndex++;
+    } // end body rows
+
+    // Ajuste final (limitar anchos para no ser gigantes)
+    sheet.columns.forEach((col) => {
+      if(!col.width) col.width = 15;
+      if(col.width > 60) col.width = 60;
+    });
+
+    // ---------- Generar archivo ----------
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, "Rendimientos_ConEncabezado.xlsx");
+
+  } catch (err) {
+    console.error("Error creando ExcelJS:", err);
+    alert("Error al generar Excel. Revisa consola.");
+  }
+}
+
+
+
+
+</script>
+
+
+
+
+
+
+<script>
+    document.getElementById("fileInput").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+
+        const sheet = workbook.Sheets["RTO"] || workbook.Sheets[workbook.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: true });
+
+        const resultado = {
+          titulo: "",
+          ubicacion: "",
+          fecha: "",
+          taquilleros: []
+        };
+
+        let taquilleroActual = null;
+        let modoPagoActual = null;
+
+        json.forEach((row, i) => {
+          const linea = row.map(c => (c || "").toString().trim());
+
+          // Buscar título, ubicación y fecha
+          if (i === 0 && linea[0].includes("REPORTE TOTAL DE OPERACIONES"))
+            resultado.titulo = linea[0];
+          if (i === 1 && linea[0])
+            resultado.ubicacion = linea[0];
+          if (linea.some(c => /^\d{2}-\d{2}-\d{4}$/.test(c)))
+            resultado.fecha = linea.find(c => /^\d{2}-\d{2}-\d{4}$/.test(c));
+
+          // Detectar nombre de taquillero
+          if (linea[0] && !linea[1] && !linea[2] && linea[0].length > 10 && !linea[0].includes("Total")) {
+            taquilleroActual = {
+              nombre: linea[0],
+              ventas: []
+            };
+            resultado.taquilleros.push(taquilleroActual);
+          }
+
+          // Detectar modo de pago
+          if (["Efectivo", "Tarjeta bancaria"].includes(linea[1])) {
+            modoPagoActual = {
+              modo_pago: linea[1],
+              detalles: [],
+              totales: { boletos: 0, monto: 0 }
+            };
+            taquilleroActual?.ventas.push(modoPagoActual);
+          }
+
+          // Detectar filas con datos (fecha, tarifa, boletos, monto)
+          if (/^\d{2}-\d{2}-\d{4}$/.test(linea[2])) {
+            const fecha = linea[2];
+            const tarifa = linea[3];
+            const boletos = parseInt(linea[4]) || 0;
+            const monto = parseFloat(linea[5].replace(/,/g, "")) || 0;
+            modoPagoActual?.detalles.push({ fecha, tarifa, boletos, monto });
+          }
+
+          // Detectar totales
+          if (linea[0]?.includes("Total Efectivo") || linea[0]?.includes("Total Tarjeta bancaria")) {
+            const boletos = parseInt(linea[2]) || 0;
+            const monto = parseFloat(linea[5]?.replace(/,/g, "")) || 0;
+            if (modoPagoActual) modoPagoActual.totales = { boletos, monto };
+          }
+        });
+
+        document.getElementById("output").textContent = JSON.stringify(resultado, null, 2);
+
+        InsertRendimiento(resultado);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+
+
+
+    function InsertRendimiento(resultado) {
+      
+
+
+      $.ajax({
+            type: "POST",
+            url: cn + "AgregarRendimiento",
+            contentType: false,
+            processData: false,
+            data: JSON.stringify(resultado),
+            success: function (result) {
+                console.log(result);         
+            },
+            error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+            setTimeout($("#loading").hide(), 1000);
+            console.log("Verifique su conexión");
+            }
+        });
+
+
+    }
+  </script>
+
+
+
+
+
+</body>
+</html>
