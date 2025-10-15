@@ -320,14 +320,14 @@ div.dataTables_wrapper div.dataTables_filter {
   <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none;">
 
   <!-- Donde se mostrará el nombre del archivo -->
-  <pre id="output" style="margin-top: 8px;"></pre>
+  <pre id="output" style="margin-top: 8px;" style="display: none;"></pre>
 </div>
 
 <script>
   // Mostrar el nombre del archivo seleccionado
   document.getElementById("fileInput").addEventListener("change", function(){
     const file = this.files[0];
-    document.getElementById("output").textContent = file ? `Archivo seleccionado: ${file.name}` : "";
+   // document.getElementById("output").textContent = file ? `Archivo seleccionado: ${file.name}` : "";
   });
 </script>
 
@@ -461,14 +461,11 @@ function cargarRendimiento(){
                       const boletos = reg.BoletosEfectivo + reg.BoletosTarjeta;
                      // html += `<td data-a-h="right">${boletos}</td><td data-a-h="right">${(reg.MontoEfectivo).toFixed(2)}</td><td data-a-h="right">${(reg.MontoTarjeta).toFixed(2)}</td>`;
 
-                    
                      html += `
                       <td data-a-h="right">${!boletos || boletos == 0 ? '' : boletos}</td>
                       <td data-a-h="right">${!reg.MontoEfectivo || reg.MontoEfectivo == 0 ? '' : reg.MontoEfectivo.toFixed(2)}</td>
                       <td data-a-h="right">${!reg.MontoTarjeta || reg.MontoTarjeta == 0 ? '' : reg.MontoTarjeta.toFixed(2)}</td>
                     `;
-
-
 
                     } else {
                       html += '<td></td><td></td><td></td>';
@@ -822,30 +819,25 @@ async function nuevoExcel() {
 
 
 <script>
+  /*
     document.getElementById("fileInput").addEventListener("change", function(e) {
       const file = e.target.files[0];
       const reader = new FileReader();
-
       reader.onload = function(e) {
         const data = new Uint8Array(e.target.result);
         const workbook = XLSX.read(data, { type: "array" });
-
         const sheet = workbook.Sheets["RTO"] || workbook.Sheets[workbook.SheetNames[0]];
         const json = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: true });
-
         const resultado = {
           titulo: "",
           ubicacion: "",
           fecha: "",
           taquilleros: []
         };
-
         let taquilleroActual = null;
         let modoPagoActual = null;
-
         json.forEach((row, i) => {
           const linea = row.map(c => (c || "").toString().trim());
-
           // Buscar título, ubicación y fecha
           if (i === 0 && linea[0].includes("REPORTE TOTAL DE OPERACIONES"))
             resultado.titulo = linea[0];
@@ -853,7 +845,6 @@ async function nuevoExcel() {
             resultado.ubicacion = linea[0];
           if (linea.some(c => /^\d{2}-\d{2}-\d{4}$/.test(c)))
             resultado.fecha = linea.find(c => /^\d{2}-\d{2}-\d{4}$/.test(c));
-
           // Detectar nombre de taquillero
           if (linea[0] && !linea[1] && !linea[2] && linea[0].length > 10 && !linea[0].includes("Total")) {
             taquilleroActual = {
@@ -862,7 +853,6 @@ async function nuevoExcel() {
             };
             resultado.taquilleros.push(taquilleroActual);
           }
-
           // Detectar modo de pago
           if (["Efectivo", "Tarjeta bancaria"].includes(linea[1])) {
             modoPagoActual = {
@@ -872,7 +862,6 @@ async function nuevoExcel() {
             };
             taquilleroActual?.ventas.push(modoPagoActual);
           }
-
           // Detectar filas con datos (fecha, tarifa, boletos, monto)
           if (/^\d{2}-\d{2}-\d{4}$/.test(linea[2])) {
             const fecha = linea[2];
@@ -881,7 +870,6 @@ async function nuevoExcel() {
             const monto = parseFloat(linea[5].replace(/,/g, "")) || 0;
             modoPagoActual?.detalles.push({ fecha, tarifa, boletos, monto });
           }
-
           // Detectar totales
           if (linea[0]?.includes("Total Efectivo") || linea[0]?.includes("Total Tarjeta bancaria")) {
             const boletos = parseInt(linea[2]) || 0;
@@ -889,15 +877,103 @@ async function nuevoExcel() {
             if (modoPagoActual) modoPagoActual.totales = { boletos, monto };
           }
         });
-
         document.getElementById("output").textContent = JSON.stringify(resultado, null, 2);
-
+        console.log(resultado);
         InsertRendimiento(resultado);
       };
-
       reader.readAsArrayBuffer(file);
     });
+*/
 
+
+document.getElementById("fileInput").addEventListener("change", function (e) {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: true });
+    
+    const resultado = {
+      titulo: "",
+      ubicacion: "",
+      fecha: "",
+      taquilleros: []
+    };
+
+    let taquilleroActual = null;
+    let modoPagoActual = null;
+
+    json.forEach((row, i) => {
+      const linea = row.map(c => (c || "").toString().trim());
+
+      // Buscar título
+      if (i === 0 && linea[0]?.includes("REPORTE TOTAL DE OPERACIONES")) {
+        resultado.titulo = linea[0];
+      }
+
+      // Buscar ubicación y fecha (suelen estar en la segunda línea)
+      if (i <= 3) {
+        if (!resultado.ubicacion && linea[0]?.length && !linea[0].includes("REPORTE")) {
+          resultado.ubicacion = linea[0];
+        }
+
+        // Buscar fecha en cualquier celda de las primeras filas
+        linea.forEach(celda => {
+          const match = celda.match(/\b\d{2}-\d{2}-\d{4}\b/);
+          if (match && !resultado.fecha) {
+            resultado.fecha = match[0];
+          }
+        });
+      }
+
+      // Detectar nombre del taquillero
+      if (
+        linea[0] &&
+        !linea[1] &&
+        !linea[2] &&
+        linea[0].length > 10 &&
+        !linea[0].includes("Total") &&
+        !linea[0].includes("Monto Total")
+      ) {
+        taquilleroActual = {
+          nombre: linea[0],
+          fecha: resultado.fecha || "",
+          ventas: []
+        };
+        resultado.taquilleros.push(taquilleroActual);
+      }
+
+      // Detectar modo de pago
+      if (["Efectivo", "Tarjeta bancaria"].includes(linea[1])) {
+        modoPagoActual = {
+          modo_pago: linea[1],
+          detalles: [],
+          totales: { boletos: 0, monto: 0 }
+        };
+        taquilleroActual?.ventas.push(modoPagoActual);
+      }
+
+      // Detectar totales (Total Efectivo o Total Tarjeta)
+      if (linea[0]?.match(/Total (Efectivo|Tarjeta bancaria)/i)) {
+        const boletos = parseInt(linea.find(v => /^\d+$/.test(v)) || 0);
+        const posibleMonto = linea.reverse().find(v => /[\d,.]+/.test(v)) || "0";
+        const monto = parseFloat(posibleMonto.replace(/[^\d.-]/g, "")) || 0;
+        linea.reverse();
+        if (modoPagoActual) {
+          modoPagoActual.totales = { boletos, monto };
+        }
+      }
+    });
+
+    //document.getElementById("output").textContent = JSON.stringify(resultado, null, 2);
+    console.log(resultado);
+    InsertRendimiento(resultado);
+  };
+  reader.readAsArrayBuffer(file);
+});
+    
 
 
     function InsertRendimiento(resultado) {
@@ -911,11 +987,13 @@ async function nuevoExcel() {
             processData: false,
             data: JSON.stringify(resultado),
             success: function (result) {
-                console.log(result);         
+              console.log(result);
+            
+                   msgAlert("success", "Mensaje", result.mensaje); 
+                  cargarRendimiento();
             },
             error: function (jqXmlHttpRequest, textStatus, errorThrown) {
-            setTimeout($("#loading").hide(), 1000);
-            console.log("Verifique su conexión");
+            msgAlert("error", "Mensaje", "Verifique su conexión");
             }
         });
 
