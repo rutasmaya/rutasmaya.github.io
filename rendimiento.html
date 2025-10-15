@@ -397,120 +397,134 @@ function cargarRendimiento(){
   var datos = "";
 
    $.ajax({
-            type: "GET",
-            url: cn + "SeleccionarRendimiento&Id="+id+"&FechaIni="+f1+"&FechaFin="+f2,
-            contentType: false,
-            processData: false,
-            success: function (result) {
-                datos = JSON.parse(result); 
-                
+  type: "GET",
+  url: cn + "SeleccionarRendimiento&Id=" + id + "&FechaIni=" + f1 + "&FechaFin=" + f2,
+  contentType: false,
+  processData: false,
+  success: function (result) {
+    datos = JSON.parse(result);
 
-                 /*datos = [
-                    { IdRendimiento: 22, Nombre: "EDGAR ANTONIO TLAPA PEREZ -- CANAL TVS", BoletosEfectivo: 24, MontoEfectivo: 8593.0, BoletosTarjeta: 22, MontoTarjeta: 7506.0, FechaRegistro: "2025/10/07" },
-                    { IdRendimiento: 23, Nombre: "LYNDA AKARI JIMENEZ RUIZ Canal--TVS", BoletosEfectivo: 0, MontoEfectivo: 0.0, BoletosTarjeta: 15, MontoTarjeta: 3924.0, FechaRegistro: "2025/10/07" },
-                    { IdRendimiento: 24, Nombre: "PAOLA DEL ROSARIO AGUILAR TUN Canal--TVS", BoletosEfectivo: 55, MontoEfectivo: 6119.0, BoletosTarjeta: 36, MontoTarjeta: 8482.0, FechaRegistro: "2025/10/07" },
-                    { IdRendimiento: 25, Nombre: "Sindy Didiana Sanchez Pérez Canal--TVS", BoletosEfectivo: 17, MontoEfectivo: 4551.5, BoletosTarjeta: 61, MontoTarjeta: 12248.5, FechaRegistro: "2025/10/07" },
-                    { IdRendimiento: 26, Nombre: "VALERIA SINAI POOL GONGORA Canal--TVS", BoletosEfectivo: 35, MontoEfectivo: 7700.5, BoletosTarjeta: 71, MontoTarjeta: 16784.0, FechaRegistro: "2025/10/07" },
-                    { IdRendimiento: 27, Nombre: "Yenny Vianey Castillo Camargo Canal--TVS", BoletosEfectivo: 21, MontoEfectivo: 8734.5, BoletosTarjeta: 76, MontoTarjeta: 18021.0, FechaRegistro: "2025/10/07" }
-                  ];*/
+    // ✅ Obtener nombres únicos
+    const usuarios = [...new Set(datos.map(d => d.Nombre))];
 
-                // Obtener nombres únicos
-                const usuarios = [...new Set(datos.map(d => d.Nombre))];
-                // Obtener fechas únicas
-                const fechas = [...new Set(datos.map(d => d.FechaRegistro))].sort();
-                const totalColumnas = 1 + usuarios.length * 3;
-                const anchoFijo = 11; // ancho deseado por columna (ajusta a gusto)
-                const colsWidth = Array(totalColumnas).fill(anchoFijo).join(',');
+    // ✅ Crear un mapa usuario → dispositivo (NombreR)
+    const dispositivosPorUsuario = {};
+    datos.forEach(d => {
+      if (!dispositivosPorUsuario[d.Nombre]) {
+        dispositivosPorUsuario[d.Nombre] = d.Dispositivo || '';
+      }
+    });
 
-                // Crear tabla
-                let html =  ` 
-                <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary  btn-app  excel" style="float: inline-start;margin-right: 5px;">
-                  <i class="fa fa-file-excel-o" style="font-size:12px">  Excel</i> 
-                  </button>
-                <table id="tablaRendimientos" data-cols-width="${colsWidth}">  
-                    <thead>
-                      <tr style="display:none">
-                              <td class="header" colspan="${totalColumnas}" data-f-sz="16" data-f-color="000" data-a-h="center" data-a-v="middle" data-f-underline="false" data-f-bold="true" data-height="30">
-                                <img src="https://rutasmaya.github.io/img/Imagen1rptt.png" width="200">  Coordinación General de Gestión de Infraestructura Ferroviaria
-                              </td>
-                            </tr>
-                            <tr style="display:none;">
-                              <td colspan="${totalColumnas}" data-height="30" data-f-sz="16" data-f-color="000" data-fill-color="DAE9F8" data-a-h="center" data-a-v="middle" data-f-bold="true" data-a-wrap="true" >
-                                Reporte de Rendimiento
-                              </td>
-                            </tr>
-                        <tr><th rowspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-bold="true">FECHA VENTA</th> ` ;
-                usuarios.forEach(u => {
-                  html += `<th colspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true" data-height="30" >${u}</th>`;
-                });
-                html += '</tr><tr>';
-                usuarios.forEach(() => {
-                  html += '<th colspan="3" class="subheader" data-b-a-s="thin">TVS</th>';
-                });
-                html += '</tr><tr>';
-                usuarios.forEach(() => {
-                  html += '<th data-b-a-s="thin">BOLETOS</th><th data-b-a-s="thin">EFECTIVO</th><th data-b-a-s="thin">TDC</th>';
-                });
-                html += '</tr></thead><tbody>';
-                // Crear filas por fecha
-                fechas.forEach(f => {
-                  html += `<tr><td  data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-f-bold="true">${f}</td>`;
-                  usuarios.forEach(u => {
-                    const reg = datos.find(d => d.Nombre === u && d.FechaRegistro === f);
-                    if (reg) {
-                      const boletos = reg.BoletosEfectivo + reg.BoletosTarjeta;
-                     // html += `<td data-a-h="right">${boletos}</td><td data-a-h="right">${(reg.MontoEfectivo).toFixed(2)}</td><td data-a-h="right">${(reg.MontoTarjeta).toFixed(2)}</td>`;
+    // ✅ Obtener fechas únicas
+    const fechas = [...new Set(datos.map(d => d.FechaRegistro))].sort();
 
-                     html += `
-                      <td data-a-h="right">${!boletos || boletos == 0 ? '' : boletos}</td>
-                      <td data-a-h="right">${!reg.MontoEfectivo || reg.MontoEfectivo == 0 ? '' : reg.MontoEfectivo.toFixed(2)}</td>
-                      <td data-a-h="right">${!reg.MontoTarjeta || reg.MontoTarjeta == 0 ? '' : reg.MontoTarjeta.toFixed(2)}</td>
-                    `;
+    const totalColumnas = 1 + usuarios.length * 3;
+    const anchoFijo = 11; // ancho deseado por columna
+    const colsWidth = Array(totalColumnas).fill(anchoFijo).join(',');
 
-                    } else {
-                      html += '<td></td><td></td><td></td>';
-                    }
-                  });
-                  html += '</tr>';
-                });
+    // ✅ Crear tabla
+    let html = `
+      <button id="button-excel" onclick="nuevoExcel()" class="btn btn-secondary btn-app excel" style="float: inline-start; margin-right: 5px;">
+        <i class="fa fa-file-excel-o" style="font-size:12px"> Excel</i> 
+      </button>
+      <table id="tablaRendimientos" data-cols-width="${colsWidth}">
+        <thead>
+          <tr style="display:none">
+            <td class="header" colspan="${totalColumnas}" data-f-sz="16" data-f-color="000" data-a-h="center" data-a-v="middle" data-f-underline="false" data-f-bold="true" data-height="30">
+              <img src="https://rutasmaya.github.io/img/Imagen1rptt.png" width="200">
+              Coordinación General de Gestión de Infraestructura Ferroviaria
+            </td>
+          </tr>
+          <tr style="display:none;">
+            <td colspan="${totalColumnas}" data-height="30" data-f-sz="16" data-f-color="000" data-fill-color="DAE9F8" data-a-h="center" data-a-v="middle" data-f-bold="true" data-a-wrap="true">
+              Reporte de Rendimiento
+            </td>
+          </tr>
+          <tr>
+            <th rowspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin" data-f-bold="true">FECHA VENTA</th>`;
 
-                html += '</tbody></table>';
-                document.getElementById('tabla-container').innerHTML = html;
-                  var table = $('#tablaRendimientos').DataTable( {
-                            "paging": true,
-                            "lengthChange": true,
-                            "searching": false,
-                            "ordering": false,
-                            "info": true,
-                            "autoWidth": true,
-                            "language": idioma,
-                            "lengthMenu": [[5,10,20, -1],[5,10,50,"Mostrar Todo"]],
-                            dom: 'Bfrt<"col-md-6 inline"i> <"col-md-6 inline"p>',
-                            pageLength: 15, // muestra 50 filas por página
-                            
-                            buttons: {
-                                  dom: {
-                                    container:{
-                                      tag:'div',
-                                      className:'flexcontent'
-                                    },
-                                    buttonLiner: {
-                                      tag: null
-                                    }
-                                  },  
-                                  buttons: [
-                                        ] 
-                                }  
-                            });
-                
+    // ✅ Primera fila: nombres de usuarios
+    usuarios.forEach(u => {
+      html += `<th colspan="3" data-a-wrap="true" data-a-h="center" data-a-v="middle" data-b-a-s="thin"
+                   data-fill-color="275317" data-f-sz="11" data-f-color="FFFFFFFF" data-f-bold="true" data-height="30">${u}</th>`;
+    });
 
-            },
-            error: function (jqXmlHttpRequest, textStatus, errorThrown) {
-            setTimeout($("#loading").hide(), 1000);
-            console.log("Verifique su conexión");
-            }
-        });
-  
+    html += `</tr><tr>`;
+
+    // ✅ Segunda fila: dispositivos (NombreR)
+    usuarios.forEach(u => {
+      const dispositivo = dispositivosPorUsuario[u] || '';
+      html += `<th colspan="3" class="subheader" data-b-a-s="thin">${dispositivo}</th>`;
+    });
+
+    html += `</tr><tr>`;
+
+    // ✅ Tercera fila: subcolumnas por usuario
+    usuarios.forEach(() => {
+      html += `<th data-b-a-s="thin">BOLETOS</th><th data-b-a-s="thin">EFECTIVO</th><th data-b-a-s="thin">TDC</th>`;
+    });
+
+    html += `</tr></thead><tbody>`;
+
+    // ✅ Crear filas por fecha
+    fechas.forEach(f => {
+      html += `<tr><td data-a-wrap="true" data-a-h="center" data-a-v="middle" data-f-sz="10" data-f-bold="true"><b>${f}</b></td>`;
+
+      usuarios.forEach(u => {
+        const reg = datos.find(d => d.Nombre === u && d.FechaRegistro === f);
+        if (reg) {
+          const boletos = reg.BoletosEfectivo + reg.BoletosTarjeta;
+
+          html += `
+            <td data-a-h="right">${!boletos || boletos == 0 ? '' : boletos}</td>
+            <td data-a-h="right">${!reg.MontoEfectivo || reg.MontoEfectivo == 0 ? '' : reg.MontoEfectivo.toFixed(2)}</td>
+            <td data-a-h="right">${!reg.MontoTarjeta || reg.MontoTarjeta == 0 ? '' : reg.MontoTarjeta.toFixed(2)}</td>
+          `;
+        } else {
+          html += '<td></td><td></td><td></td>';
+        }
+      });
+
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table>`;
+
+    // ✅ Insertar tabla en el contenedor
+    document.getElementById('tabla-container').innerHTML = html;
+
+    // ✅ Inicializar DataTable
+    var table = $('#tablaRendimientos').DataTable({
+      paging: true,
+      lengthChange: true,
+      searching: false,
+      ordering: false,
+      info: true,
+      autoWidth: true,
+      language: idioma,
+      lengthMenu: [[5, 10, 20, -1], [5, 10, 50, "Mostrar Todo"]],
+      dom: 'Bfrt<"col-md-6 inline"i> <"col-md-6 inline"p>',
+      pageLength: 15,
+      buttons: {
+        dom: {
+          container: {
+            tag: 'div',
+            className: 'flexcontent'
+          },
+          buttonLiner: {
+            tag: null
+          }
+        },
+        buttons: []
+      }
+    });
+  },
+  error: function (jqXmlHttpRequest, textStatus, errorThrown) {
+    setTimeout($("#loading").hide(), 1000);
+    console.log("Verifique su conexión");
+  }
+});
+
   
 }
 
