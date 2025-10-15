@@ -33,17 +33,7 @@
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 
-  <script src="js/cn.js"></script>
 
-  <script src="js/cute-alert.js"></script>
-  <script src="js/notis.js"></script>
-
-    <script src='https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js'></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
- <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 
 
@@ -223,9 +213,45 @@ div.dataTables_wrapper div.dataTables_filter {
     button:hover {
       background-color: #1565c0;
     }
+
+
+
+
+     /* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 5em;
+  width: 5em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display:block;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: -webkit-radial-gradient(rgba(255, 255, 255, 0.535), rgb(255, 255, 255));
+}
+
+
   </style>
 </head>
 <body onload="cargarRendimiento()">
+
+    <div class="loading" id="loading"><center><img src="img/loaderkashan.gif" width="100%" alt=""></center></div>
+
 
     <header class="section page-header" style="position: fixed; width: 100%; z-index: 100; ">
         <!-- RD Navbar-->
@@ -343,6 +369,20 @@ div.dataTables_wrapper div.dataTables_filter {
 
 
 
+  <script src="js/cn.js"></script>
+
+  <script src="js/cute-alert.js"></script>
+  <script src="js/notis.js"></script>
+
+    <script src='https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js'></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+
+
 <script>
 
 var idioma=
@@ -389,7 +429,7 @@ var idioma=
 
 
 function cargarRendimiento(){
-
+ load.display = 'block';
   var id= "1";
   var f1 = document.getElementById("txtFechaIni").value;
   var f2 = document.getElementById("txtFechaFin").value;
@@ -492,6 +532,8 @@ function cargarRendimiento(){
 
     // ✅ Insertar tabla en el contenedor
     document.getElementById('tabla-container').innerHTML = html;
+
+     load.display = 'none';
 
     // ✅ Inicializar DataTable
     var table = $('#tablaRendimientos').DataTable({
@@ -901,6 +943,7 @@ async function nuevoExcel() {
 
 
 document.getElementById("fileInput").addEventListener("change", function (e) {
+  load.display = 'block';
   const file = e.target.files[0];
   const reader = new FileReader();
   reader.onload = function (e) {
